@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+.tts-highlight {
+  background-color: rgba(253, 224, 71, 0.1);
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}

@@ -1,0 +1,597 @@
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Claude Code Learning Hub" [ref=e6] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e7]:
+        - link "Topics" [ref=e8] [cursor=pointer]:
+          - /url: /
+        - link "Quiz" [ref=e9] [cursor=pointer]:
+          - /url: /quiz
+  - main [ref=e10]:
+    - generic [ref=e84]:
+      - generic [ref=e85]:
+        - link "← Back to topics" [ref=e86] [cursor=pointer]:
+          - /url: /
+        - link "Take quiz (12 questions)" [ref=e87] [cursor=pointer]:
+          - /url: /quiz/repo-goals
+      - generic [ref=e88]:
+        - 'heading "Claude Code: Agentic Coding Tool for the Terminal" [level=1] [ref=e89]'
+        - paragraph [ref=e90]: Claude Code is Anthropic's official CLI-based agentic coding assistant. It lives inside your terminal, understands your entire codebase, and helps you write, review, and ship code faster through natural language commands. Rather than switching between a chat window and your editor, Claude Code meets developers where they already work -- the command line -- and acts as an autonomous agent capable of reading files, running commands, managing git workflows, and coordinating multi-step development tasks.
+        - paragraph [ref=e91]: "This document provides a comprehensive overview of the Claude Code public repository: its purpose, architecture, plugin ecosystem, key technologies, and how to get involved as a contributor or user."
+        - separator [ref=e92]
+        - heading "Purpose and Mission" [level=2] [ref=e93]
+        - heading "What Problem Does Claude Code Solve?" [level=3] [ref=e94]
+        - paragraph [ref=e95]: "Modern software development involves an enormous amount of routine work: writing boilerplate, reviewing pull requests, navigating unfamiliar codebases, committing and pushing changes, resolving merge conflicts, and explaining legacy code. These tasks are repetitive, context-heavy, and time-consuming."
+        - paragraph [ref=e96]: "Claude Code addresses this by embedding an AI agent directly into the developer's terminal workflow. Instead of copy-pasting code into a web chat, you interact with Claude Code in the same environment where you already write and run code. It can:"
+        - list [ref=e97]:
+          - listitem [ref=e98]:
+            - strong [ref=e99]: Execute routine tasks
+            - text: "-- scaffold files, run tests, manage dependencies"
+          - listitem [ref=e100]:
+            - strong [ref=e101]: Explain complex code
+            - text: "-- break down unfamiliar functions, trace call chains, summarize modules"
+          - listitem [ref=e102]:
+            - strong [ref=e103]: Handle git workflows
+            - text: "-- commit, push, create pull requests, review diffs"
+          - listitem [ref=e104]:
+            - strong [ref=e105]: Reason about your codebase
+            - text: "-- read project structure, understand dependencies, suggest changes in context"
+        - heading "Where Can You Use It?" [level=3] [ref=e106]
+        - paragraph [ref=e107]: "Claude Code is designed to work across multiple surfaces:"
+        - table [ref=e109]:
+          - rowgroup [ref=e110]:
+            - row "Surface How It Works" [ref=e111]:
+              - columnheader "Surface" [ref=e112]
+              - columnheader "How It Works" [ref=e113]
+          - rowgroup [ref=e114]:
+            - row "Terminal Direct CLI interaction via claude command" [ref=e115]:
+              - cell "Terminal" [ref=e116]:
+                - strong [ref=e117]: Terminal
+              - cell "Direct CLI interaction via claude command" [ref=e118]:
+                - text: Direct CLI interaction via
+                - code [ref=e119]: claude
+                - text: command
+            - row "IDE Integration with editors like VS Code" [ref=e120]:
+              - cell "IDE" [ref=e121]:
+                - strong [ref=e122]: IDE
+              - cell "Integration with editors like VS Code" [ref=e123]
+            - row "GitHub Tag @claude on issues and pull requests for automated assistance" [ref=e124]:
+              - cell "GitHub" [ref=e125]:
+                - strong [ref=e126]: GitHub
+              - cell "Tag @claude on issues and pull requests for automated assistance" [ref=e127]:
+                - text: Tag
+                - code [ref=e128]: "@claude"
+                - text: on issues and pull requests for automated assistance
+        - paragraph [ref=e129]: This multi-surface approach means Claude Code is not just a terminal toy -- it is a professional-grade tool that fits into real engineering workflows, from local development to CI/CD pipelines and code review.
+        - separator [ref=e130]
+        - heading "Architecture Overview" [level=2] [ref=e131]
+        - heading "Public vs. Closed-Source Boundary" [level=3] [ref=e132]
+        - paragraph [ref=e133]:
+          - text: "An important architectural detail for beginners:"
+          - strong [ref=e134]: the core Claude Code engine is closed-source
+          - text: . The public GitHub repository you see does not contain the main application code (there is no
+          - code [ref=e135]: package.json
+          - text: ","
+          - code [ref=e136]: Cargo.toml
+          - text: ","
+          - code [ref=e137]: go.mod
+          - text: ", or"
+          - code [ref=e138]: pyproject.toml
+          - text: "at the root level). Instead, the public repository serves as:"
+        - list [ref=e139]:
+          - listitem [ref=e140]:
+            - strong [ref=e141]: The plugin ecosystem
+            - text: "-- official plugins that extend Claude Code's capabilities"
+          - listitem [ref=e142]:
+            - strong [ref=e143]: Documentation
+            - text: "-- README, changelog, security policy"
+          - listitem [ref=e144]:
+            - strong [ref=e145]: Community scripts
+            - text: "-- automation for issue management, duplicate detection, and repository maintenance"
+          - listitem [ref=e146]:
+            - strong [ref=e147]: The plugin marketplace
+            - text: "-- a registry ("
+            - code [ref=e148]: .claude-plugin/marketplace.json
+            - text: ) for discovering and installing plugins
+        - paragraph [ref=e149]: The actual Claude Code binary is distributed through package managers (Homebrew, NPM, WinGet) and direct installers, not built from this repository.
+        - document [ref=e151]:
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - paragraph [ref=e161]: Closed Source (Distributed via Installers)
+              - paragraph [ref=e168]: Public Repository (Open Source)
+            - generic [ref=e173]:
+              - paragraph [ref=e179]: extend
+              - paragraph [ref=e185]: powers
+              - paragraph [ref=e191]: powers
+              - paragraph [ref=e197]: powers
+            - generic [ref=e198]:
+              - paragraph [ref=e205]: plugins/
+              - paragraph [ref=e212]: 13 Official Plugins
+              - paragraph [ref=e219]: scripts/
+              - paragraph [ref=e226]: Issue & Repo Automation
+              - paragraph [ref=e233]: .claude-plugin/
+              - paragraph [ref=e240]: Plugin Marketplace Registry
+              - paragraph [ref=e247]: Documentation
+              - paragraph [ref=e254]: README, CHANGELOG, SECURITY
+              - paragraph [ref=e261]: Claude Code Core Engine
+              - paragraph [ref=e268]: LLM Integration Layer
+              - paragraph [ref=e275]: Sandbox & Permissions
+              - paragraph [ref=e282]: Terminal UI & Streaming
+              - paragraph [ref=e289]: Terminal CLI
+              - paragraph [ref=e296]: IDE Integration
+              - paragraph [ref=e303]: GitHub @claude
+        - heading "Repository Directory Layout" [level=3] [ref=e304]
+        - paragraph [ref=e305]: "Understanding the top-level structure helps you navigate the project:"
+        - table [ref=e307]:
+          - rowgroup [ref=e308]:
+            - row "Directory / File Purpose" [ref=e309]:
+              - columnheader "Directory / File" [ref=e310]
+              - columnheader "Purpose" [ref=e311]
+          - rowgroup [ref=e312]:
+            - row "plugins/ All 13 official plugins with their commands, agents, skills, and hooks" [ref=e313]:
+              - cell "plugins/" [ref=e314]:
+                - code [ref=e315]: plugins/
+              - cell "All 13 official plugins with their commands, agents, skills, and hooks" [ref=e316]
+            - row "scripts/ GitHub automation scripts (TypeScript and shell) for issue lifecycle management" [ref=e317]:
+              - cell "scripts/" [ref=e318]:
+                - code [ref=e319]: scripts/
+              - cell "GitHub automation scripts (TypeScript and shell) for issue lifecycle management" [ref=e320]
+            - row ".claude-plugin/ Plugin marketplace metadata -- the registry that lists available plugins" [ref=e321]:
+              - cell ".claude-plugin/" [ref=e322]:
+                - code [ref=e323]: .claude-plugin/
+              - cell "Plugin marketplace metadata -- the registry that lists available plugins" [ref=e324]
+            - row ".devcontainer/ Dev container configuration for reproducible development environments" [ref=e325]:
+              - cell ".devcontainer/" [ref=e326]:
+                - code [ref=e327]: .devcontainer/
+              - cell "Dev container configuration for reproducible development environments" [ref=e328]
+            - row "Script/ PowerShell scripts for running Claude Code in dev containers" [ref=e329]:
+              - cell "Script/" [ref=e330]:
+                - code [ref=e331]: Script/
+              - cell "PowerShell scripts for running Claude Code in dev containers" [ref=e332]
+            - row ".vscode/ VS Code recommended extensions" [ref=e333]:
+              - cell ".vscode/" [ref=e334]:
+                - code [ref=e335]: .vscode/
+              - cell "VS Code recommended extensions" [ref=e336]
+            - row "README.md Primary documentation and installation guide" [ref=e337]:
+              - cell "README.md" [ref=e338]:
+                - code [ref=e339]: README.md
+              - cell "Primary documentation and installation guide" [ref=e340]
+            - row "CHANGELOG.md Version history with feature and fix details" [ref=e341]:
+              - cell "CHANGELOG.md" [ref=e342]:
+                - code [ref=e343]: CHANGELOG.md
+              - cell "Version history with feature and fix details" [ref=e344]
+            - row "SECURITY.md Vulnerability reporting instructions (via HackerOne)" [ref=e345]:
+              - cell "SECURITY.md" [ref=e346]:
+                - code [ref=e347]: SECURITY.md
+              - cell "Vulnerability reporting instructions (via HackerOne)" [ref=e348]
+            - row "LICENSE.md License terms" [ref=e349]:
+              - cell "LICENSE.md" [ref=e350]:
+                - code [ref=e351]: LICENSE.md
+              - cell "License terms" [ref=e352]
+        - separator [ref=e353]
+        - heading "Key Technologies and Dependencies" [level=2] [ref=e354]
+        - heading "Installation and Distribution" [level=3] [ref=e355]
+        - paragraph [ref=e356]: "Claude Code supports multiple platforms and installation methods, reflecting its goal of being accessible to every developer regardless of their operating system or preferred package manager:"
+        - list [ref=e357]:
+          - listitem [ref=e358]:
+            - strong [ref=e359]: "macOS / Linux:"
+            - code [ref=e360]: curl
+            - text: one-liner installer (recommended), Homebrew (
+            - code [ref=e361]: brew install claude-code
+            - text: )
+          - listitem [ref=e362]:
+            - strong [ref=e363]: "Windows:"
+            - text: PowerShell installer script, WinGet (
+            - code [ref=e364]: winget install claude-code
+            - text: )
+          - listitem [ref=e365]:
+            - strong [ref=e366]: "NPM:"
+            - text: Available but deprecated -- the native installers are now preferred for better performance and update management
+        - heading "Core Technology Stack (Inferred)" [level=3] [ref=e367]
+        - paragraph [ref=e368]: "While the core engine is closed-source, the public repository and changelog reveal the technologies involved:"
+        - list [ref=e369]:
+          - listitem [ref=e370]:
+            - strong [ref=e371]: TypeScript
+            - text: "-- the"
+            - code [ref=e372]: scripts/
+            - text: directory contains
+            - code [ref=e373]: .ts
+            - text: files for GitHub automation, and the plugin system uses JSON configuration, suggesting a Node.js/TypeScript foundation
+          - listitem [ref=e374]:
+            - strong [ref=e375]: Shell scripting
+            - text: "--"
+            - code [ref=e376]: .sh
+            - text: scripts for repository maintenance and CI tasks
+          - listitem [ref=e377]:
+            - strong [ref=e378]: MCP (Model Context Protocol)
+            - text: "-- plugins can include"
+            - code [ref=e379]: .mcp.json
+            - text: configuration files, connecting Claude Code to external tool servers
+          - listitem [ref=e380]:
+            - strong [ref=e381]: Dev Containers
+            - text: "-- Docker-based development environments ("
+            - code [ref=e382]: .devcontainer/
+            - text: ) for consistent contributor experience
+          - listitem [ref=e383]:
+            - strong [ref=e384]: GitHub Actions
+            - text: "-- the scripts directory includes issue lifecycle automation designed to run in CI"
+        - heading "Key Platform Capabilities (from Changelog)" [level=3] [ref=e385]
+        - paragraph [ref=e386]: "The changelog reveals the engine's technical capabilities, which are important context even though the code is closed-source:"
+        - table [ref=e388]:
+          - rowgroup [ref=e389]:
+            - row "Capability Details Version" [ref=e390]:
+              - columnheader "Capability" [ref=e391]
+              - columnheader "Details" [ref=e392]
+              - columnheader "Version" [ref=e393]
+          - rowgroup [ref=e394]:
+            - row "1M token context Opus 4.6 model support with massive context windows v2.1.75" [ref=e395]:
+              - cell "1M token context" [ref=e396]:
+                - strong [ref=e397]: 1M token context
+              - cell "Opus 4.6 model support with massive context windows" [ref=e398]
+              - cell "v2.1.75" [ref=e399]
+            - row "64k/128k output tokens Extended generation limits for large outputs v2.1.77" [ref=e400]:
+              - cell "64k/128k output tokens" [ref=e401]:
+                - strong [ref=e402]: 64k/128k output tokens
+              - cell "Extended generation limits for large outputs" [ref=e403]
+              - cell "v2.1.77" [ref=e404]
+            - row "Sandbox permissions allowRead sandbox for controlled file access v2.1.77" [ref=e405]:
+              - cell "Sandbox permissions" [ref=e406]:
+                - strong [ref=e407]: Sandbox permissions
+              - cell "allowRead sandbox for controlled file access" [ref=e408]:
+                - code [ref=e409]: allowRead
+                - text: sandbox for controlled file access
+              - cell "v2.1.77" [ref=e410]
+            - row "MCP elicitation Dynamic tool discovery via Model Context Protocol v2.1.76" [ref=e411]:
+              - cell "MCP elicitation" [ref=e412]:
+                - strong [ref=e413]: MCP elicitation
+              - cell "Dynamic tool discovery via Model Context Protocol" [ref=e414]
+              - cell "v2.1.76" [ref=e415]
+            - row "Plugin persistent state Plugins can store data across sessions v2.1.78" [ref=e416]:
+              - cell "Plugin persistent state" [ref=e417]:
+                - strong [ref=e418]: Plugin persistent state
+              - cell "Plugins can store data across sessions" [ref=e419]
+              - cell "v2.1.78" [ref=e420]
+            - row "Line-by-line streaming Real-time output as the model generates v2.1.78" [ref=e421]:
+              - cell "Line-by-line streaming" [ref=e422]:
+                - strong [ref=e423]: Line-by-line streaming
+              - cell "Real-time output as the model generates" [ref=e424]
+              - cell "v2.1.78" [ref=e425]
+            - row "Plugin marketplace Centralized discovery and installation of plugins v2.1.80" [ref=e426]:
+              - cell "Plugin marketplace" [ref=e427]:
+                - strong [ref=e428]: Plugin marketplace
+              - cell "Centralized discovery and installation of plugins" [ref=e429]
+              - cell "v2.1.80" [ref=e430]
+            - row "OAuth authentication Enterprise-grade auth flows v2.1.81" [ref=e431]:
+              - cell "OAuth authentication" [ref=e432]:
+                - strong [ref=e433]: OAuth authentication
+              - cell "Enterprise-grade auth flows" [ref=e434]
+              - cell "v2.1.81" [ref=e435]
+            - row "Channels (research preview) Multi-channel communication relay v2.1.80-81" [ref=e436]:
+              - cell "Channels (research preview)" [ref=e437]:
+                - strong [ref=e438]: Channels (research preview)
+              - cell "Multi-channel communication relay" [ref=e439]
+              - cell "v2.1.80-81" [ref=e440]
+            - row "Hook lifecycle events StopFailure, PostCompact hooks for fine-grained control v2.1.76-78" [ref=e441]:
+              - cell "Hook lifecycle events" [ref=e442]:
+                - strong [ref=e443]: Hook lifecycle events
+              - cell "StopFailure, PostCompact hooks for fine-grained control" [ref=e444]:
+                - code [ref=e445]: StopFailure
+                - text: ","
+                - code [ref=e446]: PostCompact
+                - text: hooks for fine-grained control
+              - cell "v2.1.76-78" [ref=e447]
+        - separator [ref=e448]
+        - heading "The Plugin System" [level=2] [ref=e449]
+        - paragraph [ref=e450]: The plugin ecosystem is the heart of the public repository and the primary extensibility mechanism for Claude Code. Understanding it is essential for anyone who wants to customize or extend the tool.
+        - heading "What Is a Plugin?" [level=3] [ref=e451]
+        - paragraph [ref=e452]: "A plugin is a self-contained package that adds new capabilities to Claude Code. It can provide any combination of:"
+        - list [ref=e453]:
+          - listitem [ref=e454]:
+            - strong [ref=e455]: Commands
+            - text: "-- slash commands the user can invoke (e.g.,"
+            - code [ref=e456]: /commit
+            - text: ","
+            - code [ref=e457]: /commit-push-pr
+            - text: )
+          - listitem [ref=e458]:
+            - strong [ref=e459]: Agents
+            - text: "-- autonomous sub-agents that Claude Code can dispatch for specific tasks (e.g., parallel code review agents)"
+          - listitem [ref=e460]:
+            - strong [ref=e461]: Skills
+            - text: "-- specialized capabilities that can be loaded on demand"
+          - listitem [ref=e462]:
+            - strong [ref=e463]: Hooks
+            - text: "-- lifecycle callbacks that run at specific points in Claude Code's execution (e.g., before a commit, after a compaction)"
+          - listitem [ref=e464]:
+            - strong [ref=e465]: MCP servers
+            - text: "-- external tool servers connected via the Model Context Protocol"
+        - heading "Plugin Directory Structure" [level=3] [ref=e466]
+        - paragraph [ref=e467]: "Every plugin follows a consistent layout:"
+        - code [ref=e468]: "plugin-name/ ├── .claude-plugin/ │ └── plugin.json # Plugin metadata: name, description, version ├── commands/ # Slash commands (markdown or code files) ├── agents/ # Agent definitions for autonomous sub-tasks ├── skills/ # Specialized skill definitions ├── hooks/ # Lifecycle hook handlers ├── .mcp.json # MCP server configuration (optional) └── README.md # Plugin documentation"
+        - paragraph [ref=e469]:
+          - text: This structure is important because Claude Code uses it to discover and load plugins. The
+          - code [ref=e470]: plugin.json
+          - text: file is the entry point -- it tells Claude Code what the plugin provides and how to activate it.
+        - heading "Official Plugins Overview" [level=3] [ref=e471]
+        - paragraph [ref=e472]: "The repository ships with 13 official plugins, organized by category:"
+        - document [ref=e474]:
+          - generic [ref=e477]:
+            - generic [ref=e478]:
+              - paragraph [ref=e486]: Specialized Tools
+              - generic [ref=e487]:
+                - paragraph [ref=e494]: agent-sdk-dev
+                - paragraph [ref=e501]: claude-opus-4-5-migration
+                - paragraph [ref=e508]: frontend-design
+                - paragraph [ref=e515]: plugin-dev
+                - paragraph [ref=e522]: ralph-wiggum
+            - generic [ref=e523]:
+              - paragraph [ref=e531]: Learning & Output
+              - generic [ref=e532]:
+                - paragraph [ref=e539]: explanatory-output-style
+                - paragraph [ref=e546]: learning-output-style
+            - generic [ref=e547]:
+              - paragraph [ref=e555]: Code Quality & Security
+              - generic [ref=e556]:
+                - paragraph [ref=e563]: security-guidance
+                - paragraph [ref=e570]: hookify
+            - generic [ref=e571]:
+              - paragraph [ref=e579]: Development Workflow
+              - generic [ref=e580]:
+                - paragraph [ref=e587]: commit-commands
+                - paragraph [ref=e594]: feature-dev
+                - paragraph [ref=e601]: code-review
+                - paragraph [ref=e608]: pr-review-toolkit
+        - heading "Plugin Deep Dive by Category" [level=3] [ref=e609]
+        - paragraph [ref=e610]:
+          - strong [ref=e611]: "Development Workflow Plugins:"
+        - list [ref=e612]:
+          - listitem [ref=e613]:
+            - paragraph [ref=e614]:
+              - strong [ref=e615]: commit-commands
+              - text: "-- Automates the entire git workflow with commands like"
+              - code [ref=e616]: /commit
+              - text: (stage, commit with AI-generated message),
+              - code [ref=e617]: /commit-push-pr
+              - text: (commit, push, and create a PR in one command), and
+              - code [ref=e618]: /clean_gone
+              - text: (prune merged branches). This is one of the most practical plugins for daily use.
+          - listitem [ref=e619]:
+            - paragraph [ref=e620]:
+              - strong [ref=e621]: feature-dev
+              - text: "-- Implements a structured 7-phase feature development workflow. Instead of ad-hoc coding, it guides you through planning, implementation, testing, and delivery in an organized sequence."
+          - listitem [ref=e622]:
+            - paragraph [ref=e623]:
+              - strong [ref=e624]: code-review
+              - text: "-- Runs automated PR reviews using 5 parallel Sonnet agents. Each agent focuses on a different aspect of code quality, and results are synthesized into a unified review. This demonstrates the multi-agent architecture that Claude Code supports."
+          - listitem [ref=e625]:
+            - paragraph [ref=e626]:
+              - strong [ref=e627]: pr-review-toolkit
+              - text: "-- A comprehensive suite of PR review agents for deeper analysis, complementing the automated code-review plugin with more specialized review capabilities."
+        - paragraph [ref=e628]:
+          - strong [ref=e629]: "Code Quality and Security Plugins:"
+        - list [ref=e630]:
+          - listitem [ref=e631]:
+            - paragraph [ref=e632]:
+              - strong [ref=e633]: security-guidance
+              - text: "-- Installs hooks that remind Claude Code to consider security implications during code generation. This is a good example of how hooks can enforce organizational policies."
+          - listitem [ref=e634]:
+            - paragraph [ref=e635]:
+              - strong [ref=e636]: hookify
+              - text: "-- A meta-plugin that helps you create custom hooks for behavior control. Rather than writing hook configurations manually, hookify provides a guided workflow for defining when and how hooks fire."
+        - paragraph [ref=e637]:
+          - strong [ref=e638]: "Learning and Output Style Plugins:"
+        - list [ref=e639]:
+          - listitem [ref=e640]:
+            - paragraph [ref=e641]:
+              - strong [ref=e642]: explanatory-output-style
+              - text: "-- Changes Claude Code's output to include educational insights about why certain implementation choices were made. Useful for junior developers or teams doing knowledge transfer."
+          - listitem [ref=e643]:
+            - paragraph [ref=e644]:
+              - strong [ref=e645]: learning-output-style
+              - text: "-- Enables an interactive learning mode where Claude Code teaches concepts as it works, turning every coding session into a learning opportunity."
+        - paragraph [ref=e646]:
+          - strong [ref=e647]: "Specialized Tools:"
+        - list [ref=e648]:
+          - listitem [ref=e649]:
+            - paragraph [ref=e650]:
+              - strong [ref=e651]: agent-sdk-dev
+              - text: "-- A development kit for building applications with the Claude Agent SDK. Provides templates, best practices, and tooling for agent development."
+          - listitem [ref=e652]:
+            - paragraph [ref=e653]:
+              - strong [ref=e654]: claude-opus-4-5-migration
+              - text: "-- Helps migrate existing code and prompts to work optimally with the Opus 4.5 model, handling API changes and prompt engineering differences."
+          - listitem [ref=e655]:
+            - paragraph [ref=e656]:
+              - strong [ref=e657]: frontend-design
+              - text: "-- Generates production-grade frontend interfaces, going beyond simple scaffolding to create polished, accessible UI components."
+          - listitem [ref=e658]:
+            - paragraph [ref=e659]:
+              - strong [ref=e660]: plugin-dev
+              - text: "-- A toolkit for building new plugins, featuring 7 expert skills that guide you through plugin creation, testing, and publishing."
+          - listitem [ref=e661]:
+            - paragraph [ref=e662]:
+              - strong [ref=e663]: ralph-wiggum
+              - text: "-- Creates self-referential AI loops for iterative development -- the agent reviews its own output and refines it in cycles."
+        - heading "Plugin Marketplace" [level=3] [ref=e664]
+        - paragraph [ref=e665]:
+          - text: Starting with v2.1.80, Claude Code includes a plugin marketplace (
+          - code [ref=e666]: .claude-plugin/marketplace.json
+          - text: ) that provides centralized discovery and installation of plugins. This moves the ecosystem from manual plugin management toward a curated, searchable registry.
+        - separator [ref=e667]
+        - heading "Target Audience and Use Cases" [level=2] [ref=e668]
+        - heading "Who Is Claude Code For?" [level=3] [ref=e669]
+        - paragraph [ref=e670]:
+          - text: Claude Code is designed for
+          - strong [ref=e671]: professional software developers
+          - text: "who spend significant time in the terminal. Its target audience includes:"
+        - list [ref=e672]:
+          - listitem [ref=e673]:
+            - strong [ref=e674]: Individual developers
+            - text: who want to accelerate routine tasks (commits, reviews, boilerplate)
+          - listitem [ref=e675]:
+            - strong [ref=e676]: Team leads and senior engineers
+            - text: who review PRs and need automated first-pass analysis
+          - listitem [ref=e677]:
+            - strong [ref=e678]: DevOps and platform engineers
+            - text: who work heavily in the terminal and need AI assistance with scripts, configs, and infrastructure code
+          - listitem [ref=e679]:
+            - strong [ref=e680]: Organizations
+            - text: looking to standardize coding practices through plugins and hooks (e.g., security policies, commit conventions)
+        - heading "Real-World Use Cases" [level=3] [ref=e681]
+        - table [ref=e683]:
+          - rowgroup [ref=e684]:
+            - row "Use Case How Claude Code Helps" [ref=e685]:
+              - columnheader "Use Case" [ref=e686]
+              - columnheader "How Claude Code Helps" [ref=e687]
+          - rowgroup [ref=e688]:
+            - row "Onboarding to a new codebase Ask Claude Code to explain modules, trace dependencies, summarize architecture" [ref=e689]:
+              - cell "Onboarding to a new codebase" [ref=e690]
+              - cell "Ask Claude Code to explain modules, trace dependencies, summarize architecture" [ref=e691]
+            - 'row "Daily git workflow Use commit-commands plugin: /commit stages and commits, /commit-push-pr does the full cycle" [ref=e692]':
+              - cell "Daily git workflow" [ref=e693]
+              - 'cell "Use commit-commands plugin: /commit stages and commits, /commit-push-pr does the full cycle" [ref=e694]':
+                - text: "Use commit-commands plugin:"
+                - code [ref=e695]: /commit
+                - text: stages and commits,
+                - code [ref=e696]: /commit-push-pr
+                - text: does the full cycle
+            - row "Code review code-review plugin dispatches 5 parallel agents to analyze a PR from different angles" [ref=e697]:
+              - cell "Code review" [ref=e698]
+              - cell "code-review plugin dispatches 5 parallel agents to analyze a PR from different angles" [ref=e699]
+            - row "Feature development feature-dev plugin guides you through a 7-phase structured workflow" [ref=e700]:
+              - cell "Feature development" [ref=e701]
+              - cell "feature-dev plugin guides you through a 7-phase structured workflow" [ref=e702]
+            - row "Security compliance security-guidance hooks ensure security considerations are raised during code generation" [ref=e703]:
+              - cell "Security compliance" [ref=e704]
+              - cell "security-guidance hooks ensure security considerations are raised during code generation" [ref=e705]
+            - row "Legacy code migration claude-opus-4-5-migration helps update code for newer model versions" [ref=e706]:
+              - cell "Legacy code migration" [ref=e707]
+              - cell "claude-opus-4-5-migration helps update code for newer model versions" [ref=e708]
+            - row "Learning while coding learning-output-style turns every interaction into a teaching moment" [ref=e709]:
+              - cell "Learning while coding" [ref=e710]
+              - cell "learning-output-style turns every interaction into a teaching moment" [ref=e711]
+        - separator [ref=e712]
+        - heading "Development Environment and Contribution Model" [level=2] [ref=e713]
+        - heading "Dev Container Setup" [level=3] [ref=e714]
+        - paragraph [ref=e715]:
+          - text: The repository includes a
+          - code [ref=e716]: .devcontainer/
+          - text: "directory with:"
+        - list [ref=e717]:
+          - listitem [ref=e718]:
+            - code [ref=e719]: Dockerfile
+            - text: "-- defines the container image for development"
+          - listitem [ref=e720]:
+            - code [ref=e721]: devcontainer.json
+            - text: "-- VS Code Dev Container configuration"
+          - listitem [ref=e722]:
+            - code [ref=e723]: init-firewall.sh
+            - text: "-- initializes network firewall rules inside the container (likely for sandboxing during development)"
+        - paragraph [ref=e724]: This means contributors can spin up a consistent development environment using VS Code's Dev Containers feature or GitHub Codespaces, eliminating "works on my machine" issues.
+        - heading "Repository Automation" [level=3] [ref=e725]
+        - paragraph [ref=e726]:
+          - text: The
+          - code [ref=e727]: scripts/
+          - text: "directory reveals a mature issue management workflow:"
+        - list [ref=e728]:
+          - listitem [ref=e729]:
+            - strong [ref=e730]: auto-close-duplicates.ts
+            - text: "-- Automatically detects and closes duplicate issues"
+          - listitem [ref=e731]:
+            - strong [ref=e732]: sweep.ts
+            - text: "-- Performs cleanup sweeps across open issues"
+          - listitem [ref=e733]:
+            - strong [ref=e734]: lifecycle-comment.ts
+            - text: "-- Posts lifecycle comments (e.g., stale warnings) on issues"
+          - listitem [ref=e735]:
+            - strong [ref=e736]: issue-lifecycle.ts
+            - text: "-- Manages issue state transitions"
+          - listitem [ref=e737]:
+            - strong [ref=e738]: backfill-duplicate-comments.ts
+            - text: "-- Retroactively adds duplicate markers to older issues"
+          - listitem [ref=e739]:
+            - strong [ref=e740]: gh.sh / edit-issue-labels.sh / comment-on-duplicates.sh
+            - text: "-- Shell utilities for GitHub operations"
+        - paragraph [ref=e741]: These scripts indicate that Claude Code receives high issue volume and has invested in automation to keep the repository manageable.
+        - heading "Security and Vulnerability Reporting" [level=3] [ref=e742]
+        - paragraph [ref=e743]:
+          - text: Security vulnerabilities are reported through
+          - strong [ref=e744]: HackerOne
+          - text: ", Anthropic's bug bounty platform. This is standard practice for production-grade developer tools and indicates that security is treated as a first-class concern. The"
+          - code [ref=e745]: /bug
+          - text: command within Claude Code itself also provides a direct reporting mechanism.
+        - heading "Community" [level=3] [ref=e746]
+        - paragraph [ref=e747]:
+          - text: Claude Code maintains an active community on Discord (
+          - code [ref=e748]: anthropic.com/discord
+          - text: ), which serves as the primary channel for user support, feature requests, and plugin development discussions.
+        - separator [ref=e749]
+        - heading "Data Collection and Privacy" [level=2] [ref=e750]
+        - paragraph [ref=e751]: "Claude Code collects three categories of data:"
+        - list [ref=e752]:
+          - listitem [ref=e753]:
+            - strong [ref=e754]: Usage data
+            - text: "-- how the tool is used (commands invoked, features accessed)"
+          - listitem [ref=e755]:
+            - strong [ref=e756]: Conversation data
+            - text: "-- the content of interactions with the AI"
+          - listitem [ref=e757]:
+            - strong [ref=e758]: User feedback
+            - text: "-- explicit feedback submitted by users"
+        - paragraph [ref=e759]: This is worth noting for enterprise users who may need to evaluate data handling policies before adoption. The README discloses this upfront, which is a positive transparency signal.
+        - separator [ref=e760]
+        - heading "Key Takeaways" [level=2] [ref=e761]
+        - paragraph [ref=e762]: "For a beginner approaching Claude Code, here are the essential concepts to internalize:"
+        - list [ref=e763]:
+          - listitem [ref=e764]:
+            - paragraph [ref=e765]:
+              - strong [ref=e766]: Claude Code is an agent, not a chatbot.
+              - text: It does not just answer questions -- it reads your files, runs commands, and takes actions in your development environment.
+          - listitem [ref=e767]:
+            - paragraph [ref=e768]:
+              - strong [ref=e769]: The public repository is the ecosystem, not the engine.
+              - text: The core CLI is closed-source and distributed via installers. The open-source repository provides plugins, documentation, and community infrastructure.
+          - listitem [ref=e770]:
+            - paragraph [ref=e771]:
+              - strong [ref=e772]: Plugins are the extension model.
+              - text: Everything from git workflows to security policies to learning modes is implemented as a plugin. Understanding the plugin structure (
+              - code [ref=e773]: commands/
+              - text: ","
+              - code [ref=e774]: agents/
+              - text: ","
+              - code [ref=e775]: skills/
+              - text: ","
+              - code [ref=e776]: hooks/
+              - text: ) is the key to customizing Claude Code.
+          - listitem [ref=e777]:
+            - paragraph [ref=e778]:
+              - strong [ref=e779]: Hooks enforce policies.
+              - text: Unlike commands (which users invoke), hooks run automatically at lifecycle points. This makes them powerful for organizational standards.
+          - listitem [ref=e780]:
+            - paragraph [ref=e781]:
+              - strong [ref=e782]: Multi-agent architecture is real.
+              - text: Plugins like code-review dispatch multiple parallel agents, demonstrating that Claude Code supports sophisticated agentic patterns beyond simple request-response.
+          - listitem [ref=e783]:
+            - paragraph [ref=e784]:
+              - strong [ref=e785]: The changelog is your roadmap.
+              - text: With rapid iteration (versions 2.1.75 through 2.1.81 in the recent window alone), the changelog is the best way to track new capabilities, especially around context limits, permissions, and plugin features.
+        - separator [ref=e786]
+        - heading "References" [level=2] [ref=e787]
+        - list [ref=e788]:
+          - listitem [ref=e789]:
+            - text: "Repository:"
+            - link "https://github.com/anthropics/claude-code" [ref=e790] [cursor=pointer]:
+              - /url: https://github.com/anthropics/claude-code
+          - listitem [ref=e791]:
+            - text: "Discord Community:"
+            - link "https://anthropic.com/discord" [ref=e792] [cursor=pointer]:
+              - /url: https://anthropic.com/discord
+          - listitem [ref=e793]:
+            - text: "Security Reporting:"
+            - link "HackerOne Vulnerability Disclosure Program" [ref=e794] [cursor=pointer]:
+              - /url: https://hackerone.com/anthropic-vdp
+          - listitem [ref=e795]:
+            - text: "Plugin Documentation:"
+            - link "plugins/README.md" [ref=e796] [cursor=pointer]:
+              - /url: https://github.com/anthropics/claude-code/blob/main/plugins/README.md

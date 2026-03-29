@@ -1,0 +1,1129 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e4]:
+      - generic [ref=e5]:
+        - link "Claude Code Learning Hub" [ref=e6] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e7]:
+          - link "Topics" [ref=e8] [cursor=pointer]:
+            - /url: /
+          - link "Quiz" [ref=e9] [cursor=pointer]:
+            - /url: /quiz
+    - main [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - link "← Back to topics" [ref=e13] [cursor=pointer]:
+            - /url: /
+          - link "Take quiz (12 questions)" [ref=e14] [cursor=pointer]:
+            - /url: /quiz/plugin-development
+        - generic [ref=e15]:
+          - heading "Plugin Development Deep Dive" [level=1] [ref=e16]
+          - paragraph [ref=e17]: Building plugins for Claude Code lets you package reusable workflows, specialized agents, automated hooks, and external tool integrations into a single distributable unit. This guide walks through every aspect of plugin development — from the directory structure and manifest configuration to testing, debugging, and publishing your plugin to a marketplace.
+          - paragraph [ref=e18]: Whether you are automating code reviews, enforcing security policies, or wiring up external services, plugins give you a structured, versioned, shareable way to extend Claude Code far beyond what standalone configuration files can do.
+          - separator [ref=e19]
+          - heading "Why Plugins Exist" [level=2] [ref=e20]
+          - paragraph [ref=e21]:
+            - text: Before plugins, all customization lived inside a project's
+            - code [ref=e22]: .claude/
+            - text: "directory: slash commands, agents, skills, and hook definitions mixed together with the rest of the codebase. That approach works for personal workflows, but it has clear limitations:"
+          - list [ref=e23]:
+            - listitem [ref=e24]:
+              - strong [ref=e25]: No versioning
+              - text: — changes to your automation are not tracked separately from application code.
+            - listitem [ref=e26]:
+              - strong [ref=e27]: No sharing
+              - text: — another developer cannot install your workflow with a single command.
+            - listitem [ref=e28]:
+              - strong [ref=e29]: No namespacing
+              - text: — two teams using a
+              - code [ref=e30]: /review
+              - text: command will collide.
+          - paragraph [ref=e31]:
+            - text: Plugins solve all three problems. A plugin is a self-contained directory with a manifest, and Claude Code loads it as a first-class extension. Commands are namespaced (
+            - code [ref=e32]: /plugin-name:command
+            - text: ), versions follow semver, and distribution happens through marketplaces backed by Git repositories.
+          - heading "Standalone vs Plugin at a Glance" [level=3] [ref=e33]
+          - table [ref=e35]:
+            - rowgroup [ref=e36]:
+              - row "Aspect Standalone (.claude/) Plugin" [ref=e37]:
+                - columnheader "Aspect" [ref=e38]
+                - columnheader "Standalone (.claude/)" [ref=e39]:
+                  - text: Standalone (
+                  - code [ref=e40]: .claude/
+                  - text: )
+                - columnheader "Plugin" [ref=e41]
+            - rowgroup [ref=e42]:
+              - row "Command invocation /hello /plugin-name:hello" [ref=e43]:
+                - cell "Command invocation" [ref=e44]
+                - cell "/hello" [ref=e45]:
+                  - code [ref=e46]: /hello
+                - cell "/plugin-name:hello" [ref=e47]:
+                  - code [ref=e48]: /plugin-name:hello
+              - row "Scope Personal, project-local Shareable, versioned" [ref=e49]:
+                - cell "Scope" [ref=e50]
+                - cell "Personal, project-local" [ref=e51]
+                - cell "Shareable, versioned" [ref=e52]
+              - row "Best for Quick experiments Reusable cross-project workflows" [ref=e53]:
+                - cell "Best for" [ref=e54]
+                - cell "Quick experiments" [ref=e55]
+                - cell "Reusable cross-project workflows" [ref=e56]
+              - row "Distribution Copy files manually Marketplace install" [ref=e57]:
+                - cell "Distribution" [ref=e58]
+                - cell "Copy files manually" [ref=e59]
+                - cell "Marketplace install" [ref=e60]
+              - row "Namespacing None — collisions possible Automatic via plugin name" [ref=e61]:
+                - cell "Namespacing" [ref=e62]
+                - cell "None — collisions possible" [ref=e63]
+                - cell "Automatic via plugin name" [ref=e64]
+          - separator [ref=e65]
+          - heading "Plugin Architecture" [level=2] [ref=e66]
+          - paragraph [ref=e67]:
+            - text: A plugin is a directory that follows a specific layout. Claude Code discovers it through the
+            - code [ref=e68]: .claude-plugin/
+            - text: folder, reads the manifest, and then loads every other component — commands, agents, skills, hooks, MCP servers, LSP servers, and settings — from well-known paths relative to the plugin root.
+          - heading "Directory Structure" [level=3] [ref=e69]
+          - code [ref=e70]: "plugin-name/ ├── .claude-plugin/ │ └── plugin.json # Plugin metadata (the ONLY file inside .claude-plugin/) ├── commands/ # Slash commands ├── agents/ # Specialized subagents ├── skills/ # Agent Skills with SKILL.md files ├── hooks/ # Event handlers (hooks.json) ├── .mcp.json # MCP server configurations ├── .lsp.json # LSP server configurations ├── settings.json # Default settings └── README.md"
+          - blockquote [ref=e71]:
+            - paragraph [ref=e72]:
+              - strong [ref=e73]: "Critical rule:"
+              - text: Only
+              - code [ref=e74]: plugin.json
+              - text: goes inside
+              - code [ref=e75]: .claude-plugin/
+              - text: . Never place
+              - code [ref=e76]: commands/
+              - text: ","
+              - code [ref=e77]: agents/
+              - text: ","
+              - code [ref=e78]: skills/
+              - text: ", or"
+              - code [ref=e79]: hooks/
+              - text: inside that folder. They belong at the plugin root.
+          - heading "How Claude Code Loads a Plugin" [level=3] [ref=e80]
+          - paragraph [ref=e82]:
+            - text: When Claude Code launches (or when you run
+            - code [ref=e83]: /reload-plugins
+            - text: "), it walks the plugin directory, reads the manifest, and wires up every component. Each component type has its own discovery mechanism:"
+          - list [ref=e84]:
+            - listitem [ref=e85]:
+              - strong [ref=e86]: Commands
+              - text: are found by scanning the
+              - code [ref=e87]: commands/
+              - text: directory for markdown files.
+            - listitem [ref=e88]:
+              - strong [ref=e89]: Agents
+              - text: are found by scanning the
+              - code [ref=e90]: agents/
+              - text: directory.
+            - listitem [ref=e91]:
+              - strong [ref=e92]: Skills
+              - text: are found by looking for
+              - code [ref=e93]: SKILL.md
+              - text: files inside subdirectories of
+              - code [ref=e94]: skills/
+              - text: .
+            - listitem [ref=e95]:
+              - strong [ref=e96]: Hooks
+              - text: are read from
+              - code [ref=e97]: hooks/hooks.json
+              - text: .
+            - listitem [ref=e98]:
+              - strong [ref=e99]: MCP servers
+              - text: are read from
+              - code [ref=e100]: .mcp.json
+              - text: at the plugin root.
+            - listitem [ref=e101]:
+              - strong [ref=e102]: LSP servers
+              - text: are read from
+              - code [ref=e103]: .lsp.json
+              - text: at the plugin root.
+            - listitem [ref=e104]:
+              - strong [ref=e105]: Settings
+              - text: are read from
+              - code [ref=e106]: settings.json
+              - text: at the plugin root.
+          - separator [ref=e107]
+          - heading "The Plugin Manifest (plugin.json)" [level=2] [ref=e108]:
+            - text: The Plugin Manifest (
+            - code [ref=e109]: plugin.json
+            - text: )
+          - paragraph [ref=e110]:
+            - text: The manifest is the identity card of your plugin. It lives at
+            - code [ref=e111]: .claude-plugin/plugin.json
+            - text: and tells Claude Code who the plugin is, what version it is, and where to find more information.
+          - heading "Minimal Example" [level=3] [ref=e112]
+          - code [ref=e114]: "{ \"name\": \"my-plugin\", \"description\": \"A greeting plugin\", \"version\": \"1.0.0\" }"
+          - heading "All Fields" [level=3] [ref=e115]
+          - table [ref=e117]:
+            - rowgroup [ref=e118]:
+              - row "Field Required Type Description" [ref=e119]:
+                - columnheader "Field" [ref=e120]
+                - columnheader "Required" [ref=e121]
+                - columnheader "Type" [ref=e122]
+                - columnheader "Description" [ref=e123]
+            - rowgroup [ref=e124]:
+              - row "name Yes string Unique identifier. Also used as the namespace for commands (e.g., /my-plugin:hello). Use lowercase, hyphens only." [ref=e125]:
+                - cell "name" [ref=e126]:
+                  - code [ref=e127]: name
+                - cell "Yes" [ref=e128]
+                - cell "string" [ref=e129]:
+                  - code [ref=e130]: string
+                - cell "Unique identifier. Also used as the namespace for commands (e.g., /my-plugin:hello). Use lowercase, hyphens only." [ref=e131]:
+                  - text: Unique identifier. Also used as the namespace for commands (e.g.,
+                  - code [ref=e132]: /my-plugin:hello
+                  - text: ). Use lowercase, hyphens only.
+              - row "description Yes string Short human-readable summary shown in plugin listings and help output." [ref=e133]:
+                - cell "description" [ref=e134]:
+                  - code [ref=e135]: description
+                - cell "Yes" [ref=e136]
+                - cell "string" [ref=e137]:
+                  - code [ref=e138]: string
+                - cell "Short human-readable summary shown in plugin listings and help output." [ref=e139]
+              - row "version Yes string Semantic version (major.minor.patch). Claude Code uses this for marketplace updates." [ref=e140]:
+                - cell "version" [ref=e141]:
+                  - code [ref=e142]: version
+                - cell "Yes" [ref=e143]
+                - cell "string" [ref=e144]:
+                  - code [ref=e145]: string
+                - cell "Semantic version (major.minor.patch). Claude Code uses this for marketplace updates." [ref=e146]:
+                  - text: Semantic version (
+                  - code [ref=e147]: major.minor.patch
+                  - text: ). Claude Code uses this for marketplace updates.
+              - 'row "author No object An object with a name field (e.g., { \"name\": \"Your Name\" }). Shown in marketplace listings." [ref=e148]':
+                - cell "author" [ref=e149]:
+                  - code [ref=e150]: author
+                - cell "No" [ref=e151]
+                - cell "object" [ref=e152]:
+                  - code [ref=e153]: object
+                - 'cell "An object with a name field (e.g., { \"name\": \"Your Name\" }). Shown in marketplace listings." [ref=e154]':
+                  - text: An object with a
+                  - code [ref=e155]: name
+                  - text: field (e.g.,
+                  - code [ref=e156]: "{ \"name\": \"Your Name\" }"
+                  - text: ). Shown in marketplace listings.
+              - row "homepage No string URL to the plugin's documentation or landing page." [ref=e157]:
+                - cell "homepage" [ref=e158]:
+                  - code [ref=e159]: homepage
+                - cell "No" [ref=e160]
+                - cell "string" [ref=e161]:
+                  - code [ref=e162]: string
+                - cell "URL to the plugin's documentation or landing page." [ref=e163]
+              - row "repository No string URL to the source code repository." [ref=e164]:
+                - cell "repository" [ref=e165]:
+                  - code [ref=e166]: repository
+                - cell "No" [ref=e167]
+                - cell "string" [ref=e168]:
+                  - code [ref=e169]: string
+                - cell "URL to the source code repository." [ref=e170]
+              - row "license No string SPDX license identifier (e.g., \"MIT\", \"Apache-2.0\")." [ref=e171]:
+                - cell "license" [ref=e172]:
+                  - code [ref=e173]: license
+                - cell "No" [ref=e174]
+                - cell "string" [ref=e175]:
+                  - code [ref=e176]: string
+                - cell "SPDX license identifier (e.g., \"MIT\", \"Apache-2.0\")." [ref=e177]:
+                  - text: SPDX license identifier (e.g.,
+                  - code [ref=e178]: "\"MIT\""
+                  - text: ","
+                  - code [ref=e179]: "\"Apache-2.0\""
+                  - text: ).
+          - heading "Full Example" [level=3] [ref=e180]
+          - code [ref=e182]: "{ \"name\": \"code-review\", \"description\": \"Automated code review with parallel subagents\", \"version\": \"2.1.0\", \"author\": { \"name\": \"Acme Engineering\" }, \"homepage\": \"https://acme.dev/plugins/code-review\", \"repository\": \"https://github.com/acme/claude-code-review\", \"license\": \"MIT\" }"
+          - heading "Naming Conventions" [level=3] [ref=e183]
+          - paragraph [ref=e184]:
+            - text: The
+            - code [ref=e185]: name
+            - text: "field serves double duty: it is the unique identifier in marketplaces"
+            - emphasis [ref=e186]: and
+            - text: "the namespace prefix for every command the plugin exposes. Choose it carefully:"
+          - list [ref=e187]:
+            - listitem [ref=e188]: Keep it short — users type it every time they invoke a command.
+            - listitem [ref=e189]:
+              - text: Use hyphens, not underscores or camelCase (
+              - code [ref=e190]: code-review
+              - text: ", not"
+              - code [ref=e191]: codeReview
+              - text: ).
+            - listitem [ref=e192]:
+              - text: Make it descriptive —
+              - code [ref=e193]: security-guidance
+              - text: is better than
+              - code [ref=e194]: sg
+              - text: .
+          - separator [ref=e195]
+          - heading "Commands (Slash Commands)" [level=2] [ref=e196]
+          - paragraph [ref=e197]: Commands are the most visible part of a plugin. They give users explicit, on-demand workflows triggered by typing a slash command in the Claude Code prompt.
+          - heading "Creating a Command" [level=3] [ref=e198]
+          - paragraph [ref=e199]:
+            - text: Each command is a markdown file inside the
+            - code [ref=e200]: commands/
+            - text: directory. The filename (minus the
+            - code [ref=e201]: .md
+            - text: extension) becomes the command name, namespaced under the plugin.
+          - code [ref=e202]: "commands/ ├── review.md # Invoked as /plugin-name:review ├── fix.md # Invoked as /plugin-name:fix └── report/ └── summary.md # Invoked as /plugin-name:report:summary"
+          - paragraph [ref=e203]: Subdirectories create nested command namespaces using the colon separator.
+          - heading "Command File Format" [level=3] [ref=e204]
+          - paragraph [ref=e205]: A command file is plain markdown. The content becomes the prompt that Claude Code executes when the user invokes the command.
+          - code [ref=e207]: "Review the current Git diff for: 1. Logic errors 2. Security vulnerabilities 3. Performance issues Provide a summary with severity ratings."
+          - heading "Arguments" [level=3] [ref=e208]
+          - paragraph [ref=e209]:
+            - text: Users can pass arguments after the command name. Inside the command file, use the
+            - code [ref=e210]: $ARGUMENTS
+            - text: "placeholder to capture whatever the user typed:"
+          - code [ref=e212]: "Explain the following concept in simple terms: $ARGUMENTS"
+          - paragraph [ref=e213]:
+            - text: When the user types
+            - code [ref=e214]: /my-plugin:explain dependency injection
+            - text: ", the"
+            - code [ref=e215]: $ARGUMENTS
+            - text: placeholder is replaced with
+            - code [ref=e216]: dependency injection
+            - text: .
+          - 'heading "Real-World Example: The commit-commands Plugin" [level=3] [ref=e217]':
+            - text: "Real-World Example: The"
+            - code [ref=e218]: commit-commands
+            - text: Plugin
+          - paragraph [ref=e219]:
+            - text: The official
+            - code [ref=e220]: commit-commands
+            - text: "plugin ships three commands:"
+          - table [ref=e222]:
+            - rowgroup [ref=e223]:
+              - row "Command What It Does" [ref=e224]:
+                - columnheader "Command" [ref=e225]
+                - columnheader "What It Does" [ref=e226]
+            - rowgroup [ref=e227]:
+              - row "/commit-commands:commit Stages and commits with a well-crafted message" [ref=e228]:
+                - cell "/commit-commands:commit" [ref=e229]:
+                  - code [ref=e230]: /commit-commands:commit
+                - cell "Stages and commits with a well-crafted message" [ref=e231]
+              - row "/commit-commands:commit-push-pr Commits, pushes, and opens a pull request" [ref=e232]:
+                - cell "/commit-commands:commit-push-pr" [ref=e233]:
+                  - code [ref=e234]: /commit-commands:commit-push-pr
+                - cell "Commits, pushes, and opens a pull request" [ref=e235]
+              - row "/commit-commands:clean_gone Deletes local branches whose remote tracking branch is gone" [ref=e236]:
+                - cell "/commit-commands:clean_gone" [ref=e237]:
+                  - code [ref=e238]: /commit-commands:clean_gone
+                - cell "Deletes local branches whose remote tracking branch is gone" [ref=e239]
+          - paragraph [ref=e240]:
+            - text: Each is a markdown file in
+            - code [ref=e241]: commands/
+            - text: describing the workflow Claude should follow.
+          - separator [ref=e242]
+          - heading "Agent Skills" [level=2] [ref=e243]
+          - paragraph [ref=e244]: Skills are instructions that Claude Code can automatically invoke based on the current task context — no slash command required. They are the "always-on" counterpart to the "on-demand" nature of commands.
+          - heading "How Skills Work" [level=3] [ref=e245]
+          - paragraph [ref=e247]:
+            - text: Claude reads the
+            - code [ref=e248]: description
+            - text: field in every loaded skill's frontmatter. If the current task matches a skill's description, Claude automatically pulls in that skill's instructions — without the user explicitly asking.
+          - heading "Creating a Skill" [level=3] [ref=e249]
+          - paragraph [ref=e250]:
+            - text: Skills live in
+            - code [ref=e251]: skills/
+            - text: . Each skill is a
+            - strong [ref=e252]: subdirectory
+            - text: containing a
+            - code [ref=e253]: SKILL.md
+            - text: file.
+          - code [ref=e254]: skills/ ├── code-review/ │ └── SKILL.md ├── security-check/ │ └── SKILL.md └── accessibility-audit/ └── SKILL.md
+          - heading "The SKILL.md Format" [level=3] [ref=e255]:
+            - text: The
+            - code [ref=e256]: SKILL.md
+            - text: Format
+          - paragraph [ref=e257]:
+            - text: Every
+            - code [ref=e258]: SKILL.md
+            - text: starts with YAML frontmatter between
+            - code [ref=e259]: "---"
+            - text: delimiters, followed by the skill instructions in markdown.
+          - code [ref=e261]: "--- name: code-review description: Reviews code for best practices and common bugs. Use when reviewing code, checking pull requests, or auditing changes. --- ## Code Review Instructions When reviewing code, follow these steps: 1. **Read the diff** — Use the Bash tool to run `git diff` or read the relevant files. 2. **Check for logic errors** — Look for off-by-one errors, null checks, and race conditions. 3. **Evaluate naming** — Are variables and functions named clearly? 4. **Assess test coverage** — Are edge cases tested? Provide findings in a structured table with columns: File, Line, Severity, Finding."
+          - heading "Frontmatter Options" [level=3] [ref=e262]
+          - table [ref=e264]:
+            - rowgroup [ref=e265]:
+              - row "Field Required Type Description" [ref=e266]:
+                - columnheader "Field" [ref=e267]
+                - columnheader "Required" [ref=e268]
+                - columnheader "Type" [ref=e269]
+                - columnheader "Description" [ref=e270]
+            - rowgroup [ref=e271]:
+              - row "name Yes string The skill identifier." [ref=e272]:
+                - cell "name" [ref=e273]:
+                  - code [ref=e274]: name
+                - cell "Yes" [ref=e275]
+                - cell "string" [ref=e276]:
+                  - code [ref=e277]: string
+                - cell "The skill identifier." [ref=e278]
+              - row "description Yes string Tells Claude when to use this skill. Write it like a search query — \"Use when reviewing code, checking PRs, auditing changes.\"" [ref=e279]:
+                - cell "description" [ref=e280]:
+                  - code [ref=e281]: description
+                - cell "Yes" [ref=e282]
+                - cell "string" [ref=e283]:
+                  - code [ref=e284]: string
+                - cell "Tells Claude when to use this skill. Write it like a search query — \"Use when reviewing code, checking PRs, auditing changes.\"" [ref=e285]:
+                  - text: Tells Claude
+                  - emphasis [ref=e286]: when
+                  - text: to use this skill. Write it like a search query — "Use when reviewing code, checking PRs, auditing changes."
+              - row "disable-model-invocation No boolean When true, Claude will never auto-invoke this skill. It can only be triggered manually. Defaults to false." [ref=e287]:
+                - cell "disable-model-invocation" [ref=e288]:
+                  - code [ref=e289]: disable-model-invocation
+                - cell "No" [ref=e290]
+                - cell "boolean" [ref=e291]:
+                  - code [ref=e292]: boolean
+                - cell "When true, Claude will never auto-invoke this skill. It can only be triggered manually. Defaults to false." [ref=e293]:
+                  - text: When
+                  - code [ref=e294]: "true"
+                  - text: ", Claude will never auto-invoke this skill. It can only be triggered manually. Defaults to"
+                  - code [ref=e295]: "false"
+                  - text: .
+          - heading "The $ARGUMENTS Placeholder in Skills" [level=3] [ref=e296]:
+            - text: The
+            - code [ref=e297]: $ARGUMENTS
+            - text: Placeholder in Skills
+          - paragraph [ref=e298]:
+            - text: Just like commands, skills support
+            - code [ref=e299]: $ARGUMENTS
+            - text: . When a skill is invoked (manually or automatically), any user input is substituted into this placeholder.
+          - heading "Auto-Invocation vs Manual-Only" [level=3] [ref=e300]
+          - paragraph [ref=e301]:
+            - text: By default, skills are
+            - strong [ref=e302]: model-invoked
+            - text: ": Claude decides when they are relevant. This is powerful but sometimes you want a skill that only activates when explicitly called. Set"
+            - code [ref=e303]: "disable-model-invocation: true"
+            - text: in the frontmatter for that behavior.
+          - paragraph [ref=e304]:
+            - strong [ref=e305]: "When to use auto-invocation:"
+          - list [ref=e306]:
+            - listitem [ref=e307]: Enforcing coding standards on every edit
+            - listitem [ref=e308]: Security scanning whenever new code is written
+            - listitem [ref=e309]: Accessibility checks whenever frontend components are created
+          - paragraph [ref=e310]:
+            - strong [ref=e311]: "When to use manual-only:"
+          - list [ref=e312]:
+            - listitem [ref=e313]: One-off generation tasks (e.g., "generate a migration")
+            - listitem [ref=e314]: Destructive operations (e.g., "reset the database")
+          - 'heading "Real-World Example: The frontend-design Plugin" [level=3] [ref=e315]':
+            - text: "Real-World Example: The"
+            - code [ref=e316]: frontend-design
+            - text: Plugin
+          - paragraph [ref=e317]:
+            - text: The official
+            - code [ref=e318]: frontend-design
+            - text: plugin ships a skill that auto-invokes whenever Claude detects frontend work (HTML, CSS, React components). The skill instructions guide Claude to follow specific design system rules, use particular component libraries, and maintain visual consistency — all without the user having to remember to ask.
+          - separator [ref=e319]
+          - heading "Subagents" [level=2] [ref=e320]
+          - paragraph [ref=e321]: Subagents are specialized AI personalities that run in isolated context windows. They let you divide complex tasks among focused experts, each with their own system prompt, tool access, and even model selection.
+          - heading "Why Subagents Matter" [level=3] [ref=e322]
+          - paragraph [ref=e323]: "The main Claude Code conversation accumulates context over time. A long conversation means more tokens consumed and a higher chance of the model losing focus. Subagents solve this by:"
+          - list [ref=e324]:
+            - listitem [ref=e325]:
+              - strong [ref=e326]: Isolating context
+              - text: — Each subagent gets a fresh context window with only its system prompt and relevant data.
+            - listitem [ref=e327]:
+              - strong [ref=e328]: Restricting tools
+              - text: — A security auditor subagent does not need file-writing tools. Limiting tools reduces risk and focuses the agent.
+            - listitem [ref=e329]:
+              - strong [ref=e330]: Enabling parallelism
+              - text: — Multiple subagents can run simultaneously on different aspects of a task.
+            - listitem [ref=e331]:
+              - strong [ref=e332]: Choosing the right model
+              - text: — A simple formatting task can use a faster, cheaper model while a complex analysis task uses the most capable one.
+          - heading "Creating a Subagent" [level=3] [ref=e333]
+          - paragraph [ref=e334]:
+            - text: Subagents live in
+            - code [ref=e335]: agents/
+            - text: . Each agent is a markdown file with YAML frontmatter.
+          - code [ref=e336]: agents/ ├── security-auditor.md ├── performance-reviewer.md └── documentation-writer.md
+          - heading "Agent Definition Format" [level=3] [ref=e337]
+          - code [ref=e339]: "--- name: security-auditor description: Analyzes code for security vulnerabilities and unsafe patterns tools: Read, Grep, Bash model: sonnet --- You are a security-focused code auditor. Your job is to find vulnerabilities in code. ## What to Look For - SQL injection - Cross-site scripting (XSS) - Insecure deserialization - Hardcoded secrets - Missing input validation - Improper error handling that leaks information ## Output Format For each finding, report: - **File and line number** - **Vulnerability type** (from OWASP Top 10 if applicable) - **Severity** (Critical / High / Medium / Low) - **Recommendation** for remediation"
+          - heading "Frontmatter Fields" [level=3] [ref=e340]
+          - table [ref=e342]:
+            - rowgroup [ref=e343]:
+              - row "Field Required Type Description" [ref=e344]:
+                - columnheader "Field" [ref=e345]
+                - columnheader "Required" [ref=e346]
+                - columnheader "Type" [ref=e347]
+                - columnheader "Description" [ref=e348]
+            - rowgroup [ref=e349]:
+              - row "name Yes string Identifier used to reference the agent." [ref=e350]:
+                - cell "name" [ref=e351]:
+                  - code [ref=e352]: name
+                - cell "Yes" [ref=e353]
+                - cell "string" [ref=e354]:
+                  - code [ref=e355]: string
+                - cell "Identifier used to reference the agent." [ref=e356]
+              - row "description Yes string Describes what the agent does — Claude uses this to decide when to dispatch to it." [ref=e357]:
+                - cell "description" [ref=e358]:
+                  - code [ref=e359]: description
+                - cell "Yes" [ref=e360]
+                - cell "string" [ref=e361]:
+                  - code [ref=e362]: string
+                - cell "Describes what the agent does — Claude uses this to decide when to dispatch to it." [ref=e363]
+              - row "tools No string Comma-separated list of tools the agent is allowed to use (e.g., Read, Grep, Bash). Restricting tools improves safety and focus." [ref=e364]:
+                - cell "tools" [ref=e365]:
+                  - code [ref=e366]: tools
+                - cell "No" [ref=e367]
+                - cell "string" [ref=e368]:
+                  - code [ref=e369]: string
+                - cell "Comma-separated list of tools the agent is allowed to use (e.g., Read, Grep, Bash). Restricting tools improves safety and focus." [ref=e370]:
+                  - text: Comma-separated list of tools the agent is allowed to use (e.g.,
+                  - code [ref=e371]: Read, Grep, Bash
+                  - text: ). Restricting tools improves safety and focus.
+              - row "model No string Which model the agent runs on. Options include sonnet, opus, haiku, etc. Useful for cost/performance trade-offs." [ref=e372]:
+                - cell "model" [ref=e373]:
+                  - code [ref=e374]: model
+                - cell "No" [ref=e375]
+                - cell "string" [ref=e376]:
+                  - code [ref=e377]: string
+                - cell "Which model the agent runs on. Options include sonnet, opus, haiku, etc. Useful for cost/performance trade-offs." [ref=e378]:
+                  - text: Which model the agent runs on. Options include
+                  - code [ref=e379]: sonnet
+                  - text: ","
+                  - code [ref=e380]: opus
+                  - text: ","
+                  - code [ref=e381]: haiku
+                  - text: ", etc. Useful for cost/performance trade-offs."
+          - heading "Parallel Subagent Execution" [level=3] [ref=e382]
+          - paragraph [ref=e383]:
+            - text: One of the most powerful patterns is launching multiple subagents in parallel. The official
+            - code [ref=e384]: code-review
+            - text: "plugin demonstrates this: it spawns"
+            - strong [ref=e385]: five Sonnet subagents
+            - text: simultaneously, each reviewing a different aspect of the codebase (logic, performance, security, style, and documentation). The results are collected and merged into a unified report.
+          - heading "Activating an Agent as Default" [level=3] [ref=e387]
+          - paragraph [ref=e388]:
+            - text: If you want your plugin's agent to be the default personality for the entire Claude Code session, use
+            - code [ref=e389]: settings.json
+            - text: ":"
+          - code [ref=e391]: "{ \"agent\": \"security-auditor\" }"
+          - paragraph [ref=e392]: This replaces the main Claude Code persona with your agent's system prompt and tool restrictions for the duration of the session.
+          - separator [ref=e393]
+          - heading "Hooks" [level=2] [ref=e394]
+          - paragraph [ref=e395]: Hooks let your plugin react to lifecycle events inside Claude Code. Instead of waiting for the user to invoke a command, hooks fire automatically when specific things happen — a file is written, a tool is called, a prompt is submitted.
+          - heading "Lifecycle Events" [level=3] [ref=e396]
+          - table [ref=e398]:
+            - rowgroup [ref=e399]:
+              - row "Event When It Fires Typical Use" [ref=e400]:
+                - columnheader "Event" [ref=e401]
+                - columnheader "When It Fires" [ref=e402]
+                - columnheader "Typical Use" [ref=e403]
+            - rowgroup [ref=e404]:
+              - row "SessionStart Claude Code session begins Set up environment, check prerequisites" [ref=e405]:
+                - cell "SessionStart" [ref=e406]:
+                  - code [ref=e407]: SessionStart
+                - cell "Claude Code session begins" [ref=e408]
+                - cell "Set up environment, check prerequisites" [ref=e409]
+              - row "UserPromptSubmit User submits a prompt (before processing) Validate input, inject context" [ref=e410]:
+                - cell "UserPromptSubmit" [ref=e411]:
+                  - code [ref=e412]: UserPromptSubmit
+                - cell "User submits a prompt (before processing)" [ref=e413]
+                - cell "Validate input, inject context" [ref=e414]
+              - row "PreToolUse Before a tool executes Block dangerous operations, add guardrails" [ref=e415]:
+                - cell "PreToolUse" [ref=e416]:
+                  - code [ref=e417]: PreToolUse
+                - cell "Before a tool executes" [ref=e418]
+                - cell "Block dangerous operations, add guardrails" [ref=e419]
+              - row "PostToolUse After a tool executes Lint files, run tests, validate output" [ref=e420]:
+                - cell "PostToolUse" [ref=e421]:
+                  - code [ref=e422]: PostToolUse
+                - cell "After a tool executes" [ref=e423]
+                - cell "Lint files, run tests, validate output" [ref=e424]
+              - row "Notification Claude Code sends a notification Custom alerting, logging" [ref=e425]:
+                - cell "Notification" [ref=e426]:
+                  - code [ref=e427]: Notification
+                - cell "Claude Code sends a notification" [ref=e428]
+                - cell "Custom alerting, logging" [ref=e429]
+              - row "Stop Main agent finishes Cleanup, final validation" [ref=e430]:
+                - cell "Stop" [ref=e431]:
+                  - code [ref=e432]: Stop
+                - cell "Main agent finishes" [ref=e433]
+                - cell "Cleanup, final validation" [ref=e434]
+              - row "SubagentStop A subagent finishes Collect results, trigger next phase" [ref=e435]:
+                - cell "SubagentStop" [ref=e436]:
+                  - code [ref=e437]: SubagentStop
+                - cell "A subagent finishes" [ref=e438]
+                - cell "Collect results, trigger next phase" [ref=e439]
+          - heading "Hook Configuration (hooks/hooks.json)" [level=3] [ref=e440]:
+            - text: Hook Configuration (
+            - code [ref=e441]: hooks/hooks.json
+            - text: )
+          - paragraph [ref=e442]:
+            - text: All hooks for a plugin are defined in a single
+            - code [ref=e443]: hooks/hooks.json
+            - text: file.
+          - code [ref=e445]: "{ \"hooks\": { \"PostToolUse\": [ { \"matcher\": \"Write|Edit\", \"hooks\": [ { \"type\": \"command\", \"command\": \"jq -r '.tool_input.file_path' | xargs npm run lint:fix\" } ] } ] } }"
+          - 'heading "Hook Types: Command vs Prompt" [level=3] [ref=e446]'
+          - paragraph [ref=e447]: "There are two fundamentally different ways a hook can respond to an event:"
+          - paragraph [ref=e448]:
+            - strong [ref=e449]: Command hooks
+            - text: run a shell command. They are fast, deterministic, and do not consume AI tokens.
+          - code [ref=e451]: "{ \"type\": \"command\", \"command\": \"npm run lint:fix -- $FILE_PATH\" }"
+          - paragraph [ref=e452]:
+            - strong [ref=e453]: Prompt hooks
+            - text: send a prompt to the LLM for evaluation. They are more flexible but slower and token-consuming.
+          - code [ref=e455]: "{ \"type\": \"prompt\", \"prompt\": \"Check if the file that was just written follows our coding standards. If not, fix it.\" }"
+          - paragraph [ref=e456]:
+            - strong [ref=e457]: "When to use each:"
+          - table [ref=e459]:
+            - rowgroup [ref=e460]:
+              - row "Command Hooks Prompt Hooks" [ref=e461]:
+                - columnheader "Command Hooks" [ref=e462]
+                - columnheader "Prompt Hooks" [ref=e463]
+            - rowgroup [ref=e464]:
+              - row "Linting and formatting Subjective code quality checks" [ref=e465]:
+                - cell "Linting and formatting" [ref=e466]
+                - cell "Subjective code quality checks" [ref=e467]
+              - row "Running test suites Deciding whether to proceed with an operation" [ref=e468]:
+                - cell "Running test suites" [ref=e469]
+                - cell "Deciding whether to proceed with an operation" [ref=e470]
+              - row "File validation (JSON schema, etc.) Generating follow-up actions based on context" [ref=e471]:
+                - cell "File validation (JSON schema, etc.)" [ref=e472]
+                - cell "Generating follow-up actions based on context" [ref=e473]
+              - row "Logging and metrics Complex conditional logic" [ref=e474]:
+                - cell "Logging and metrics" [ref=e475]
+                - cell "Complex conditional logic" [ref=e476]
+          - heading "Matchers" [level=3] [ref=e477]
+          - paragraph [ref=e478]:
+            - text: The
+            - code [ref=e479]: matcher
+            - text: "field filters which tool invocations trigger a hook. It accepts a pipe-separated list of tool names:"
+          - list [ref=e480]:
+            - listitem [ref=e481]:
+              - code [ref=e482]: "\"Write\""
+              - text: — only fires when the Write tool is used
+            - listitem [ref=e483]:
+              - code [ref=e484]: "\"Write|Edit\""
+              - text: — fires for Write or Edit
+            - listitem [ref=e485]:
+              - code [ref=e486]: "\"Bash\""
+              - text: — fires whenever a Bash command runs
+          - paragraph [ref=e487]:
+            - text: Without a matcher, the hook fires for
+            - emphasis [ref=e488]: every
+            - text: tool use in that lifecycle event.
+          - 'heading "Real-World Example: The security-guidance Plugin" [level=3] [ref=e489]':
+            - text: "Real-World Example: The"
+            - code [ref=e490]: security-guidance
+            - text: Plugin
+          - paragraph [ref=e491]:
+            - text: The official
+            - code [ref=e492]: security-guidance
+            - text: plugin uses a
+            - code [ref=e493]: PreToolUse
+            - text: hook that monitors
+            - strong [ref=e494]: nine different security patterns
+            - text: . Before any tool executes, the hook checks whether the operation might introduce a vulnerability (hardcoded credentials, unsafe deserialization, SQL string concatenation, etc.) and warns the user.
+          - 'heading "Real-World Example: The ralph-wiggum Plugin" [level=3] [ref=e495]':
+            - text: "Real-World Example: The"
+            - code [ref=e496]: ralph-wiggum
+            - text: Plugin
+          - paragraph [ref=e497]:
+            - text: The
+            - code [ref=e498]: ralph-wiggum
+            - text: plugin uses a
+            - code [ref=e499]: Stop
+            - text: hook to create iterative AI loops. When the main agent finishes, the hook evaluates the output and decides whether another iteration is needed — effectively creating a self-improving feedback loop.
+          - separator [ref=e500]
+          - heading "MCP Servers" [level=2] [ref=e501]
+          - paragraph [ref=e502]: MCP (Model Context Protocol) is a universal adapter that connects Claude Code to external systems. Each MCP server exposes a set of tools that Claude can call, just like its built-in tools (Read, Write, Bash, etc.).
+          - heading "What MCP Enables" [level=3] [ref=e503]
+          - paragraph [ref=e505]: "MCP servers can provide access to:"
+          - list [ref=e506]:
+            - listitem [ref=e507]:
+              - strong [ref=e508]: Browser automation
+              - text: (Playwright)
+            - listitem [ref=e509]:
+              - strong [ref=e510]: Databases
+              - text: (query and mutate)
+            - listitem [ref=e511]:
+              - strong [ref=e512]: Third-party APIs
+              - text: (Slack, Jira, GitHub, Notion)
+            - listitem [ref=e513]:
+              - strong [ref=e514]: Custom internal services
+          - heading "Configuration (.mcp.json)" [level=3] [ref=e515]:
+            - text: Configuration (
+            - code [ref=e516]: .mcp.json
+            - text: )
+          - paragraph [ref=e517]:
+            - text: MCP servers are configured in
+            - code [ref=e518]: .mcp.json
+            - text: at the plugin root.
+          - code [ref=e520]: "{ \"mcpServers\": { \"playwright\": { \"command\": \"npx\", \"args\": [\"@playwright/mcp@latest\"] }, \"my-database\": { \"command\": \"node\", \"args\": [\"./mcp-servers/database-server.js\"], \"env\": { \"DATABASE_URL\": \"postgresql://localhost:5432/mydb\" } } } }"
+          - paragraph [ref=e521]: "Each key is the server name, and the value specifies:"
+          - table [ref=e523]:
+            - rowgroup [ref=e524]:
+              - row "Field Description" [ref=e525]:
+                - columnheader "Field" [ref=e526]
+                - columnheader "Description" [ref=e527]
+            - rowgroup [ref=e528]:
+              - row "command The executable to run (e.g., npx, node, python)" [ref=e529]:
+                - cell "command" [ref=e530]:
+                  - code [ref=e531]: command
+                - cell "The executable to run (e.g., npx, node, python)" [ref=e532]:
+                  - text: The executable to run (e.g.,
+                  - code [ref=e533]: npx
+                  - text: ","
+                  - code [ref=e534]: node
+                  - text: ","
+                  - code [ref=e535]: python
+                  - text: )
+              - row "args Arguments passed to the command" [ref=e536]:
+                - cell "args" [ref=e537]:
+                  - code [ref=e538]: args
+                - cell "Arguments passed to the command" [ref=e539]
+              - row "env Environment variables available to the server process" [ref=e540]:
+                - cell "env" [ref=e541]:
+                  - code [ref=e542]: env
+                - cell "Environment variables available to the server process" [ref=e543]
+          - heading "Adding MCP Servers via CLI" [level=3] [ref=e544]
+          - paragraph [ref=e545]: "You can also add MCP servers directly from the command line:"
+          - code [ref=e547]: claude mcp add playwright npx @playwright/mcp@latest
+          - paragraph [ref=e548]:
+            - text: This modifies the
+            - code [ref=e549]: .mcp.json
+            - text: file for you.
+          - heading "Token Considerations" [level=3] [ref=e550]
+          - paragraph [ref=e551]: Every MCP server adds its tool definitions to Claude's context window. More servers means more tokens consumed before any actual work begins. Be selective — only include servers your plugin genuinely needs.
+          - separator [ref=e552]
+          - heading "LSP Servers" [level=2] [ref=e553]
+          - paragraph [ref=e554]: "LSP (Language Server Protocol) servers provide code intelligence: diagnostics, completions, hover information, and go-to-definition. Plugins can ship LSP server configurations so that Claude Code has language-aware analysis for specific programming languages."
+          - heading "Configuration (.lsp.json)" [level=3] [ref=e555]:
+            - text: Configuration (
+            - code [ref=e556]: .lsp.json
+            - text: )
+          - code [ref=e558]: "{ \"go\": { \"command\": \"gopls\", \"args\": [\"serve\"], \"extensionToLanguage\": { \".go\": \"go\" } }, \"typescript\": { \"command\": \"typescript-language-server\", \"args\": [\"--stdio\"], \"extensionToLanguage\": { \".ts\": \"typescript\", \".tsx\": \"typescriptreact\" } } }"
+          - paragraph [ref=e559]: "Each key is a language identifier. The value specifies:"
+          - table [ref=e561]:
+            - rowgroup [ref=e562]:
+              - row "Field Description" [ref=e563]:
+                - columnheader "Field" [ref=e564]
+                - columnheader "Description" [ref=e565]
+            - rowgroup [ref=e566]:
+              - row "command The LSP server executable" [ref=e567]:
+                - cell "command" [ref=e568]:
+                  - code [ref=e569]: command
+                - cell "The LSP server executable" [ref=e570]
+              - row "args Arguments to start the server" [ref=e571]:
+                - cell "args" [ref=e572]:
+                  - code [ref=e573]: args
+                - cell "Arguments to start the server" [ref=e574]
+              - row "extensionToLanguage Maps file extensions to language IDs the server understands" [ref=e575]:
+                - cell "extensionToLanguage" [ref=e576]:
+                  - code [ref=e577]: extensionToLanguage
+                - cell "Maps file extensions to language IDs the server understands" [ref=e578]
+          - heading "When to Use LSP in a Plugin" [level=3] [ref=e579]
+          - paragraph [ref=e580]: "Most developers already have LSP servers configured in their editors. A plugin should ship LSP configuration when:"
+          - list [ref=e581]:
+            - listitem [ref=e582]: The plugin targets a specific language ecosystem and needs richer analysis than file reading provides.
+            - listitem [ref=e583]: The target audience may not have the relevant LSP server installed and the plugin can bundle it.
+            - listitem [ref=e584]: The plugin's hooks or skills depend on diagnostic information from the LSP.
+          - separator [ref=e585]
+          - heading "Settings" [level=2] [ref=e586]
+          - paragraph [ref=e587]:
+            - text: Plugins can ship default settings in a
+            - code [ref=e588]: settings.json
+            - text: file at the plugin root. Currently, the only supported key is
+            - code [ref=e589]: agent
+            - text: ", which activates a plugin agent as the main thread personality."
+          - heading "Configuration (settings.json)" [level=3] [ref=e590]:
+            - text: Configuration (
+            - code [ref=e591]: settings.json
+            - text: )
+          - code [ref=e593]: "{ \"agent\": \"security-reviewer\" }"
+          - paragraph [ref=e594]: When this setting is active, the specified agent's system prompt and tool restrictions replace the default Claude Code persona for the entire session. This is useful for plugins that want to completely reshape the Claude Code experience — for example, a "security-first development" plugin where every interaction is filtered through a security lens.
+          - heading "Important Notes" [level=3] [ref=e595]
+          - list [ref=e596]:
+            - listitem [ref=e597]:
+              - text: The
+              - code [ref=e598]: agent
+              - text: value must match the
+              - code [ref=e599]: name
+              - text: field in one of the plugin's agent definitions (in
+              - code [ref=e600]: agents/
+              - text: ).
+            - listitem [ref=e601]: Only one agent can be active at a time. If multiple plugins set this, the last one loaded wins.
+            - listitem [ref=e602]: Users can override this by selecting a different agent during their session.
+          - separator [ref=e603]
+          - heading "Testing and Debugging Plugins" [level=2] [ref=e604]
+          - heading "Loading a Plugin During Development" [level=3] [ref=e605]
+          - paragraph [ref=e606]:
+            - text: Use the
+            - code [ref=e607]: "--plugin-dir"
+            - text: "flag to load your plugin from a local directory:"
+          - code [ref=e609]: claude --plugin-dir ./my-plugin
+          - paragraph [ref=e610]: "You can load multiple plugins simultaneously:"
+          - code [ref=e612]: claude --plugin-dir ./my-plugin --plugin-dir ./another-plugin
+          - heading "Hot Reloading" [level=3] [ref=e613]
+          - paragraph [ref=e614]:
+            - text: After making changes to your plugin files, you do not need to restart Claude Code. Run the
+            - code [ref=e615]: /reload-plugins
+            - text: command inside the session to pick up changes immediately.
+          - heading "Validation" [level=3] [ref=e616]
+          - paragraph [ref=e617]: "Claude Code includes a built-in validation command that checks your plugin structure for errors:"
+          - code [ref=e619]: claude plugin validate
+          - paragraph [ref=e620]: "This checks:"
+          - list [ref=e621]:
+            - listitem [ref=e622]: Manifest format and required fields
+            - listitem [ref=e623]: Command file syntax
+            - listitem [ref=e624]: Agent frontmatter validity
+            - listitem [ref=e625]: Skill SKILL.md format
+            - listitem [ref=e626]: Hook configuration schema
+            - listitem [ref=e627]: MCP and LSP JSON validity
+          - heading "Debugging Tips" [level=3] [ref=e628]
+          - list [ref=e629]:
+            - listitem [ref=e630]:
+              - paragraph [ref=e631]:
+                - strong [ref=e632]: Start with validation
+                - text: — Run
+                - code [ref=e633]: claude plugin validate
+                - text: before anything else. It catches structural errors immediately.
+            - listitem [ref=e634]:
+              - paragraph [ref=e635]:
+                - strong [ref=e636]: Test commands first
+                - text: — Commands are the simplest component. Get a basic command working before adding agents, skills, or hooks.
+            - listitem [ref=e637]:
+              - paragraph [ref=e638]:
+                - strong [ref=e639]: Check hook matchers
+                - text: — A common mistake is a typo in the matcher string.
+                - code [ref=e640]: "\"Write|Edit\""
+                - text: works;
+                - code [ref=e641]: "\"write|edit\""
+                - text: may not (tool names are case-sensitive).
+            - listitem [ref=e642]:
+              - paragraph [ref=e643]:
+                - strong [ref=e644]: Watch token usage with MCP
+                - text: — If your plugin adds MCP servers, monitor token consumption. Every server's tool definitions are loaded into context.
+            - listitem [ref=e645]:
+              - paragraph [ref=e646]:
+                - strong [ref=e647]: Isolate subagent issues
+                - text: — If a subagent is not behaving as expected, test its system prompt and tool restrictions independently by creating a temporary command that invokes just that agent.
+            - listitem [ref=e648]:
+              - paragraph [ref=e649]:
+                - strong [ref=e650]:
+                  - text: Use
+                  - code [ref=e651]: /reload-plugins
+                  - text: liberally
+                - text: — After every change, reload. It is instant and avoids stale-state bugs.
+          - heading "Development Workflow" [level=3] [ref=e652]
+          - separator [ref=e654]
+          - heading "Distribution" [level=2] [ref=e655]
+          - heading "Official Marketplace" [level=3] [ref=e656]
+          - paragraph [ref=e657]: "Submit your plugin to the official Claude Code marketplace:"
+          - list [ref=e658]:
+            - listitem [ref=e659]:
+              - strong [ref=e660]: "Web submission:"
+              - code [ref=e661]: claude.ai/settings/plugins/submit
+              - text: or
+              - code [ref=e662]: platform.claude.com/plugins/submit
+            - listitem [ref=e663]: Your plugin goes through a review process before appearing in the public marketplace.
+          - heading "Team Marketplaces" [level=3] [ref=e664]
+          - paragraph [ref=e665]: "For internal or private plugins, create a team marketplace backed by a Git repository:"
+          - code [ref=e667]: /plugin marketplace add user-or-org/repo-name
+          - heading "Marketplace Repository Format" [level=3] [ref=e668]
+          - paragraph [ref=e669]:
+            - text: A marketplace repository contains a
+            - code [ref=e670]: .claude-plugin/marketplace.json
+            - text: "file that indexes the available plugins:"
+          - code [ref=e671]: marketplace-repo/ ├── .claude-plugin/ │ └── marketplace.json ├── plugin-a/ │ ├── .claude-plugin/ │ │ └── plugin.json │ └── ... └── plugin-b/ ├── .claude-plugin/ │ └── plugin.json └── ...
+          - paragraph [ref=e672]: This lets organizations maintain curated collections of plugins that team members can install from a single source.
+          - heading "Versioning Strategy" [level=3] [ref=e673]
+          - paragraph [ref=e674]: "Follow semantic versioning strictly:"
+          - list [ref=e675]:
+            - listitem [ref=e676]:
+              - strong [ref=e677]: Patch
+              - text: "(1.0.0 -> 1.0.1): Bug fixes, typo corrections in prompts"
+            - listitem [ref=e678]:
+              - strong [ref=e679]: Minor
+              - text: "(1.0.0 -> 1.1.0): New commands, skills, or agents added (backward compatible)"
+            - listitem [ref=e680]:
+              - strong [ref=e681]: Major
+              - text: "(1.0.0 -> 2.0.0): Breaking changes — renamed commands, removed features, restructured hooks"
+          - separator [ref=e682]
+          - heading "Real-World Examples from Official Plugins" [level=2] [ref=e683]
+          - paragraph [ref=e684]: The 13 official Claude Code plugins demonstrate a range of patterns and complexity levels. Here are highlights showing how different components combine.
+          - heading "code-review — Parallel Subagent Orchestration" [level=3] [ref=e685]:
+            - code [ref=e686]: code-review
+            - text: — Parallel Subagent Orchestration
+          - list [ref=e687]:
+            - listitem [ref=e688]:
+              - strong [ref=e689]: "Pattern:"
+              - text: One command dispatches to five parallel subagents.
+            - listitem [ref=e690]:
+              - strong [ref=e691]: "Components:"
+              - code [ref=e692]: commands/
+              - text: +
+              - code [ref=e693]: agents/
+            - listitem [ref=e694]:
+              - strong [ref=e695]: "Key idea:"
+              - text: Each subagent (logic, performance, security, style, documentation) runs on Sonnet in its own context window. Results are merged into a unified review.
+            - listitem [ref=e696]:
+              - strong [ref=e697]: "Lesson:"
+              - text: Subagents are most powerful when each has a narrow, well-defined focus.
+          - heading "commit-commands — Multi-Command Utility" [level=3] [ref=e698]:
+            - code [ref=e699]: commit-commands
+            - text: — Multi-Command Utility
+          - list [ref=e700]:
+            - listitem [ref=e701]:
+              - strong [ref=e702]: "Pattern:"
+              - text: Three related commands packaged together.
+            - listitem [ref=e703]:
+              - strong [ref=e704]: "Components:"
+              - code [ref=e705]: commands/
+              - text: only
+            - listitem [ref=e706]:
+              - strong [ref=e707]: "Commands:"
+              - code [ref=e708]: /commit
+              - text: ","
+              - code [ref=e709]: /commit-push-pr
+              - text: ","
+              - code [ref=e710]: /clean_gone
+            - listitem [ref=e711]:
+              - strong [ref=e712]: "Lesson:"
+              - text: Not every plugin needs agents or skills. A set of well-crafted commands can be highly valuable.
+          - heading "hookify — Full Component Integration" [level=3] [ref=e713]:
+            - code [ref=e714]: hookify
+            - text: — Full Component Integration
+          - list [ref=e715]:
+            - listitem [ref=e716]:
+              - strong [ref=e717]: "Pattern:"
+              - text: Commands, an agent, and a skill working together.
+            - listitem [ref=e718]:
+              - strong [ref=e719]: "Components:"
+              - code [ref=e720]: commands/
+              - text: +
+              - code [ref=e721]: agents/
+              - text: +
+              - code [ref=e722]: skills/
+            - listitem [ref=e723]:
+              - strong [ref=e724]: "Key idea:"
+              - text: The skill auto-invokes when Claude detects hook-related work, while the command provides explicit hook creation workflows.
+            - listitem [ref=e725]:
+              - strong [ref=e726]: "Lesson:"
+              - text: Skills and commands complement each other — skills for automatic, commands for explicit.
+          - heading "feature-dev — Multi-Phase Workflow" [level=3] [ref=e727]:
+            - code [ref=e728]: feature-dev
+            - text: — Multi-Phase Workflow
+          - list [ref=e729]:
+            - listitem [ref=e730]:
+              - strong [ref=e731]: "Pattern:"
+              - text: A 7-phase development workflow with specialized agents at each phase.
+            - listitem [ref=e732]:
+              - strong [ref=e733]: "Components:"
+              - code [ref=e734]: commands/
+              - text: +
+              - code [ref=e735]: agents/
+              - text: "(7 agents: explorer, architect, implementer, tester, reviewer, etc.)"
+            - listitem [ref=e736]:
+              - strong [ref=e737]: "Key idea:"
+              - text: Complex software development tasks are broken into phases, each handled by an expert agent.
+            - listitem [ref=e738]:
+              - strong [ref=e739]: "Lesson:"
+              - text: For large workflows, define clear phases with hand-off points between agents.
+          - heading "plugin-dev — Meta-Plugin" [level=3] [ref=e740]:
+            - code [ref=e741]: plugin-dev
+            - text: — Meta-Plugin
+          - list [ref=e742]:
+            - listitem [ref=e743]:
+              - strong [ref=e744]: "Pattern:"
+              - text: A plugin for building plugins.
+            - listitem [ref=e745]:
+              - strong [ref=e746]: "Components:"
+              - code [ref=e747]: commands/
+              - text: +
+              - code [ref=e748]: agents/
+              - text: +
+              - code [ref=e749]: skills/
+              - text: (7 expert skills)
+            - listitem [ref=e750]:
+              - strong [ref=e751]: "Command:"
+              - code [ref=e752]: /plugin-dev:create-plugin
+            - listitem [ref=e753]:
+              - strong [ref=e754]: "Key idea:"
+              - text: Seven specialized skills cover different aspects of plugin development (manifest creation, command writing, hook configuration, etc.).
+            - listitem [ref=e755]:
+              - strong [ref=e756]: "Lesson:"
+              - text: Skills can encode deep domain expertise that Claude draws on automatically.
+          - heading "security-guidance — Preventive Hooks" [level=3] [ref=e757]:
+            - code [ref=e758]: security-guidance
+            - text: — Preventive Hooks
+          - list [ref=e759]:
+            - listitem [ref=e760]:
+              - strong [ref=e761]: "Pattern:"
+              - text: A
+              - code [ref=e762]: PreToolUse
+              - text: hook that monitors every tool call for security risks.
+            - listitem [ref=e763]:
+              - strong [ref=e764]: "Components:"
+              - code [ref=e765]: hooks/
+              - text: only
+            - listitem [ref=e766]:
+              - strong [ref=e767]: "Key idea:"
+              - text: Nine security patterns are checked before any tool executes. Issues are flagged before they become problems.
+            - listitem [ref=e768]:
+              - strong [ref=e769]: "Lesson:"
+              - text: Hooks are ideal for guardrails — they run silently until something needs attention.
+          - heading "frontend-design — Auto-Invoked Skill" [level=3] [ref=e770]:
+            - code [ref=e771]: frontend-design
+            - text: — Auto-Invoked Skill
+          - list [ref=e772]:
+            - listitem [ref=e773]:
+              - strong [ref=e774]: "Pattern:"
+              - text: A single skill that activates automatically for frontend work.
+            - listitem [ref=e775]:
+              - strong [ref=e776]: "Components:"
+              - code [ref=e777]: skills/
+              - text: only
+            - listitem [ref=e778]:
+              - strong [ref=e779]: "Key idea:"
+              - text: Whenever Claude detects frontend-related tasks (HTML, CSS, React), the skill's design system rules are loaded automatically.
+            - listitem [ref=e780]:
+              - strong [ref=e781]: "Lesson:"
+              - text: A single well-written skill can enforce consistency across an entire domain without user intervention.
+          - heading "ralph-wiggum — Iterative Loops via Hooks" [level=3] [ref=e782]:
+            - code [ref=e783]: ralph-wiggum
+            - text: — Iterative Loops via Hooks
+          - list [ref=e784]:
+            - listitem [ref=e785]:
+              - strong [ref=e786]: "Pattern:"
+              - text: A
+              - code [ref=e787]: Stop
+              - text: hook that evaluates output and triggers re-runs.
+            - listitem [ref=e788]:
+              - strong [ref=e789]: "Components:"
+              - code [ref=e790]: hooks/
+              - text: only
+            - listitem [ref=e791]:
+              - strong [ref=e792]: "Key idea:"
+              - text: When the main agent finishes, the hook decides whether the output is satisfactory. If not, it triggers another iteration.
+            - listitem [ref=e793]:
+              - strong [ref=e794]: "Lesson:"
+              - text: Hooks on the
+              - code [ref=e795]: Stop
+              - text: event enable self-improving feedback loops.
+          - separator [ref=e796]
+          - heading "Migration from Standalone to Plugin" [level=2] [ref=e797]
+          - paragraph [ref=e798]:
+            - text: If you have existing customizations in your project's
+            - code [ref=e799]: .claude/
+            - text: directory, migrating to a plugin is straightforward.
+          - heading "Step-by-Step Migration" [level=3] [ref=e800]
+          - list [ref=e801]:
+            - listitem [ref=e802]:
+              - paragraph [ref=e803]:
+                - strong [ref=e804]: Create the plugin structure
+                - text: — Make a new directory with
+                - code [ref=e805]: .claude-plugin/plugin.json
+                - text: .
+            - listitem [ref=e806]:
+              - paragraph [ref=e807]:
+                - strong [ref=e808]: Copy components
+                - text: — Move
+                - code [ref=e809]: commands/
+                - text: ","
+                - code [ref=e810]: agents/
+                - text: ", and"
+                - code [ref=e811]: skills/
+                - text: directories from
+                - code [ref=e812]: .claude/
+                - text: to the plugin root.
+            - listitem [ref=e813]:
+              - paragraph [ref=e814]:
+                - strong [ref=e815]: Migrate hooks
+                - text: — Hooks in standalone mode live in
+                - code [ref=e816]: settings.json
+                - text: under the
+                - code [ref=e817]: .claude/
+                - text: directory. In a plugin, they move to
+                - code [ref=e818]: hooks/hooks.json
+                - text: . The format is the same; only the file location changes.
+            - listitem [ref=e819]:
+              - paragraph [ref=e820]:
+                - strong [ref=e821]: Test
+                - text: — Load the plugin with
+                - code [ref=e822]: "--plugin-dir"
+                - text: and verify everything works.
+            - listitem [ref=e823]:
+              - paragraph [ref=e824]:
+                - strong [ref=e825]: Update references
+                - text: — Commands are now namespaced.
+                - code [ref=e826]: /review
+                - text: becomes
+                - code [ref=e827]: /my-plugin:review
+                - text: . Update any documentation or team guides.
+          - separator [ref=e829]
+          - heading "Putting It All Together" [level=2] [ref=e830]
+          - paragraph [ref=e831]: "A well-designed plugin combines multiple component types, each playing to its strengths:"
+          - table [ref=e833]:
+            - rowgroup [ref=e834]:
+              - row "Component Strength When to Use" [ref=e835]:
+                - columnheader "Component" [ref=e836]
+                - columnheader "Strength" [ref=e837]
+                - columnheader "When to Use" [ref=e838]
+            - rowgroup [ref=e839]:
+              - row "Commands Explicit, user-triggered workflows On-demand tasks the user consciously initiates" [ref=e840]:
+                - cell "Commands" [ref=e841]:
+                  - strong [ref=e842]: Commands
+                - cell "Explicit, user-triggered workflows" [ref=e843]
+                - cell "On-demand tasks the user consciously initiates" [ref=e844]
+              - row "Skills Automatic, context-aware guidance Standards enforcement, domain expertise" [ref=e845]:
+                - cell "Skills" [ref=e846]:
+                  - strong [ref=e847]: Skills
+                - cell "Automatic, context-aware guidance" [ref=e848]
+                - cell "Standards enforcement, domain expertise" [ref=e849]
+              - row "Agents Isolated, focused expertise Complex analysis, parallel processing" [ref=e850]:
+                - cell "Agents" [ref=e851]:
+                  - strong [ref=e852]: Agents
+                - cell "Isolated, focused expertise" [ref=e853]
+                - cell "Complex analysis, parallel processing" [ref=e854]
+              - row "Hooks Reactive, event-driven automation Guardrails, linting, logging, iterative loops" [ref=e855]:
+                - cell "Hooks" [ref=e856]:
+                  - strong [ref=e857]: Hooks
+                - cell "Reactive, event-driven automation" [ref=e858]
+                - cell "Guardrails, linting, logging, iterative loops" [ref=e859]
+              - row "MCP servers External system integration APIs, databases, browsers, third-party services" [ref=e860]:
+                - cell "MCP servers" [ref=e861]:
+                  - strong [ref=e862]: MCP servers
+                - cell "External system integration" [ref=e863]
+                - cell "APIs, databases, browsers, third-party services" [ref=e864]
+              - row "LSP servers Code intelligence Language-specific analysis and diagnostics" [ref=e865]:
+                - cell "LSP servers" [ref=e866]:
+                  - strong [ref=e867]: LSP servers
+                - cell "Code intelligence" [ref=e868]
+                - cell "Language-specific analysis and diagnostics" [ref=e869]
+              - row "Settings Session-wide configuration Default agent, global preferences" [ref=e870]:
+                - cell "Settings" [ref=e871]:
+                  - strong [ref=e872]: Settings
+                - cell "Session-wide configuration" [ref=e873]
+                - cell "Default agent, global preferences" [ref=e874]
+          - heading "Integration Flow" [level=3] [ref=e875]
+          - paragraph [ref=e877]: This layered architecture means a plugin can start simple (one command) and grow into a sophisticated system (commands + agents + skills + hooks + MCP) as needs evolve.
+          - separator [ref=e878]
+          - heading "References" [level=2] [ref=e879]
+          - list [ref=e880]:
+            - listitem [ref=e881]:
+              - link "Claude Code Plugins Documentation" [ref=e882] [cursor=pointer]:
+                - /url: https://code.claude.com/docs/en/plugins
+              - text: — Official plugin development guide covering all component types
+            - listitem [ref=e883]:
+              - link "Claude Code Architecture Overview" [ref=e884] [cursor=pointer]:
+                - /url: https://alexop.dev
+              - text: — Deep dive into MCP, subagents, and plugin integration patterns
+            - listitem [ref=e885]:
+              - link "Model Context Protocol Specification" [ref=e886] [cursor=pointer]:
+                - /url: https://modelcontextprotocol.io
+              - text: — The protocol standard for MCP server implementation
+            - listitem [ref=e887]:
+              - link "Language Server Protocol Specification" [ref=e888] [cursor=pointer]:
+                - /url: https://microsoft.github.io/language-server-protocol/
+              - text: — The LSP standard for code intelligence servers
+            - listitem [ref=e889]:
+              - link "Semantic Versioning" [ref=e890] [cursor=pointer]:
+                - /url: https://semver.org
+              - text: — The versioning scheme used for plugin versions
+            - listitem [ref=e891]:
+              - link "SPDX License List" [ref=e892] [cursor=pointer]:
+                - /url: https://spdx.org/licenses/
+              - text: — Standard license identifiers for the
+              - code [ref=e893]: license
+              - text: field in plugin.json
+  - img [ref=e895]

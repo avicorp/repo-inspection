@@ -1,0 +1,587 @@
+[
+  {
+    "id": "owasp-top10-repo-goals-1",
+    "topicSlug": "owasp-top10",
+    "question": "What is the primary purpose of the OWASP Top 10?",
+    "options": ["A penetration testing tool", "An awareness document about critical web security risks", "A compliance certification standard", "A firewall configuration guide"],
+    "correctIndex": 1,
+    "explanation": "The OWASP Top 10 is fundamentally an awareness document that identifies the most critical security risks to web applications. While it's referenced by compliance frameworks like PCI DSS and NIST, it is not itself a certification or a tool.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-repo-goals-2",
+    "topicSlug": "owasp-top10",
+    "question": "How many CWEs were analyzed in the OWASP Top 10:2025 edition?",
+    "options": ["248", "400", "589", "175,000"],
+    "correctIndex": 2,
+    "explanation": "The 2025 edition analyzed 589 CWEs, up from 400 in 2021. While 248 CWEs were ultimately mapped to the 10 categories, the analysis considered a much larger set. 175,000+ is the number of CVE records mapped, not CWEs.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-repo-goals-3",
+    "topicSlug": "owasp-top10",
+    "question": "Which category is #1 in the OWASP Top 10:2025?",
+    "options": ["Injection", "Security Misconfiguration", "Broken Access Control", "Cryptographic Failures"],
+    "correctIndex": 2,
+    "explanation": "Broken Access Control (A01) has held the #1 position since 2021. It was found in 100% of applications tested with 1.8 million occurrences. Injection dropped to #5, and Cryptographic Failures dropped to #4.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-repo-goals-4",
+    "topicSlug": "owasp-top10",
+    "question": "How are the 10 categories in the OWASP Top 10:2025 determined?",
+    "options": ["All 10 are voted on by the community", "All 10 are based on testing data", "8 from data, 2 from community survey", "5 from data, 5 from expert panel"],
+    "correctIndex": 2,
+    "explanation": "The OWASP Top 10 is 'data-informed, not data-driven.' 8 categories come from contributed testing data (2.8M+ applications), while 2 categories are from a community survey of practitioners, ensuring both measurable and emerging risks are covered.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-repo-goals-5",
+    "topicSlug": "owasp-top10",
+    "question": "Which two categories are NEW in the 2025 edition (not just renamed)?",
+    "options": ["Security Misconfiguration and Authentication Failures", "Software Supply Chain Failures and Mishandling of Exceptional Conditions", "Insecure Design and SSRF", "Cryptographic Failures and Injection"],
+    "correctIndex": 1,
+    "explanation": "A03 (Software Supply Chain Failures) is a major expansion of the former 'Vulnerable Components,' and A10 (Mishandling of Exceptional Conditions) is entirely new. SSRF was merged into A01 (Broken Access Control), not given its own category.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-repo-goals-6",
+    "topicSlug": "owasp-top10",
+    "question": "What happened to SSRF (Server-Side Request Forgery) in the 2025 edition?",
+    "options": ["It was removed entirely", "It became its own top-level category", "It was merged into A01: Broken Access Control", "It was merged into A05: Injection"],
+    "correctIndex": 2,
+    "explanation": "SSRF had its own category (A10) in 2021 but was merged into A01: Broken Access Control in 2025. SSRF is fundamentally an access control issue — the server makes requests that bypass intended access restrictions.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-repo-goals-7",
+    "topicSlug": "owasp-top10",
+    "question": "Why did Injection drop from #3 to #5 between 2021 and 2025?",
+    "options": ["Fewer applications use databases", "Parameterized queries and modern frameworks are reducing injection frequency", "The OWASP methodology changed to favor newer risks", "Injection was split into multiple categories"],
+    "correctIndex": 1,
+    "explanation": "The decline of injection is a genuine industry improvement. Widespread adoption of parameterized queries, ORMs, and modern frameworks that handle escaping by default has reduced the prevalence of injection vulnerabilities, though it remains common with 62,445 CVEs.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-repo-goals-8",
+    "topicSlug": "owasp-top10",
+    "question": "Which OWASP Top 10:2025 category has the highest average exploit and impact scores despite having the fewest occurrences?",
+    "options": ["A01: Broken Access Control", "A03: Software Supply Chain Failures", "A05: Injection", "A10: Mishandling of Exceptional Conditions"],
+    "correctIndex": 1,
+    "explanation": "A03 (Software Supply Chain Failures) has only 6 CWEs and 215K occurrences — the lowest in the Top 10 — but its average exploit and impact scores from CVEs are the highest. When supply chain attacks succeed, they tend to be catastrophic (e.g., SolarWinds, Log4Shell).",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-repo-goals-9",
+    "topicSlug": "owasp-top10",
+    "question": "What does it mean that the OWASP Top 10 focuses on 'root causes' rather than 'symptoms'?",
+    "options": ["It only lists vulnerabilities that can be found in source code", "Categories like 'Cryptographic Failure' address the underlying problem, not just the visible effect like 'Sensitive Data Exposure'", "It requires root cause analysis before listing any vulnerability", "It excludes client-side vulnerabilities"],
+    "correctIndex": 1,
+    "explanation": "In 2021, the methodology shifted to focus on root causes. For example, 'Sensitive Data Exposure' (a symptom) was renamed to 'Cryptographic Failures' (the root cause). This helps organizations fix the underlying problem rather than just patching visible effects.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-repo-goals-10",
+    "topicSlug": "owasp-top10",
+    "question": "How many applications' worth of testing data informed the OWASP Top 10:2025?",
+    "options": ["500,000+", "1 million+", "2.8 million+", "10 million+"],
+    "correctIndex": 2,
+    "explanation": "The 2025 edition was based on data from 2.8 million+ applications tested by 13+ data contributors. This massive dataset provides statistical significance for the category rankings and CWE mappings.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-llm-1",
+    "topicSlug": "owasp-top10",
+    "question": "What is the fundamental reason prompt injection is so difficult to prevent?",
+    "options": ["LLMs are too slow to validate input", "Natural language blurs the boundary between data and instructions", "Encryption cannot be applied to prompts", "LLMs don't support input validation"],
+    "correctIndex": 1,
+    "explanation": "Unlike SQL injection where code and data are structurally distinct, LLMs process everything as natural language tokens. There's no reliable way to make an LLM 'ignore' certain parts of its input while processing others — the model treats all tokens equally, making it fundamentally hard to separate instructions from data.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-llm-2",
+    "topicSlug": "owasp-top10",
+    "question": "What is 'indirect prompt injection'?",
+    "options": ["Injecting prompts through a VPN", "Hiding malicious instructions in external content that the LLM processes", "Using encrypted prompts to bypass safety filters", "Submitting prompts through an API instead of a chat interface"],
+    "correctIndex": 1,
+    "explanation": "Indirect prompt injection hides malicious instructions in content the LLM retrieves and processes — web pages, documents, emails. When the LLM summarizes or analyzes this content, it may follow the hidden instructions, even though the user never typed them.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-llm-3",
+    "topicSlug": "owasp-top10",
+    "question": "An LLM chatbot generates JavaScript that is directly rendered in users' browsers. Which LLM risk does this represent?",
+    "options": ["LLM01: Prompt Injection", "LLM05: Improper Output Handling", "LLM06: Excessive Agency", "LLM09: Misinformation"],
+    "correctIndex": 1,
+    "explanation": "LLM05 (Improper Output Handling) occurs when LLM-generated content is passed to downstream systems without validation. If generated JavaScript is rendered in a browser, it could execute XSS attacks. All LLM output should be treated as untrusted input.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-llm-4",
+    "topicSlug": "owasp-top10",
+    "question": "Your company's LLM assistant has access to email, calendar, and file deletion APIs. A prompt injection trick could make it delete important files. Which LLM risk category addresses this?",
+    "options": ["LLM01: Prompt Injection", "LLM06: Excessive Agency", "LLM08: Vector and Embedding Weaknesses", "LLM10: Unbounded Consumption"],
+    "correctIndex": 1,
+    "explanation": "While prompt injection (LLM01) is the attack vector, the core problem is LLM06: Excessive Agency — the LLM has been granted too much control over sensitive tools. The mitigation is to apply least privilege and require human-in-the-loop confirmation for destructive actions.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-llm-5",
+    "topicSlug": "owasp-top10",
+    "question": "What is a 'Denial of Wallet' (DoW) attack in the context of LLMs?",
+    "options": ["Stealing cryptocurrency through an LLM", "Exhausting an organization's LLM API budget through excessive requests", "Using an LLM to generate phishing emails targeting financial accounts", "Injecting prompts that cause the LLM to reveal payment information"],
+    "correctIndex": 1,
+    "explanation": "Denial of Wallet (DoW) is a variant of denial-of-service specific to pay-per-use AI services. Attackers flood APIs with requests or craft complex prompts that maximize token usage, causing unexpected financial costs. Mitigation includes rate limiting, hard token limits, and cost budget caps.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-llm-6",
+    "topicSlug": "owasp-top10",
+    "question": "How does LLM04 (Data and Model Poisoning) differ from LLM03 (Supply Chain)?",
+    "options": ["They are the same risk with different names", "LLM04 targets training/fine-tuning data, while LLM03 targets third-party components and infrastructure", "LLM03 is about open-source models, LLM04 is about proprietary models", "LLM04 only affects image generation models"],
+    "correctIndex": 1,
+    "explanation": "LLM03 (Supply Chain) covers vulnerabilities in third-party models, plugins, and infrastructure. LLM04 (Data and Model Poisoning) specifically targets the training or fine-tuning process — contaminating the data that shapes the model's behavior. One compromises what you use; the other corrupts how it learns.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-llm-7",
+    "topicSlug": "owasp-top10",
+    "question": "What is the primary mitigation for LLM09 (Misinformation/Hallucinations)?",
+    "options": ["Increasing model size", "Retrieval-Augmented Generation (RAG) with verified sources", "Removing all training data", "Using only open-source models"],
+    "correctIndex": 1,
+    "explanation": "RAG grounds LLM responses in verified, authoritative knowledge bases rather than relying solely on what the model learned during training. Combined with confidence scores, provenance tagging, and human validation for high-stakes domains, RAG is the primary defense against hallucinated content.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-llm-8",
+    "topicSlug": "owasp-top10",
+    "question": "A RAG system retrieves a poisoned document that ranks highly for a user's query, causing the LLM to give incorrect information. Which risk category does this fall under?",
+    "options": ["LLM01: Prompt Injection", "LLM04: Data and Model Poisoning", "LLM08: Vector and Embedding Weaknesses", "LLM09: Misinformation"],
+    "correctIndex": 2,
+    "explanation": "LLM08 (Vector and Embedding Weaknesses) specifically covers attacks on RAG systems — adversarial documents injected into vector databases that rank highly for target queries. While the result may be misinformation (LLM09), the attack vector is through the embedding/retrieval system.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "owasp-top10-llm-9",
+    "topicSlug": "owasp-top10",
+    "question": "Samsung's 2023 incident where engineers pasted proprietary code into ChatGPT illustrates which LLM risk?",
+    "options": ["LLM01: Prompt Injection", "LLM02: Sensitive Information Disclosure", "LLM06: Excessive Agency", "LLM07: System Prompt Leakage"],
+    "correctIndex": 1,
+    "explanation": "LLM02 (Sensitive Information Disclosure) covers LLMs exposing private data. Samsung engineers inadvertently disclosed trade secrets by inputting proprietary code into a public LLM service, where it could become part of training data. Mitigation includes data minimization and access controls.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-llm-10",
+    "topicSlug": "owasp-top10",
+    "question": "Which of the following is NOT a recommended mitigation for LLM system prompt leakage?",
+    "options": ["Store secrets outside the system prompt", "Use longer and more complex system prompts", "Implement context window segmentation", "Test regularly for prompt extraction attacks"],
+    "correctIndex": 1,
+    "explanation": "Making prompts longer or more complex does not prevent extraction — LLMs can still be tricked into revealing them. The correct mitigations are: keeping secrets out of prompts entirely, segmenting the context window, redacting prompts from logs, and regularly testing for extraction vulnerabilities.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-llm-11",
+    "topicSlug": "owasp-top10",
+    "question": "What moved from position #6 to #2 in the OWASP LLM Top 10 between 2024 and 2025?",
+    "options": ["Prompt Injection", "Sensitive Information Disclosure", "Supply Chain", "Improper Output Handling"],
+    "correctIndex": 1,
+    "explanation": "Sensitive Information Disclosure jumped from #6 to #2, reflecting the growing risk as LLMs are deployed in production with access to increasingly sensitive data. The Samsung incident and similar events raised industry awareness of this risk.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-access-1",
+    "topicSlug": "owasp-top10",
+    "question": "What is an IDOR (Insecure Direct Object Reference)?",
+    "options": ["A type of SQL injection attack", "When an application uses user-controllable identifiers to access objects without ownership verification", "A misconfigured firewall rule", "An encryption algorithm vulnerability"],
+    "correctIndex": 1,
+    "explanation": "IDOR occurs when an application exposes direct references to internal objects (like database IDs) in URLs or parameters, and doesn't verify that the requesting user is authorized to access that specific object. Changing ?user_id=100 to ?user_id=101 should be blocked but isn't.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-access-2",
+    "topicSlug": "owasp-top10",
+    "question": "What is the difference between vertical and horizontal privilege escalation?",
+    "options": ["Vertical is server-side, horizontal is client-side", "Vertical gains higher-level access (user→admin), horizontal accesses other users' data at the same level", "Vertical affects databases, horizontal affects file systems", "There is no meaningful difference"],
+    "correctIndex": 1,
+    "explanation": "Vertical privilege escalation means gaining a higher level of access (e.g., regular user accessing admin functionality). Horizontal escalation means accessing resources belonging to other users at the same privilege level (e.g., user A viewing user B's profile).",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-access-3",
+    "topicSlug": "owasp-top10",
+    "question": "Your web application hides the 'Delete User' button for non-admin users in the UI, but the API endpoint POST /api/admin/delete-user has no authorization check. Is this secure?",
+    "options": ["Yes, hiding the UI element prevents unauthorized access", "No, attackers can call the API directly bypassing the UI", "Yes, if the API requires authentication", "Partially secure — it's defense in depth"],
+    "correctIndex": 1,
+    "explanation": "Hiding UI elements is 'security theater' — it only prevents casual discovery, not intentional attacks. Attackers can use tools like curl, Postman, or browser DevTools to call API endpoints directly. Authorization must always be enforced server-side, on every endpoint.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-access-4",
+    "topicSlug": "owasp-top10",
+    "question": "What is the 'deny by default' principle in access control?",
+    "options": ["Block all network traffic unless explicitly allowed", "Start with no permissions granted and only add specific permissions as needed", "Deny access to all files on the server", "Require admin approval for every request"],
+    "correctIndex": 1,
+    "explanation": "Deny by default means starting with zero permissions and granting only the specific access needed. This is the opposite of starting with full access and trying to restrict specific actions. If a permission check is missing, the result is 'denied' rather than 'allowed.'",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-access-5",
+    "topicSlug": "owasp-top10",
+    "question": "In the 2023 Optus breach, approximately how many customer records were exposed through IDOR?",
+    "options": ["10,000", "100,000", "1 million", "10 million"],
+    "correctIndex": 3,
+    "explanation": "The Optus breach exposed nearly 10 million customer records, including driver's licenses and personal data, through an IDOR vulnerability. This demonstrates how a simple missing ownership check on an API endpoint can lead to massive data exposure.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-access-6",
+    "topicSlug": "owasp-top10",
+    "question": "What is SSRF (Server-Side Request Forgery)?",
+    "options": ["Forging SSL certificates", "Making the server request internal resources on the attacker's behalf", "Sending fake server responses to clients", "Spoofing server identity in DNS"],
+    "correctIndex": 1,
+    "explanation": "SSRF tricks the server into making HTTP requests to internal resources that the attacker can't reach directly. For example, requesting http://169.254.169.254/latest/meta-data/ through a vulnerable server can expose AWS instance credentials. SSRF was merged into A01 in 2025.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-access-7",
+    "topicSlug": "owasp-top10",
+    "question": "Which access control model uses attributes like user.department, resource.classification, and request.time to make authorization decisions?",
+    "options": ["RBAC (Role-Based Access Control)", "ABAC (Attribute-Based Access Control)", "MAC (Mandatory Access Control)", "DAC (Discretionary Access Control)"],
+    "correctIndex": 1,
+    "explanation": "ABAC (Attribute-Based Access Control) evaluates policies based on attributes of the user, resource, action, and environment. For example: 'Allow if user.department == resource.department AND user.clearance >= resource.classification.' RBAC uses simpler role-based permissions.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-access-8",
+    "topicSlug": "owasp-top10",
+    "question": "A developer protects GET /api/users/42 but forgets to protect DELETE /api/users/42. What type of access control vulnerability is this?",
+    "options": ["IDOR", "HTTP Method Confusion", "CSRF", "Vertical Privilege Escalation"],
+    "correctIndex": 1,
+    "explanation": "HTTP Method Confusion occurs when different HTTP methods (GET, POST, PUT, DELETE) on the same endpoint have inconsistent authorization. Protecting GET but not DELETE means an attacker who discovers the endpoint can delete resources even if they can't read them.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-access-9",
+    "topicSlug": "owasp-top10",
+    "question": "What percentage of applications tested had some form of broken access control in the OWASP 2025 data?",
+    "options": ["50%", "75%", "90%", "100%"],
+    "correctIndex": 3,
+    "explanation": "100% of applications tested had some form of broken access control. This makes it the most prevalent vulnerability category in the entire OWASP Top 10:2025, which is why it holds the #1 position.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-access-10",
+    "topicSlug": "owasp-top10",
+    "question": "Why should authorization logic be centralized in middleware rather than implemented in each endpoint?",
+    "options": ["Middleware is faster than endpoint-level checks", "It ensures consistent enforcement and prevents gaps when new endpoints are added", "Middleware can access the database more efficiently", "It's required by OWASP standards"],
+    "correctIndex": 1,
+    "explanation": "Centralizing authorization in middleware ensures every request passes through the same checks. When authorization is scattered across individual endpoints, it's easy to forget checks on new endpoints or implement them inconsistently — both of which create access control gaps.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-injection-1",
+    "topicSlug": "owasp-top10",
+    "question": "What is the fundamental cause of injection vulnerabilities?",
+    "options": ["Using open-source software", "Mixing user-supplied data with executable code without proper separation", "Not using a web application firewall", "Running applications on outdated servers"],
+    "correctIndex": 1,
+    "explanation": "Injection occurs when user-supplied data is concatenated into executable statements (SQL queries, OS commands, HTML output) without proper separation. The interpreter can't distinguish between the developer's code and the attacker's injected commands.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-injection-2",
+    "topicSlug": "owasp-top10",
+    "question": "Given this code: `query = \"SELECT * FROM users WHERE name = '\" + username + \"'\"`, what input would bypass authentication?",
+    "options": ["admin", "' OR '1'='1", "SELECT * FROM users", "DROP TABLE users"],
+    "correctIndex": 1,
+    "explanation": "The input ' OR '1'='1 closes the string literal, adds an OR condition that's always true, and balances the quotes. The resulting query becomes SELECT * FROM users WHERE name = '' OR '1'='1' — which returns all users. DROP TABLE would need a different injection point.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-injection-3",
+    "topicSlug": "owasp-top10",
+    "question": "What is the PRIMARY defense against SQL injection?",
+    "options": ["Input validation with regex", "Web Application Firewall (WAF)", "Parameterized queries (prepared statements)", "Escaping special characters"],
+    "correctIndex": 2,
+    "explanation": "Parameterized queries (prepared statements) are the primary defense because they structurally separate SQL code from data. The database engine treats parameters as values, never as executable SQL. WAFs and input validation are supplementary defenses, and escaping is fragile and error-prone.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-injection-4",
+    "topicSlug": "owasp-top10",
+    "question": "Which type of XSS permanently stores the malicious script on the server?",
+    "options": ["Reflected XSS", "Stored XSS", "DOM-based XSS", "Blind XSS"],
+    "correctIndex": 1,
+    "explanation": "Stored (persistent) XSS saves the malicious script in the application's database (e.g., in a comment or profile field). Every user who views that content has the script execute in their browser. Reflected XSS requires the victim to click a crafted link, and DOM-based XSS only involves client-side JavaScript.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-injection-5",
+    "topicSlug": "owasp-top10",
+    "question": "What HTTP header is the primary defense against XSS attacks?",
+    "options": ["X-Frame-Options", "Content-Security-Policy", "Strict-Transport-Security", "X-Content-Type-Options"],
+    "correctIndex": 1,
+    "explanation": "Content-Security-Policy (CSP) controls which scripts can execute on a page. With a strict CSP using nonces (script-src 'nonce-abc123'), inline scripts injected by attackers will be blocked by the browser because they won't have the correct nonce. HSTS protects transport, not content.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-injection-6",
+    "topicSlug": "owasp-top10",
+    "question": "Why is escaping special characters considered a WEAK defense against SQL injection?",
+    "options": ["It's too slow for production use", "It's database-specific, fragile, and easy to get wrong", "It doesn't work with modern databases", "It requires too much memory"],
+    "correctIndex": 1,
+    "explanation": "Escaping is database-specific (MySQL escaping rules differ from PostgreSQL), fragile (easy to miss edge cases), and error-prone (developers may forget to escape in some code paths). Parameterized queries eliminate the problem structurally rather than trying to fix it with string manipulation.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-injection-7",
+    "topicSlug": "owasp-top10",
+    "question": "Which Python code is vulnerable to OS command injection?",
+    "options": ["subprocess.run(['nslookup', domain])", "os.system(f'nslookup {domain}')", "subprocess.run(['nslookup', domain], check=True)", "shlex.quote(domain) used with subprocess"],
+    "correctIndex": 1,
+    "explanation": "os.system() passes the entire string to the shell for interpretation. If domain contains '; cat /etc/passwd', it will execute both commands. subprocess.run() with a list of arguments passes each argument separately, preventing shell interpretation of special characters.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-injection-8",
+    "topicSlug": "owasp-top10",
+    "question": "Are stored procedures always safe from SQL injection?",
+    "options": ["Yes, stored procedures are inherently safe", "No, stored procedures using dynamic SQL (like EXECUTE IMMEDIATE) can still be vulnerable", "Yes, because the database compiles them in advance", "No, but only if the database is outdated"],
+    "correctIndex": 1,
+    "explanation": "Stored procedures that use parameterized queries internally are safe. However, procedures that build dynamic SQL using string concatenation (like PL/SQL's EXECUTE IMMEDIATE with concatenated variables) are just as vulnerable as application-level string concatenation.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "owasp-top10-injection-9",
+    "topicSlug": "owasp-top10",
+    "question": "When is allow-list input validation the appropriate defense instead of parameterized queries?",
+    "options": ["Always — it's stronger than parameterized queries", "When dealing with table or column names that cannot be parameterized", "Only for numeric inputs", "Never — parameterized queries are always sufficient"],
+    "correctIndex": 1,
+    "explanation": "Parameterized queries can only handle values, not structural elements like table names, column names, or ORDER BY directions. For these, allow-list validation (mapping user input to a predefined set of safe values via switch/case) is the correct approach.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "owasp-top10-injection-10",
+    "topicSlug": "owasp-top10",
+    "question": "Which injection type has the most CVEs in the OWASP Top 10:2025 data?",
+    "options": ["SQL injection (~14,000 CVEs)", "XSS (~30,000 CVEs)", "Command injection (~8,000 CVEs)", "LDAP injection (~2,000 CVEs)"],
+    "correctIndex": 1,
+    "explanation": "Cross-Site Scripting (XSS) has over 30,000 CVEs, making it the most frequently reported injection type. SQL injection follows with approximately 14,000 CVEs. Despite having more CVEs, XSS is generally considered lower severity per-incident than SQL injection or command injection.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-injection-11",
+    "topicSlug": "owasp-top10",
+    "question": "What is DOM-based XSS and how does it differ from reflected and stored XSS?",
+    "options": ["It only affects the Document Object Model and is harmless", "The vulnerability exists entirely in client-side JavaScript — the server never sees the malicious input", "It requires direct access to the server's DOM", "It only works on older browsers"],
+    "correctIndex": 1,
+    "explanation": "DOM-based XSS occurs when client-side JavaScript reads data from an attacker-controlled source (like the URL) and writes it to a dangerous sink (like innerHTML) without sanitization. The server never processes the malicious input, so server-side defenses don't help.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-supply-1",
+    "topicSlug": "owasp-top10",
+    "question": "What does SBOM stand for and why is it important?",
+    "options": ["Software Build Operations Manual — documents how to build software", "Software Bill of Materials — a complete inventory of all components in your software", "System Backup and Operations Management — backup procedures", "Secure Binary Object Map — tracks binary dependencies"],
+    "correctIndex": 1,
+    "explanation": "A Software Bill of Materials (SBOM) is the 'ingredient list' for your application — it catalogs every component, library, and dependency. It's critical for vulnerability management because you can't patch what you don't know you're using (e.g., Log4Shell affected many organizations that didn't know they used Log4j).",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-supply-2",
+    "topicSlug": "owasp-top10",
+    "question": "In the SolarWinds attack, how was malicious code distributed to approximately 18,000 organizations?",
+    "options": ["Through phishing emails", "Injected into the build process and distributed as a legitimate software update", "Through a compromised npm package", "Via a zero-day browser vulnerability"],
+    "correctIndex": 1,
+    "explanation": "Attackers compromised SolarWinds' build environment and injected malware into the Orion software build. Because the malicious update was signed and distributed through normal channels, organizations trusted and installed it as a routine update. This is why CI/CD pipeline hardening is critical.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-supply-3",
+    "topicSlug": "owasp-top10",
+    "question": "What was unique about the Shai-Hulud npm worm (2025)?",
+    "options": ["It was the first supply chain attack ever", "It was the first self-propagating npm worm — it harvested npm tokens and automatically published malicious versions of packages", "It only affected private npm registries", "It was stopped before infecting any packages"],
+    "correctIndex": 1,
+    "explanation": "Shai-Hulud was the first successful self-spreading npm worm. Unlike manual supply chain attacks, it automated propagation: it harvested npm authentication tokens from infected environments and used them to publish malicious versions of any accessible packages, reaching 500+ package versions.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-supply-4",
+    "topicSlug": "owasp-top10",
+    "question": "What are the two major SBOM formats?",
+    "options": ["JSON and XML", "SPDX and CycloneDX", "CSV and YAML", "Maven and Gradle"],
+    "correctIndex": 1,
+    "explanation": "SPDX (ISO/IEC 5962:2021) is compliance-focused with strong license tracking. CycloneDX (an OWASP standard) is security-focused with strong vulnerability correlation. Both are machine-readable and should be generated automatically during the build process.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-supply-5",
+    "topicSlug": "owasp-top10",
+    "question": "Why should CI/CD build environments be ephemeral (destroyed after each build)?",
+    "options": ["To save cloud computing costs", "To prevent persistent compromises — if a build is compromised, the environment doesn't persist to infect future builds", "To improve build speed", "It's an industry convention with no security benefit"],
+    "correctIndex": 1,
+    "explanation": "Ephemeral build environments ensure that if a build process is compromised (through a malicious dependency, for example), the compromise doesn't persist to affect future builds. Each build starts clean, limiting the blast radius of any single compromise.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-supply-6",
+    "topicSlug": "owasp-top10",
+    "question": "What does SLSA stand for and what does Level 3 require?",
+    "options": ["Software License Security Agreement — requires all licenses be reviewed", "Supply-chain Levels for Software Artifacts — Level 3 requires isolated, ephemeral build environments", "Secure Library Source Authentication — Level 3 requires code signing", "Software Lifecycle Security Assessment — Level 3 requires annual audits"],
+    "correctIndex": 1,
+    "explanation": "SLSA (Supply-chain Levels for Software Artifacts) is a framework for build integrity. Level 1 requires documentation, Level 2 requires hosted builds with authenticated provenance, Level 3 requires isolated and ephemeral build environments, and Level 4 requires hermetic, reproducible builds.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-supply-7",
+    "topicSlug": "owasp-top10",
+    "question": "Why is tracking transitive dependencies critical for supply chain security?",
+    "options": ["Transitive dependencies use more memory", "You can't patch vulnerabilities in libraries you don't know you're using (e.g., Log4Shell)", "Transitive dependencies are always outdated", "It's required by software licenses"],
+    "correctIndex": 1,
+    "explanation": "Transitive dependencies are your dependencies' dependencies. Log4Shell demonstrated this risk: many applications were vulnerable because Log4j was a transitive dependency they didn't know about. Without tracking the full dependency tree, you have invisible attack surface.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-supply-8",
+    "topicSlug": "owasp-top10",
+    "question": "What principle ensures that no single person can both write code AND promote it to production?",
+    "options": ["Least privilege", "Separation of duties", "Defense in depth", "Zero trust"],
+    "correctIndex": 1,
+    "explanation": "Separation of duties requires that different people handle different stages of the software lifecycle. This prevents a single compromised or malicious insider from pushing malicious code directly to production. It requires at least two people to be involved in the path from code to deployment.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-supply-9",
+    "topicSlug": "owasp-top10",
+    "question": "In the Bybit attack (2025), what made the malicious code especially hard to detect?",
+    "options": ["It was encrypted", "It only executed when the specific target wallet was being used", "It was written in a rare programming language", "It was hidden in image files"],
+    "correctIndex": 1,
+    "explanation": "The Bybit supply chain attack was surgically targeted — the malicious code was designed to activate only when the specific target wallet was accessed. During testing and normal operation, the code was dormant, making it extremely difficult to detect through standard testing or code review.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "owasp-top10-supply-10",
+    "topicSlug": "owasp-top10",
+    "question": "Why should dependency updates use staged rollouts or canary deployments?",
+    "options": ["To test performance in production", "To limit blast radius if a trusted vendor's update is compromised", "To reduce deployment costs", "To comply with open-source licenses"],
+    "correctIndex": 1,
+    "explanation": "Staged rollouts deploy updates to a small percentage of systems first, monitoring for issues before full deployment. If a legitimate vendor's update is compromised (as in SolarWinds), only a fraction of your infrastructure is affected, giving you time to detect and respond.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-crypto-1",
+    "topicSlug": "owasp-top10",
+    "question": "Which encryption algorithm should be used for data at rest?",
+    "options": ["DES", "3DES", "AES-256 in GCM mode", "RC4"],
+    "correctIndex": 2,
+    "explanation": "AES-256 in GCM (Galois/Counter Mode) provides both confidentiality and authenticity. DES has a 56-bit key (trivially breakable), 3DES is deprecated, and RC4 has multiple known biases. GCM mode is preferred over ECB (which leaks patterns) and CBC (which has padding oracle vulnerabilities).",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-crypto-2",
+    "topicSlug": "owasp-top10",
+    "question": "What is the recommended password hashing algorithm for new applications?",
+    "options": ["SHA-256", "MD5 with salt", "Argon2id", "bcrypt"],
+    "correctIndex": 2,
+    "explanation": "Argon2id is the winner of the Password Hashing Competition and the top recommended choice. It's memory-hard (resistant to GPU attacks) and combines protections against both side-channel and time-memory tradeoff attacks. bcrypt is still acceptable for legacy systems, but Argon2id is preferred for new applications.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-crypto-3",
+    "topicSlug": "owasp-top10",
+    "question": "Why is MD5 considered cryptographically broken for security purposes?",
+    "options": ["It's too slow for modern hardware", "Collision attacks are trivial — two different inputs can produce the same hash", "It produces hashes that are too short", "It only works on small files"],
+    "correctIndex": 1,
+    "explanation": "MD5 has known collision vulnerabilities — attackers can efficiently find two different inputs that produce the same hash. This breaks integrity verification, digital signatures, and password storage. SHA-256 or SHA-3 should be used instead for any security-sensitive hashing.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-crypto-4",
+    "topicSlug": "owasp-top10",
+    "question": "What does HSTS (HTTP Strict Transport Security) do?",
+    "options": ["Encrypts data at rest", "Tells browsers to only communicate with the server over HTTPS", "Blocks SQL injection attacks", "Validates server certificates"],
+    "correctIndex": 1,
+    "explanation": "HSTS tells browsers to only use HTTPS for all future requests to that domain, preventing protocol downgrade attacks and cookie hijacking over HTTP. The header Strict-Transport-Security: max-age=31536000; includeSubDomains; preload ensures all connections are encrypted.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-crypto-5",
+    "topicSlug": "owasp-top10",
+    "question": "What is 'forward secrecy' in TLS?",
+    "options": ["Encrypting data before sending it forward to the server", "If a server's private key is compromised, past encrypted sessions remain secure", "Forwarding encrypted traffic through a proxy", "Using future encryption standards for backward compatibility"],
+    "correctIndex": 1,
+    "explanation": "Forward secrecy (also called Perfect Forward Secrecy) uses ephemeral key exchange so each session has its own unique encryption key. If the server's long-term private key is later compromised, previously recorded encrypted traffic cannot be decrypted because each session used a different key.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-crypto-6",
+    "topicSlug": "owasp-top10",
+    "question": "By what date does OWASP recommend high-risk systems be quantum-safe?",
+    "options": ["2025", "2027", "2030", "2035"],
+    "correctIndex": 2,
+    "explanation": "OWASP guidance states that high-risk systems must be quantum-safe by end of 2030. Quantum computers threaten current public-key cryptography (RSA, ECC, Diffie-Hellman). NIST published the first post-quantum encryption standards in 2024, and organizations should begin planning migration now.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-crypto-7",
+    "topicSlug": "owasp-top10",
+    "question": "What is the modern NIST 800-63b guidance on password rotation?",
+    "options": ["Rotate passwords every 30 days", "Rotate passwords every 90 days", "Don't force rotation unless a breach is suspected", "Rotate passwords annually"],
+    "correctIndex": 2,
+    "explanation": "NIST 800-63b recommends against forced periodic password rotation. Research shows it leads to weaker passwords (users make predictable changes like Winter2025→Winter2026). Instead, focus on longer passwords, breach credential checking, and MFA. Only force changes when a breach is suspected.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-crypto-8",
+    "topicSlug": "owasp-top10",
+    "question": "Why should authentication error messages be identical for all failure reasons?",
+    "options": ["To simplify error handling code", "To prevent account enumeration — attackers shouldn't learn whether a username exists", "To reduce log file size", "It's a GDPR requirement"],
+    "correctIndex": 1,
+    "explanation": "Different messages like 'Username not found' vs 'Incorrect password' tell attackers which usernames are valid, enabling targeted attacks. A uniform message like 'Invalid username or password' prevents enumeration — attackers can't distinguish between invalid usernames and wrong passwords.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "owasp-top10-crypto-9",
+    "topicSlug": "owasp-top10",
+    "question": "What is a 'hybrid password spray attack'?",
+    "options": ["Using both automated and manual password guessing", "Incrementing known leaked passwords (Winter2025 → Winter2026, Winter2025!)", "Combining dictionary and brute force attacks", "Spraying passwords across multiple authentication providers"],
+    "correctIndex": 1,
+    "explanation": "Hybrid password spray attacks take known leaked passwords and generate variations by incrementing years, adding special characters, or making predictable substitutions. This bypasses detection systems that look for repeated identical attempts and exploits the human tendency to make minimal password changes.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-crypto-10",
+    "topicSlug": "owasp-top10",
+    "question": "Why are passkeys/FIDO2 considered phishing-resistant?",
+    "options": ["They use longer passwords", "The private key is bound to the specific origin (domain) and never leaves the device", "They require biometric authentication", "They use quantum-resistant encryption"],
+    "correctIndex": 1,
+    "explanation": "Passkeys use public-key cryptography where the private key is bound to the specific website origin (e.g., bank.com) and never leaves the user's device. A phishing site at fake-bank.com can't trigger the passkey for bank.com because the origin doesn't match. Biometrics are just the local unlock mechanism.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-crypto-11",
+    "topicSlug": "owasp-top10",
+    "question": "Which JWT claims should always be validated to prevent token misuse?",
+    "options": ["sub and name", "aud (audience) and iss (issuer)", "typ and alg", "jti and nbf"],
+    "correctIndex": 1,
+    "explanation": "The aud (audience) claim specifies who the token is intended for, and iss (issuer) specifies who created it. Validating these prevents token confusion attacks where a token issued for one service is used to authenticate to another. Always also validate exp (expiration) and scopes.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-crypto-12",
+    "topicSlug": "owasp-top10",
+    "question": "In the Equifax breach (2017), what cryptographic failure led to 147 million records being exposed?",
+    "options": ["Weak TLS configuration", "Social Security Numbers stored in plaintext", "Expired SSL certificates", "Use of deprecated MD5 hashing"],
+    "correctIndex": 1,
+    "explanation": "Equifax stored Social Security Numbers and other sensitive data without encryption (plaintext). When attackers exploited an Apache Struts vulnerability to gain access, there was no encryption layer to protect the data at rest. This violated basic cryptographic best practices for sensitive data classification.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "owasp-top10-crypto-13",
+    "topicSlug": "owasp-top10",
+    "question": "What should you do with session IDs after a user logs out?",
+    "options": ["Keep them valid for 24 hours in case the user returns", "Invalidate them immediately on the server side", "Recycle them for the next user", "Only invalidate them if the user explicitly requests it"],
+    "correctIndex": 1,
+    "explanation": "Session IDs must be invalidated immediately upon logout on the server side. If sessions remain valid after logout, an attacker who has stolen the session ID (through XSS, network interception, or physical access) can continue using it. Generate a new session ID after each successful login to prevent fixation.",
+    "difficulty": "easy"
+  }
+]

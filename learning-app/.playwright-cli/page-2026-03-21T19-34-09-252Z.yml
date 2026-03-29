@@ -1,0 +1,92 @@
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Claude Code Learning Hub" [ref=e6] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e7]:
+        - link "Topics" [ref=e8] [cursor=pointer]:
+          - /url: /
+        - link "Quiz" [ref=e9] [cursor=pointer]:
+          - /url: /quiz
+  - main [ref=e10]:
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - heading "Claude Code Learning Hub" [level=1] [ref=e13]
+        - paragraph [ref=e14]: A comprehensive learning guide for professionals who want to contribute to the Claude Code repository. 9 topics, 96 quiz questions.
+      - generic [ref=e15]:
+        - link "01 Claude Code — Repository Learning Guide →" [ref=e16] [cursor=pointer]:
+          - /url: /topic/overview
+          - generic [ref=e17]:
+            - generic [ref=e18]: "01"
+            - heading "Claude Code — Repository Learning Guide" [level=2] [ref=e20]
+            - generic [ref=e21]: →
+        - 'link "02 Claude Code: Agentic Coding Tool for the Terminal 12 quiz questions →" [ref=e22] [cursor=pointer]':
+          - /url: /topic/repo-goals
+          - generic [ref=e23]:
+            - generic [ref=e24]: "02"
+            - generic [ref=e25]:
+              - 'heading "Claude Code: Agentic Coding Tool for the Terminal" [level=2] [ref=e26]'
+              - generic [ref=e27]: 12 quiz questions
+            - generic [ref=e28]: →
+        - 'link "03 Claude Code as a User: CLI Features and Workflows 12 quiz questions →" [ref=e29] [cursor=pointer]':
+          - /url: /topic/cli-features
+          - generic [ref=e30]:
+            - generic [ref=e31]: "03"
+            - generic [ref=e32]:
+              - 'heading "Claude Code as a User: CLI Features and Workflows" [level=2] [ref=e33]'
+              - generic [ref=e34]: 12 quiz questions
+            - generic [ref=e35]: →
+        - link "04 Plugin Development Deep Dive 12 quiz questions →" [ref=e36] [cursor=pointer]:
+          - /url: /topic/plugin-development
+          - generic [ref=e37]:
+            - generic [ref=e38]: "04"
+            - generic [ref=e39]:
+              - heading "Plugin Development Deep Dive" [level=2] [ref=e40]
+              - generic [ref=e41]: 12 quiz questions
+            - generic [ref=e42]: →
+        - link "05 Repository Automation and Scripts Deep Dive 12 quiz questions →" [ref=e43] [cursor=pointer]:
+          - /url: /topic/repo-automation
+          - generic [ref=e44]:
+            - generic [ref=e45]: "05"
+            - generic [ref=e46]:
+              - heading "Repository Automation and Scripts Deep Dive" [level=2] [ref=e47]
+              - generic [ref=e48]: 12 quiz questions
+            - generic [ref=e49]: →
+        - link "06 Contributing to Claude Code 12 quiz questions →" [ref=e50] [cursor=pointer]:
+          - /url: /topic/contributing
+          - generic [ref=e51]:
+            - generic [ref=e52]: "06"
+            - generic [ref=e53]:
+              - heading "Contributing to Claude Code" [level=2] [ref=e54]
+              - generic [ref=e55]: 12 quiz questions
+            - generic [ref=e56]: →
+        - link "07 Pull Request Review Patterns in Claude Code 12 quiz questions →" [ref=e57] [cursor=pointer]:
+          - /url: /topic/pr-reviews
+          - generic [ref=e58]:
+            - generic [ref=e59]: "07"
+            - generic [ref=e60]:
+              - heading "Pull Request Review Patterns in Claude Code" [level=2] [ref=e61]
+              - generic [ref=e62]: 12 quiz questions
+            - generic [ref=e63]: →
+        - link "08 The CHANGELOG as a Product Roadmap 12 quiz questions →" [ref=e64] [cursor=pointer]:
+          - /url: /topic/changelog-roadmap
+          - generic [ref=e65]:
+            - generic [ref=e66]: "08"
+            - generic [ref=e67]:
+              - heading "The CHANGELOG as a Product Roadmap" [level=2] [ref=e68]
+              - generic [ref=e69]: 12 quiz questions
+            - generic [ref=e70]: →
+        - link "09 Recent Changes in Claude Code (March 2026) 12 quiz questions →" [ref=e71] [cursor=pointer]:
+          - /url: /topic/recent-changes
+          - generic [ref=e72]:
+            - generic [ref=e73]: "09"
+            - generic [ref=e74]:
+              - heading "Recent Changes in Claude Code (March 2026)" [level=2] [ref=e75]
+              - generic [ref=e76]: 12 quiz questions
+            - generic [ref=e77]: →
+      - link "Take the Quiz Test your knowledge across all 96 questions →" [ref=e79] [cursor=pointer]:
+        - /url: /quiz
+        - generic [ref=e80]:
+          - heading "Take the Quiz" [level=2] [ref=e81]
+          - paragraph [ref=e82]: Test your knowledge across all 96 questions
+        - generic [ref=e83]: →

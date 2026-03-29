@@ -1,0 +1,1442 @@
+[
+  {
+    "id": "claude-code-repo-goals-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "What is the primary way Claude Code differs from a traditional AI chatbot?",
+    "options": [
+      "It acts as an agent that reads files, runs commands, and takes actions in your development environment",
+      "It requires an internet connection to function at all times",
+      "It provides a graphical user interface for coding assistance",
+      "It generates code snippets but cannot execute them"
+    ],
+    "correctIndex": 0,
+    "explanation": "Claude Code is an agent, not a chatbot. It does not just answer questions — it reads your files, runs commands, manages git workflows, and takes autonomous actions in your development environment. This is a fundamental distinction from chat-based AI tools.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-goals-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "What does the public Claude Code GitHub repository primarily contain?",
+    "options": [
+      "Plugins, documentation, community scripts, and the plugin marketplace",
+      "The full application source code and build system",
+      "Pre-compiled binaries for all platforms",
+      "Internal testing frameworks and benchmarks"
+    ],
+    "correctIndex": 0,
+    "explanation": "The public repository is the extensibility layer and community hub. It contains official plugins, documentation (README, CHANGELOG, SECURITY), community automation scripts, and the plugin marketplace registry. The core Claude Code engine is closed-source and distributed via installers.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-goals-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "How many official plugins does the Claude Code repository ship with?",
+    "options": [
+      "13",
+      "8",
+      "5",
+      "20"
+    ],
+    "correctIndex": 0,
+    "explanation": "The repository ships with 13 official plugins organized into categories including Development Workflow, Code Quality & Security, Learning & Output, and Specialized Tools.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-goals-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "Which of the following is NOT a surface where Claude Code can be used?",
+    "options": [
+      "Terminal via the `claude` command",
+      "Mobile applications on iOS and Android",
+      "IDE integration with editors like VS Code",
+      "GitHub by tagging @claude on issues and PRs"
+    ],
+    "correctIndex": 1,
+    "explanation": "Claude Code is designed to work across three surfaces: the terminal (direct CLI interaction), IDE integration (like VS Code), and GitHub (tagging @claude on issues and pull requests). Mobile applications are not listed as a supported surface.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-goals-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "What three categories of data does Claude Code collect from users?",
+    "options": [
+      "Source code, test results, and deployment logs",
+      "Personal information, browsing history, and file metadata",
+      "API keys, repository URLs, and commit messages",
+      "Usage data, conversation data, and user feedback"
+    ],
+    "correctIndex": 3,
+    "explanation": "Claude Code collects three categories of data: usage data (how the tool is used), conversation data (the content of interactions with the AI), and user feedback (explicit feedback submitted by users). This is disclosed upfront in the README as a transparency measure.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-goals-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "Which platform does Anthropic use for responsible disclosure of security vulnerabilities in Claude Code?",
+    "options": [
+      "A private GitHub Security Advisory",
+      "The Anthropic Developer Forums",
+      "HackerOne, Anthropic's Vulnerability Disclosure Program",
+      "A dedicated email address listed in SECURITY.md"
+    ],
+    "correctIndex": 2,
+    "explanation": "Security vulnerabilities are reported through HackerOne, Anthropic's Vulnerability Disclosure Program. This is standard practice for production-grade developer tools and ensures vulnerabilities can be patched before public disclosure. Public GitHub Issues should never be used for security reports.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-goals-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "What is the purpose of the `.claude-plugin/marketplace.json` file in the repository?",
+    "options": [
+      "It stores API credentials for the marketplace",
+      "It contains the source code for the marketplace web interface",
+      "It logs plugin installation history for analytics",
+      "It is a registry for discovering and installing plugins"
+    ],
+    "correctIndex": 3,
+    "explanation": "The marketplace.json file serves as a centralized registry that lists available plugins for discovery and installation. Starting with v2.1.80, this moved the ecosystem from manual plugin management toward a curated, searchable registry.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-goals-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "Why is the public repository described as 'the ecosystem, not the engine'?",
+    "options": [
+      "Because the core CLI is closed-source, and the public repo provides plugins, docs, and community infrastructure that extend it",
+      "Because the repository only contains test files and no production code",
+      "Because the repository is solely used for issue tracking and project management",
+      "Because the engine runs entirely in the cloud and does not need source code"
+    ],
+    "correctIndex": 0,
+    "explanation": "The core Claude Code binary is closed-source and distributed through package managers. The public repository serves as the extensibility layer — providing plugins, documentation, automation scripts, and the marketplace. Understanding this boundary is essential because it determines what you can and cannot contribute to.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-goals-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "A security-conscious organization wants to enforce consistent coding practices across all developers using Claude Code. Which plugin capability would best serve this goal?",
+    "options": [
+      "Commands, because users can invoke security checks on demand",
+      "Skills, because they provide educational content about security",
+      "MCP servers, because they connect to external security scanning tools",
+      "Hooks, because they run automatically at lifecycle points and enforce policies without relying on user action"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hooks run automatically at lifecycle points (e.g., before a commit, after file edits), making them ideal for organizational standards enforcement. Unlike commands which users must remember to invoke, hooks ensure policies are applied consistently. The security-guidance plugin demonstrates this pattern.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-goals-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "What does the code-review plugin's architecture of dispatching 5 parallel Sonnet agents demonstrate about Claude Code?",
+    "options": [
+      "That Claude Code can only use the Sonnet model for code review",
+      "That code reviews always require exactly 5 agents to be effective",
+      "That Claude Code supports sophisticated multi-agent patterns beyond simple request-response",
+      "That parallel processing is the only way to do code reviews in Claude Code"
+    ],
+    "correctIndex": 2,
+    "explanation": "The code-review plugin dispatches 5 parallel agents, each focusing on a different aspect of code quality (logic, performance, security, style, documentation). This demonstrates that Claude Code supports real multi-agent architectures where multiple agents work concurrently and their results are synthesized, going well beyond simple single-agent interactions.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-goals-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "How does Claude Code's multi-surface approach (terminal, IDE, GitHub) benefit a professional engineering workflow compared to a terminal-only tool?",
+    "options": [
+      "It reduces the need for any human involvement in development",
+      "It fits into existing workflows from local development through CI/CD pipelines and code review, meeting developers wherever they work",
+      "It requires less computing power by distributing work across surfaces",
+      "It allows multiple developers to share the same Claude Code session simultaneously"
+    ],
+    "correctIndex": 1,
+    "explanation": "The multi-surface approach means Claude Code integrates into the full engineering lifecycle rather than being confined to one context. Developers can use it in their terminal for local work, in their IDE while editing, and on GitHub for automated PR assistance — creating a continuous AI-assisted workflow across all stages of development.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-goals-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-goals",
+    "question": "Given that the core Claude Code engine is closed-source but the plugin ecosystem is open, what architectural trade-off does this design represent, and why might Anthropic have chosen it?",
+    "options": [
+      "It sacrifices community trust for faster development speed by hiding all code",
+      "It prevents any external contributions from affecting product quality",
+      "It is a temporary arrangement until the full codebase can be open-sourced",
+      "It balances intellectual property protection for the core AI integration with community extensibility through a well-defined plugin interface, allowing third-party innovation without exposing proprietary model integration details"
+    ],
+    "correctIndex": 3,
+    "explanation": "This architecture represents a deliberate trade-off: keeping the core engine closed-source protects proprietary AI integration, sandbox security, and streaming infrastructure, while the open plugin system provides a well-defined extension surface for community innovation. This lets Anthropic maintain control over security-critical components while enabling a thriving ecosystem of extensions — a pattern common in mature developer platforms.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "claude-code-cli-features-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "What are the three phases of Claude Code's agentic loop?",
+    "options": [
+      "Gather Context, Take Action, Verify Results",
+      "Read, Write, Execute",
+      "Input, Process, Output",
+      "Plan, Implement, Test"
+    ],
+    "correctIndex": 0,
+    "explanation": "The agentic loop works through three phases: Gather Context (reading files, searching patterns, examining code), Take Action (editing files, running commands), and Verify Results (running tests, confirming correctness). If verification finds issues, the loop cycles back to gathering more context.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-cli-features-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "What is the difference between interactive mode and print mode in Claude Code?",
+    "options": [
+      "Interactive mode opens a persistent session for back-and-forth conversation, while print mode processes a query and exits immediately",
+      "Interactive mode requires a GUI, print mode uses the terminal",
+      "Interactive mode is for experienced users, print mode is for beginners",
+      "Interactive mode supports plugins, print mode does not"
+    ],
+    "correctIndex": 0,
+    "explanation": "Interactive mode (invoked with `claude` or `claude \"query\"`) opens a persistent session where you can have a back-and-forth conversation, ask follow-ups, and steer Claude's work. Print mode (`claude -p \"query\"`) processes your query and prints the result to stdout, then exits — designed for scripting, CI/CD pipelines, and one-shot tasks.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-cli-features-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "How do you continue the most recent Claude Code conversation?",
+    "options": [
+      "claude --resume-last",
+      "claude -c",
+      "claude --history",
+      "claude --back"
+    ],
+    "correctIndex": 1,
+    "explanation": "The `-c` flag (or `--continue`) continues the most recent conversation. This is useful when you want to pick up where you left off without starting a fresh context window. You can also use `-r` (or `--resume`) to resume a specific session by ID or display name.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-cli-features-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "What does pressing Esc twice do in Claude Code?",
+    "options": [
+      "Exits the current session entirely",
+      "Switches to plan mode",
+      "Cancels the current operation but keeps the session open",
+      "Reverts the last file change Claude made using the checkpoint system"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pressing Esc twice rewinds to the previous checkpoint, reverting the last file change Claude made. Claude Code creates a checkpoint before every file edit, providing a safety net independent of git. However, checkpoints only cover file changes — shell command side effects cannot be undone this way.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-cli-features-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "What is the purpose of the `/compact` slash command?",
+    "options": [
+      "It removes unused plugins from memory",
+      "It manually triggers context compaction to free up space in the context window",
+      "It compresses files in the project directory to save disk space",
+      "It minifies Claude's responses to use fewer tokens"
+    ],
+    "correctIndex": 1,
+    "explanation": "The `/compact` command manually triggers context compaction, which summarizes the conversation to make room in the context window. You can add a focus keyword (e.g., `/compact focus on the API changes`) to tell Claude what details to preserve during summarization.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-cli-features-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "Which CLAUDE.md file location contains project-specific conventions and coding standards?",
+    "options": [
+      "~/.claude/CLAUDE.md",
+      "The Enterprise CLAUDE.md set by administrators",
+      ".claude/CLAUDE.md at the repository root",
+      "Directory-specific CLAUDE.md in subdirectories"
+    ],
+    "correctIndex": 2,
+    "explanation": "The Project CLAUDE.md at `.claude/CLAUDE.md` in the repository root contains project-specific conventions, coding standards, and instructions. It sits in a hierarchy: Enterprise (organization-wide) > User (~/.claude/CLAUDE.md) > Project (.claude/CLAUDE.md) > Directory-specific. Lower levels add to but do not override higher levels.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-cli-features-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "What does the `--bare` flag do when using Claude Code's print mode?",
+    "options": [
+      "It skips hooks, LSP, plugin sync, and skill walks for clean scripted output",
+      "It displays only the first line of Claude's response",
+      "It removes syntax highlighting from the output",
+      "It runs Claude without loading any model configuration"
+    ],
+    "correctIndex": 0,
+    "explanation": "The `--bare` flag strips away all interactive features (hooks, LSP, plugin sync, skill walks) that would slow down or break a scripted call, giving you raw output. It is particularly important for CI/CD pipelines where you need clean, predictable output for piping into other tools.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-cli-features-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "A developer wants to explore a complex refactoring approach without any risk of Claude making actual changes to the codebase. Which feature should they use?",
+    "options": [
+      "Print mode with the -p flag",
+      "Plan mode, which restricts Claude to read-only tools",
+      "The --worktree flag to create an isolated git worktree",
+      "The --bare flag to suppress all output"
+    ],
+    "correctIndex": 1,
+    "explanation": "Plan mode restricts Claude to read-only tools only. Claude explores the codebase and produces a plan for you to review and approve before any changes are made. While the --worktree flag also provides isolation, Plan mode is the direct answer for zero-risk exploration. The developer can review the plan, then switch to default mode to execute it.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-cli-features-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "Why is using `@` file references more reliable than describing file locations in natural language when working with Claude Code?",
+    "options": [
+      "Because @ references automatically back up the files before changes",
+      "Because @ references are required by the Claude Code parser and natural language references cause errors",
+      "Because @ references make files read-only to prevent accidental edits",
+      "Because @ references ensure Claude reads the exact files you intend, saving time and context compared to broad searches"
+    ],
+    "correctIndex": 3,
+    "explanation": "Using @ references (like @./src/api/routes.ts) points Claude at exact files, preventing it from spending context on broad searches or reading wrong files. This saves both time and precious context window space. Natural language descriptions can be ambiguous — 'the auth module' could match multiple files.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-cli-features-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "When the context window fills up, what is the order in which Claude Code performs automatic compaction?",
+    "options": [
+      "First the system instructions are removed, then older messages",
+      "Everything is cleared equally in a round-robin fashion",
+      "First older tool outputs are cleared, then the conversation itself is summarized",
+      "The most recent messages are removed first to preserve the original context"
+    ],
+    "correctIndex": 2,
+    "explanation": "Compaction works in two stages: first, older tool outputs (file contents, command results) are cleared because they can be re-read if needed. Then, the conversation itself is summarized. This preserves the conversational thread while removing bulky, reproducible data first.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-cli-features-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "A team lead wants to run Claude Code in a CI pipeline to auto-generate commit messages from staged diffs. Which combination of flags and features would create the most robust pipeline integration?",
+    "options": [
+      "Use `claude \"generate commit message\"` in interactive mode for better quality",
+      "Use `git diff --staged | claude -p --bare \"Write a commit message\"` to get clean output without interactive overhead",
+      "Use `claude -c` to continue a previous session and maintain context across CI runs",
+      "Use `claude --model opus --effort max` to ensure the highest quality output"
+    ],
+    "correctIndex": 1,
+    "explanation": "For CI pipeline integration, print mode (-p) processes the piped diff and exits without interaction, while --bare strips all interactive features (hooks, LSP, plugin sync) that would slow down or break a scripted call. This combination gives clean, predictable stdout output suitable for capturing in a shell variable. Interactive mode would hang waiting for input, and maintaining sessions across CI runs is impractical.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-cli-features-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "cli-features",
+    "question": "Claude Code's checkpoint system creates snapshots before every file edit, but it cannot undo shell command side effects. Given this architectural constraint, why might the team have designed the three permission modes (Default, Auto-Accept Edits, Plan) the way they did?",
+    "options": [
+      "To give different experience levels different default settings, with beginners in Plan mode and experts in Auto-Accept",
+      "To reduce API token consumption by preventing Claude from running unnecessary commands",
+      "Because shell commands are inherently irreversible (package installs, database changes), the permission modes create a deliberate asymmetry where file edits can be auto-approved (they are reversible via checkpoints) but shell commands always need approval by default (they may not be reversible)",
+      "To comply with enterprise security policies that require all shell commands to be logged"
+    ],
+    "correctIndex": 2,
+    "explanation": "The permission mode design reflects the reversibility asymmetry between file edits and shell commands. Auto-Accept Edits mode lets Claude edit files freely because checkpoints make those changes easily reversible (press Esc twice). But shell commands — which can install packages, modify databases, or change system state — remain gated behind approval because their effects cannot be undone by the checkpoint system. This is a thoughtful safety design that maximizes velocity where safe and maintains caution where necessary.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "claude-code-plugin-development-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "What file serves as the entry point that tells Claude Code about a plugin's identity?",
+    "options": [
+      "README.md at the plugin root",
+      ".claude-plugin/plugin.json",
+      "settings.json at the plugin root",
+      "commands/index.md"
+    ],
+    "correctIndex": 1,
+    "explanation": "The plugin.json file inside the .claude-plugin/ directory is the manifest — the identity card of the plugin. It contains the plugin's name, description, and version. Claude Code reads this file to discover and load the plugin, register its commands with the proper namespace, and manage marketplace updates.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-plugin-development-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "How are plugin commands namespaced to prevent collisions between different plugins?",
+    "options": [
+      "Commands are prefixed with the plugin name, e.g., /plugin-name:command",
+      "Each command must have a globally unique name registered in the marketplace",
+      "Commands are assigned random UUIDs at installation time",
+      "Users must manually rename commands if collisions occur"
+    ],
+    "correctIndex": 0,
+    "explanation": "Plugin commands are automatically namespaced using the plugin name from plugin.json as a prefix. For example, a command called 'review' in a plugin named 'code-review' is invoked as /code-review:review. This prevents naming collisions that would occur with standalone .claude/ commands.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-plugin-development-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "What is the difference between a command and a skill in a Claude Code plugin?",
+    "options": [
+      "Commands are user-triggered via slash commands, while skills can auto-invoke based on task context",
+      "Commands are written in TypeScript while skills are written in Markdown",
+      "Commands run faster than skills",
+      "Commands work offline while skills require internet access"
+    ],
+    "correctIndex": 0,
+    "explanation": "Commands are explicit, on-demand workflows triggered by the user typing a slash command (e.g., /plugin-name:review). Skills are the 'always-on' counterpart — Claude reads each skill's description and automatically loads the skill's instructions when the current task matches. Skills can also be set to manual-only with the disable-model-invocation frontmatter option.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-plugin-development-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "Which command do you use to hot-reload plugin changes during development without restarting Claude Code?",
+    "options": [
+      "/restart",
+      "/refresh",
+      "/update-plugins",
+      "/reload-plugins"
+    ],
+    "correctIndex": 3,
+    "explanation": "The /reload-plugins command picks up changes to plugin files immediately without restarting Claude Code. This makes the development cycle fast: edit your plugin files, run /reload-plugins, and test your changes right away.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-plugin-development-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "What are the three required fields in a plugin.json manifest?",
+    "options": [
+      "name, author, license",
+      "name, description, version",
+      "name, repository, homepage",
+      "name, version, author"
+    ],
+    "correctIndex": 1,
+    "explanation": "The three required fields in plugin.json are: name (unique identifier and command namespace), description (human-readable summary), and version (semantic version for marketplace updates). Fields like author, homepage, repository, and license are optional.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-plugin-development-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "What is the `$ARGUMENTS` placeholder used for in command and skill files?",
+    "options": [
+      "It stores the plugin's configuration settings",
+      "It references environment variables from the system",
+      "It inserts the plugin version number into the prompt",
+      "It captures whatever text the user typed after the command name"
+    ],
+    "correctIndex": 3,
+    "explanation": "The $ARGUMENTS placeholder in command and skill markdown files captures user input. When a user types `/my-plugin:explain dependency injection`, the $ARGUMENTS placeholder is replaced with 'dependency injection'. This allows commands and skills to accept dynamic input.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-plugin-development-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "Where should hook definitions be placed within a plugin's directory structure?",
+    "options": [
+      "Inside .claude-plugin/hooks.json",
+      "In hooks/hooks.json at the plugin root",
+      "In settings.json under a 'hooks' key",
+      "In any JSON file within the commands/ directory"
+    ],
+    "correctIndex": 1,
+    "explanation": "Hook definitions belong in hooks/hooks.json at the plugin root level. A critical rule is that only plugin.json goes inside .claude-plugin/ — commands, agents, skills, and hooks directories belong at the plugin root, not inside .claude-plugin/.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-plugin-development-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "A plugin developer wants to run an automated linter every time Claude writes a file, but also wants a subjective code quality check. Which hook types should they use for each?",
+    "options": [
+      "A command hook for the linter (fast, deterministic) and a prompt hook for the subjective check (flexible, AI-evaluated)",
+      "A prompt hook for the linter and a command hook for the subjective check",
+      "Both should use prompt hooks for consistency",
+      "Both should use command hooks since they are faster"
+    ],
+    "correctIndex": 0,
+    "explanation": "Command hooks run shell commands — they are fast, deterministic, and do not consume AI tokens, making them ideal for linting and formatting. Prompt hooks send a prompt to the LLM for evaluation — they are more flexible and appropriate for subjective quality checks that require AI judgment. Matching the hook type to the task optimizes both performance and effectiveness.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-plugin-development-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "Why do subagents get isolated context windows rather than sharing the main conversation's context?",
+    "options": [
+      "To prevent context bloat, restrict tool access for safety, and enable parallel execution with focused expertise",
+      "To save money by using less expensive models for all tasks",
+      "Because the API does not support shared context between agents",
+      "Because subagents can only process text, not tool outputs"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subagents have isolated context windows for three key reasons: (1) isolating context prevents the main conversation from bloating with subtask details, (2) restricting each agent's tools reduces risk (a security auditor does not need file-writing tools), and (3) isolation enables parallelism — multiple agents can work simultaneously on different aspects. Each agent also gets a focused system prompt for its specific domain.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-plugin-development-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "When migrating from standalone `.claude/` customizations to a plugin, what is the most important change besides creating the plugin.json manifest?",
+    "options": [
+      "Rewriting all commands in TypeScript instead of Markdown",
+      "Updating command references because they are now namespaced (e.g., /review becomes /my-plugin:review)",
+      "Moving all files into the .claude-plugin/ directory",
+      "Converting all hooks to prompt type instead of command type"
+    ],
+    "correctIndex": 1,
+    "explanation": "When migrating to a plugin, commands become namespaced under the plugin name. What was /review in standalone mode becomes /my-plugin:review. This means any documentation, team guides, or scripts that reference the old command names must be updated. The file structure and format remain the same — only the location and namespace change.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-plugin-development-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "A developer is adding multiple MCP servers to their plugin and notices Claude Code's performance degrading. What is the most likely cause?",
+    "options": [
+      "MCP servers conflict with each other when running simultaneously",
+      "Claude Code has a limit of 3 MCP servers per plugin",
+      "Every MCP server adds its tool definitions to the context window, consuming tokens before any actual work begins",
+      "MCP servers require exclusive access to the network and slow down other requests"
+    ],
+    "correctIndex": 2,
+    "explanation": "Every MCP server adds its complete tool definitions (schemas, descriptions) to Claude's context window. With many servers configured, these definitions alone can consume meaningful context space, leaving less room for actual work. The solution is to be selective — only include servers the plugin genuinely needs.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-plugin-development-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "plugin-development",
+    "question": "The hookify plugin combines commands, an agent, and a skill. The skill auto-invokes when Claude detects hook-related work, while the command provides explicit hook creation workflows. What design principle does this combination illustrate, and why is it architecturally significant?",
+    "options": [
+      "It shows that plugins should always use all available component types for completeness",
+      "It proves that hooks can only be created through a specialized plugin",
+      "It demonstrates that skills and commands serve complementary roles — skills provide automatic, context-aware assistance while commands provide explicit, user-initiated workflows — creating a layered experience where the AI assists proactively but users retain explicit control",
+      "It illustrates that agents are required to bridge the gap between skills and commands"
+    ],
+    "correctIndex": 2,
+    "explanation": "This pattern is architecturally significant because it shows how different plugin components play to their strengths in combination. Skills provide passive, always-on guidance that activates automatically when relevant (detecting hook-related work). Commands provide active, on-demand workflows that users consciously invoke. Together they create a layered user experience — Claude helps proactively via skills while users retain explicit control via commands. This is the 'automatic + explicit' principle central to good plugin design.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "claude-code-repo-automation-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "What is the primary purpose of the `scripts/` directory in the Claude Code repository?",
+    "options": [
+      "Managing issue lifecycle automation and repository maintenance",
+      "Deploying Claude Code to production servers",
+      "Building and compiling the Claude Code application",
+      "Running automated tests for the core engine"
+    ],
+    "correctIndex": 0,
+    "explanation": "The scripts/ directory contains operational tools that keep the project running smoothly — specifically issue lifecycle management. These include sweep.ts (daily stale issue cleanup), lifecycle-comment.ts (automated comments), auto-close-duplicates.ts (duplicate detection), and shell wrappers for GitHub CLI operations.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-automation-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "How often does the sweep script (`sweep.ts`) run?",
+    "options": [
+      "Once per week on Mondays",
+      "Every hour during business hours",
+      "Twice daily via a cron-triggered GitHub Actions workflow",
+      "Only when manually triggered by a maintainer"
+    ],
+    "correctIndex": 2,
+    "explanation": "The sweep script runs twice daily via a cron-triggered GitHub Actions workflow (sweep.yml). It can also be triggered manually via workflow_dispatch, which is useful for maintainers who want to run it on demand after changing timeout logic.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-automation-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "What happens when the `needs-info` lifecycle label has been on an issue for 7 days without a response?",
+    "options": [
+      "The issue is immediately closed",
+      "The issue advances to the `stale` label",
+      "A reminder email is sent to the author",
+      "The issue is assigned to a maintainer for review"
+    ],
+    "correctIndex": 1,
+    "explanation": "The lifecycle label system works as a state machine: when needs-info has been applied for 7 days without activity, the issue advances to the 'stale' label. From stale, it has another 14 days before advancing to 'autoclose'. This gives authors multiple opportunities to respond before their issue is closed.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-automation-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "What does the `--dry-run` flag do when running automation scripts?",
+    "options": [
+      "It runs the script at double speed to save time",
+      "It only processes the first 10 issues as a sample",
+      "It executes all actions but skips posting comments",
+      "It runs the full decision-making logic but logs what it would do instead of actually modifying any issues"
+    ],
+    "correctIndex": 3,
+    "explanation": "The --dry-run flag runs all normal logic (querying issues, evaluating timeouts, deciding actions) but instead of executing those actions, it logs what it would do. This allows safe local testing and validation of changes before deployment, preventing embarrassing mistakes like accidentally closing hundreds of valid issues.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-automation-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "What security principle does the `gh.sh` wrapper script implement?",
+    "options": [
+      "Defense in depth by adding encryption to all API calls",
+      "Least privilege by constraining which gh operations are possible through an allowlist",
+      "Zero trust by requiring re-authentication for every command",
+      "Separation of duties by assigning different commands to different users"
+    ],
+    "correctIndex": 1,
+    "explanation": "The gh.sh wrapper follows the principle of least privilege. When automation scripts run in CI with a GITHUB_TOKEN, they have significant power. The wrapper constrains available operations to a small allowlist of commands and flags, ensuring that even a bug in a calling script cannot perform destructive operations like deleting branches.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-automation-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "What is the purpose of the `issue-lifecycle.ts` module?",
+    "options": [
+      "It serves as the single source of truth for all lifecycle labels, timeouts, close reasons, and message templates",
+      "It manages user authentication for issue creation",
+      "It handles the visual display of issues in the GitHub UI",
+      "It generates weekly reports on issue statistics"
+    ],
+    "correctIndex": 0,
+    "explanation": "issue-lifecycle.ts is a shared configuration module imported by both sweep.ts and lifecycle-comment.ts. It defines label names, timeouts, close reasons, and nudge messages in one place. This prevents drift — for example, ensuring the sweep enforces the same timeout duration that the comment promises to the user.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-automation-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "Which types of operations does the gh.sh security wrapper allow?",
+    "options": [
+      "Only read-oriented operations: issue view, issue list, search issues, and label list",
+      "Only issue creation and editing operations",
+      "Both read and write operations for issues and pull requests",
+      "All standard gh CLI operations except destructive ones like delete"
+    ],
+    "correctIndex": 0,
+    "explanation": "The gh.sh wrapper only permits four read-oriented subcommands: gh issue view (with a numeric issue number), gh issue list, gh search issues, and gh label list. This limited set prevents write operations that could modify repository state through automation bugs or exploitation.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-repo-automation-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "The triage bot filters out its own comments before processing. What problem does this prevent?",
+    "options": [
+      "It prevents an infinite loop where the bot posts a comment, detects it as activity, re-triages, and loops forever",
+      "It prevents duplicate notification emails from being sent to the issue author",
+      "It prevents the bot from counting its own comments as code contributions",
+      "It prevents the bot's comments from consuming too much GitHub API quota"
+    ],
+    "correctIndex": 0,
+    "explanation": "Without bot comment filtering, the triage bot would post a comment, detect the new comment as activity, re-triage the issue, post another comment, and loop forever. This is combined with a concurrency group per issue (cancel-in-progress) to ensure only one triage run is active per issue at any time.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-automation-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "Issues with 10 or more upvotes are protected from auto-close. Why does this safety net exist?",
+    "options": [
+      "Because popular issues clearly have community interest, even if the original author has gone silent",
+      "Because GitHub's API prevents closing issues with many upvotes",
+      "Because upvoted issues consume more API resources to close",
+      "Because upvoted issues are automatically assigned higher priority labels"
+    ],
+    "correctIndex": 0,
+    "explanation": "The upvote protection ensures that issues with demonstrated community interest (10+ upvotes) are not auto-closed even if the original author stops responding. An issue upvoted by many users clearly represents a real concern worth investigating, regardless of whether the reporter is still engaged.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-automation-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "How does the `claude-code-action` GitHub Action allow Claude to be triggered on pull requests?",
+    "options": [
+      "It automatically runs on every PR without any user interaction",
+      "It requires a special `/claude` slash command in the PR description",
+      "Maintainers must manually approve each Claude invocation via a dashboard",
+      "Users mention @claude in a PR comment, issue comment, or PR review comment to trigger Claude"
+    ],
+    "correctIndex": 3,
+    "explanation": "The claude-code-action (anthropics/claude-code-action@v1) is triggered when anyone mentions @claude in a pull request comment, issue comment, or PR review comment. Claude can then analyze code, implement requested changes, push commits, and follow repository guidelines defined in CLAUDE.md.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-automation-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "Why does the `edit-issue-labels.sh` script validate labels against the repository's existing labels before applying them?",
+    "options": [
+      "Because GitHub charges per label creation",
+      "Because a typo in a label name would silently create a new label, leading to label sprawl and inconsistency over time",
+      "Because label names have a maximum character limit that must be checked",
+      "Because GitHub's API rejects invalid label names with an error"
+    ],
+    "correctIndex": 1,
+    "explanation": "Without validation, a typo like 'need-repro' instead of 'needs-repro' would silently create a new label in the repository. Over time, this leads to label sprawl and inconsistency, making the lifecycle system unreliable. Validating against existing labels catches these mistakes early, following the pattern of checking inputs against a known-good list before taking action.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-repo-automation-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "repo-automation",
+    "question": "The automation system has five distinct layers: Configuration (issue-lifecycle.ts), Action (sweep.ts, lifecycle-comment.ts), Security (gh.sh), Trigger (GitHub Actions), and AI (claude-code-action). Why is this layered separation architecturally important rather than combining everything into fewer scripts?",
+    "options": [
+      "It makes the codebase look more professional for open-source contributors",
+      "Because GitHub Actions requires separate files for each function",
+      "Each layer has a clear responsibility with enforced boundaries, so you can change a timeout without touching sweep logic, add a lifecycle label without modifying the security wrapper, and test each layer independently",
+      "It is required by Anthropic's internal engineering standards"
+    ],
+    "correctIndex": 2,
+    "explanation": "The layered architecture enforces separation of concerns: changing a timeout means editing only issue-lifecycle.ts (configuration), adding a new label does not require modifying gh.sh (security), and the sweep logic can be tested independently via --dry-run. This modularity makes the system maintainable at scale — each layer can evolve independently, and bugs are localized to specific layers rather than cascading through a monolithic script.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "claude-code-contributing-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "Which area of the Claude Code repository has the highest contribution potential for external contributors?",
+    "options": [
+      "The core engine source code",
+      "The sandbox and permissions system",
+      "Plugins and documentation",
+      "The LLM integration layer"
+    ],
+    "correctIndex": 2,
+    "explanation": "Plugins (new or improvements to existing ones) and documentation have the highest contribution potential. The core engine, sandbox system, and LLM integration layer are closed-source and cannot be contributed to via the public repository. The extensibility layer — plugins, docs, scripts — is where external contributions land.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-contributing-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "What are the two ways to report a bug in Claude Code?",
+    "options": [
+      "Use the `/bug` command inside Claude Code or file a GitHub Issue",
+      "Email the support team or post on Discord",
+      "Submit a pull request with the fix or create a JIRA ticket",
+      "Post on Stack Overflow or send a tweet to @anthropic"
+    ],
+    "correctIndex": 0,
+    "explanation": "You can report bugs using the /bug command inside Claude Code itself (which automatically captures system information, version details, and context) or by filing a GitHub Issue at github.com/anthropics/claude-code/issues. The /bug command is often more effective because it captures relevant diagnostic data automatically.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-contributing-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "What commit message format does the Claude Code project follow?",
+    "options": [
+      "Free-form descriptive messages with no specific format",
+      "JIRA ticket numbers followed by a short description",
+      "Conventional commits with prefixes like feat:, fix:, chore:, docs:",
+      "Date-stamped messages in ISO 8601 format"
+    ],
+    "correctIndex": 2,
+    "explanation": "The project follows the Conventional Commits standard with prefixes: feat: (new features), fix: (bug fixes), chore: (maintenance/tooling), and docs: (documentation). This convention makes changelogs, release notes, and git history searchable and enables automated changelog generation.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-contributing-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "What three sections should a well-structured pull request description include?",
+    "options": [
+      "Problem, Fix/Solution, Test Plan",
+      "Introduction, Body, Conclusion",
+      "Summary, Changes, Reviewers",
+      "Title, Description, Screenshots"
+    ],
+    "correctIndex": 0,
+    "explanation": "Successful PRs in the Claude Code project include three sections: Problem (what issue or gap the PR addresses), Fix/Solution (what you changed and why), and Test Plan (how you verified the changes work). This structure helps reviewers understand the context and evaluate the changes effectively.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-contributing-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "What is the recommended way to set up a consistent development environment for contributing?",
+    "options": [
+      "Install all dependencies manually on your local machine",
+      "Run the setup.sh script from the repository root",
+      "Use the .devcontainer/ configuration with VS Code Dev Containers or GitHub Codespaces",
+      "Use Docker Compose with the provided docker-compose.yml file"
+    ],
+    "correctIndex": 2,
+    "explanation": "The repository includes a .devcontainer/ directory with a Dockerfile, devcontainer.json, and init-firewall.sh. Using VS Code's Dev Containers extension or GitHub Codespaces gives you a pre-configured environment with all dependencies installed, eliminating 'works on my machine' issues.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-contributing-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "Why should security vulnerabilities never be reported as public GitHub Issues?",
+    "options": [
+      "Because GitHub Issues do not support file attachments needed for security reports",
+      "Because public GitHub Issues would expose the vulnerability to attackers before it can be patched",
+      "Because only Anthropic employees can file security-related GitHub Issues",
+      "Because GitHub Issues lack the encryption needed for sensitive security information"
+    ],
+    "correctIndex": 1,
+    "explanation": "Filing a security vulnerability as a public GitHub Issue would expose the vulnerability to everyone — including malicious actors — before the team has a chance to fix it. Instead, vulnerabilities should be reported through the HackerOne Vulnerability Disclosure Program (hackerone.com/anthropic-vdp), which ensures responsible disclosure: the vulnerability is patched before it becomes public knowledge.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-contributing-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "What is the easiest type of contribution for someone who is brand new to the Claude Code project?",
+    "options": [
+      "Building a new plugin from scratch with agents and hooks",
+      "Rewriting the issue lifecycle automation scripts",
+      "Modifying the dev container's Dockerfile",
+      "Documentation improvements like fixing typos, adding examples, or clarifying instructions in plugin READMEs"
+    ],
+    "correctIndex": 3,
+    "explanation": "Documentation improvements are the recommended starting point for new contributors. They are low-risk, high-value contributions that help you learn the codebase while providing immediate value. Reading through plugin README files and looking for unclear instructions, typos, or missing examples is a practical first step.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-contributing-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "Why does the project value small, focused pull requests over large bundles of changes?",
+    "options": [
+      "Because GitHub has a file change limit per PR",
+      "Because the CI system cannot process more than 5 changed files at once",
+      "Because they are faster to review, easier to revert if something breaks, and reduce the chance of one problematic change blocking an otherwise good contribution",
+      "Because the project uses a micro-commit branching strategy"
+    ],
+    "correctIndex": 2,
+    "explanation": "Small, focused PRs addressing a single concern are preferred because they are faster to review, easier to understand months later, and can be independently reverted if something breaks. Bundling unrelated changes together risks having one problematic change block an otherwise good contribution from being merged.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-contributing-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "A contributor wants to build a plugin that validates all files before commits. They also want other developers to install it easily. What is the best approach?",
+    "options": [
+      "Add the validation logic directly to .claude/settings.json in their project",
+      "Write a shell script and add it to the scripts/ directory",
+      "Build it as a standalone plugin with plugin.json, hooks for PreToolUse or PostToolUse, and submit it to the marketplace",
+      "Create a CLAUDE.md file with the validation instructions"
+    ],
+    "correctIndex": 2,
+    "explanation": "Building a proper plugin with a plugin.json manifest, hook definitions in hooks/hooks.json, and submitting it to the marketplace is the right approach. This provides versioning, namespacing, and easy installation for other developers. A standalone .claude/ configuration would not be distributable, and shell scripts or CLAUDE.md lack the plugin structure needed for marketplace distribution.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-contributing-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "When building a plugin, what security considerations should the developer keep in mind?",
+    "options": [
+      "Plugins run in a fully sandboxed environment and cannot access any system resources",
+      "Plugin security is handled entirely by the marketplace review process",
+      "Plugins cannot access the filesystem, so security is not a concern",
+      "Plugins run with the same permissions as Claude Code itself, so they should request only needed permissions, validate input, and handle errors without exposing sensitive information"
+    ],
+    "correctIndex": 3,
+    "explanation": "Plugins run with the same permissions as Claude Code itself, giving them significant access to the user's system. This means plugin developers must: request only the permissions they need, validate all user input, handle errors gracefully without exposing sensitive information, and document any external network calls or data access.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-contributing-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "The project has dedicated reviewers for different areas (ddworken for security, bogini for lifecycle, etc.). What does this specialization pattern tell us about the project's review culture?",
+    "options": [
+      "That only certain people are allowed to merge PRs",
+      "That domain expertise is valued in reviews — changes in sensitive areas like security receive expert review, and security-sensitive PRs get dual review from multiple experts",
+      "That the project has strict code ownership that prevents cross-area contributions",
+      "That new contributors are not welcome in specialized areas"
+    ],
+    "correctIndex": 1,
+    "explanation": "The reviewer specialization reflects a mature review culture where domain expertise matters. Security-related changes always receive review from security experts (ddworken, chrnorm), and security-sensitive PRs receive dual review. This is not about restricting who can contribute — single-PR contributors successfully land targeted changes — but about ensuring expert eyes review the areas where mistakes are most costly.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-contributing-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "contributing",
+    "question": "The repository includes both automated issue triage (Claude-powered) and human issue triage by community contributors. Given that the automated system handles labels, stale detection, and duplicate detection, what unique value does human issue triage still provide?",
+    "options": [
+      "Humans are faster at processing issues than the automated system",
+      "Human triage is only needed when the automation system is down for maintenance",
+      "Humans can confirm bug reproductions, add contextual information the bot cannot infer, point out subtleties in duplicate detection, and provide empathetic community support that builds contributor engagement",
+      "Humans apply labels more accurately than the automated system"
+    ],
+    "correctIndex": 2,
+    "explanation": "While automation handles mechanical tasks (labeling, timeout enforcement, duplicate detection), human triagers provide irreplaceable value: they can reproduce bugs on their own machines, add contextual information the bot cannot infer (like 'this also happens on Windows'), catch false positives in duplicate detection, and provide empathetic responses that build community engagement. This combination of automation efficiency and human judgment is what makes the triage system effective at scale.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "claude-code-pr-reviews-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "What is the most prominent theme across the analyzed Claude Code pull requests, accounting for 30% of recent PRs?",
+    "options": [
+      "Adding new plugin features",
+      "Security hardening",
+      "Performance optimization",
+      "Documentation updates"
+    ],
+    "correctIndex": 1,
+    "explanation": "Security hardening is the most prominent theme, with 6 out of 20 analyzed PRs (30%) focused on tightening security boundaries. This includes the gh.sh wrapper, allowlist-based validation, environment pinning, permission minimization, and non-write user monitoring.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-pr-reviews-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "How many reviewers are typically required for security-sensitive PRs in the Claude Code project?",
+    "options": [
+      "No reviewers — they are auto-merged by CI",
+      "1 reviewer with any expertise",
+      "The entire team must approve",
+      "2 or more expert reviewers"
+    ],
+    "correctIndex": 3,
+    "explanation": "Security PRs receive dual review — multiple expert reviewers must approve. For example, PR #30066 (gh.sh validation improvements) received approvals from both chrnorm and ddworken. This ensures no single person's blind spots can allow a security regression through.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-pr-reviews-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "Who is the primary contributor to the issue lifecycle management system?",
+    "options": [
+      "OctavianGuzu",
+      "hackyon-anthropic",
+      "chrislloyd",
+      "km-anthropic"
+    ],
+    "correctIndex": 2,
+    "explanation": "Chris Lloyd (chrislloyd) contributed 5 PRs building the entire issue lifecycle management system, including triage, stale detection, auto-close, and the sweep system. This demonstrates the domain specialization pattern common in the Claude Code project.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-pr-reviews-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "What does the team's active removal of obsolete code (like the oncall triage system) tell us about their engineering values?",
+    "options": [
+      "They prefer rewriting systems from scratch rather than maintaining them",
+      "They actively reduce technical debt rather than letting dead code accumulate",
+      "They remove code to reduce the repository size for faster cloning",
+      "They follow a strict 'delete after 30 days' policy for all code"
+    ],
+    "correctIndex": 1,
+    "explanation": "The team actively removes code that is no longer needed, as demonstrated by the oncall triage removal (PR #29462). This keeps the codebase lean, reduces the attack surface, and makes the remaining code easier to understand. The courage to delete code is often more valuable than the ability to write it.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-pr-reviews-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "What was the critical bug in PR #33472 related to the code review plugin?",
+    "options": [
+      "Subagents were posting test or probe comments on real customer PRs without the confirmed=true parameter",
+      "The plugin was deleting code instead of commenting on it",
+      "The plugin was posting reviews in the wrong programming language",
+      "Comments were being posted on the wrong pull request"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subagents (automated Claude instances) were posting test or probe comments on real customer PRs. The fix added a confirmed=true parameter to the MCP tool call, ensuring only intentional comments are posted. This reveals the importance of explicit confirmation gates for AI systems that interact with real-world resources.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-pr-reviews-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "What development pattern was observed in the CI/CD workflow migration PRs by hackyon-anthropic?",
+    "options": [
+      "A single large PR that migrated everything at once",
+      "A multi-month gradual transition with weekly PRs",
+      "A branching strategy with feature flags for each migration step",
+      "Four rapid-fire PRs merged on the same day, each individually mergeable and revertable"
+    ],
+    "correctIndex": 3,
+    "explanation": "The migration was broken into 4 small, individually-mergeable PRs all merged on 2026-01-14. This iterative approach is safer because each step can be independently reverted if something breaks. However, even this approach is not perfect — the id-token permission added in one PR turned out to be unnecessary and was cleaned up later.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-pr-reviews-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "What architectural pattern does the `gh.sh` wrapper implement in the CI/CD security architecture?",
+    "options": [
+      "The Observer pattern, monitoring all API calls for anomalies",
+      "The Adapter pattern, converting gh CLI syntax to REST API calls",
+      "The Facade pattern — a single controlled entry point that validates every gh invocation against an allowlist before executing",
+      "The Strategy pattern, selecting different authentication methods at runtime"
+    ],
+    "correctIndex": 2,
+    "explanation": "The gh.sh wrapper implements the Facade pattern for CI/CD security. Like a bouncer at a club, it provides a single entry point that checks every gh invocation against an allowlist of commands and flags. This makes all GitHub CLI access auditable, testable independent of workflows, and prevents security policy changes from requiring modifications to every workflow file.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-pr-reviews-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "PR #26360 was a three-part fix for auto-closing issues with human activity. Why did fixing the root cause require addressing three separate issues rather than a single fix?",
+    "options": [
+      "Because three different reviewers requested three separate changes",
+      "Because the bug manifested in three different areas: human comment detection, upvote protection scope, and the distinction between bot and human activity",
+      "Because GitHub requires three separate API calls to fix any issue",
+      "Because the fix needed to support three different programming languages"
+    ],
+    "correctIndex": 1,
+    "explanation": "The bug was more complex than it appeared on the surface. Issues with human comments were not being detected as 'active,' upvote protection only worked for some content types, and the system did not properly distinguish between bot and human activity. Fixing only one of these would have left the other failure modes in place. Thorough root cause analysis revealed all three contributing factors.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-pr-reviews-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "The temporal distribution of PRs shows 'thematic sprints' — periods of intense focus on one area. What does this pattern tell us about the team's development approach?",
+    "options": [
+      "They only work on one area at a time because they have a small team",
+      "They coordinate focused efforts around specific themes (workflow migration, lifecycle buildout, security hardening), tackling each area intensively before moving to the next",
+      "They randomly assign PRs to whichever developer is available",
+      "They are required to complete all PRs for one theme before starting another by their project management tool"
+    ],
+    "correctIndex": 1,
+    "explanation": "The thematic sprint pattern shows deliberate coordination: the workflow migration was a single-day burst of 4 PRs, the lifecycle system was built over about a week with 5 PRs, and security hardening was spread over two weeks with 6 PRs. This approach allows deep focus, reduces context switching, and enables contributors to build domain expertise within each sprint.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-pr-reviews-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "Some PRs by hackyon-anthropic and chrislloyd merged without explicit reviewer approvals visible in the data. What does this suggest about the project's review culture?",
+    "options": [
+      "That those contributors are exempt from code review requirements",
+      "That the project has no formal review process",
+      "That trust-based merging may apply for lower-risk changes, or that some reviews happen outside the formal GitHub review system (e.g., pair programming, Slack)",
+      "That GitHub failed to record the review approvals"
+    ],
+    "correctIndex": 2,
+    "explanation": "This suggests a pragmatic review culture where the level of scrutiny scales with the risk of the change. Lower-risk changes (like configuration updates or workflow migrations by trusted contributors) may use trust-based merging or informal review channels, while higher-risk changes (security, new systems) always receive formal GitHub reviews. This balances velocity with safety.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-pr-reviews-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "A community member on PR #26360 argued against auto-closing issues entirely and suggested milestones as an alternative. Although the team proceeded with their approach, the feedback received 6 thumbs up. What does this interaction reveal about the project's relationship with its community?",
+    "options": [
+      "That the team ignores community feedback to maintain velocity",
+      "That community feedback is acknowledged and may influence future decisions, even when the team proceeds with their current approach",
+      "That community members can veto engineering decisions",
+      "That thumbs up reactions are the primary method for decision-making"
+    ],
+    "correctIndex": 1,
+    "explanation": "The interaction shows that community feedback is visible, acknowledged, and may influence future decisions — but does not override engineering judgment. The team made a deliberate product decision about automation vs. human control while keeping the community's perspective visible. This balance between responsiveness and decisiveness is characteristic of healthy open-source projects.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-pr-reviews-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "pr-reviews",
+    "question": "PR #33472 reveals that Claude's code review uses MCP tools with a `confirmed` parameter to gate visible actions. What broader architectural principle does this represent for AI systems that interact with production resources?",
+    "options": [
+      "That AI systems should always use MCP instead of direct API calls",
+      "That the confirmed parameter is specific to GitHub and would not apply to other systems",
+      "That MCP tools should always default to confirmed=true for convenience",
+      "That explicit confirmation gates in tool protocols prevent testing, probing, or hallucinated actions from having visible effects on production systems, creating a crucial safety boundary between intent and execution"
+    ],
+    "correctIndex": 3,
+    "explanation": "The confirmed parameter represents a fundamental architectural principle for AI-in-the-loop systems: the protocol provides a natural boundary between 'what the agent wants to do' and 'what actually happens.' Without explicit confirmation gates, testing, probing, or even hallucinated actions could have visible effects on production systems. This pattern of explicit confirmation is essential wherever AI agents interact with real-world resources — not just GitHub, but databases, messaging systems, and any system where unintended actions have consequences.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "How many releases did Claude Code ship in the 10-day period from March 10-20, 2026?",
+    "options": [
+      "3",
+      "5",
+      "10",
+      "15"
+    ],
+    "correctIndex": 2,
+    "explanation": "Claude Code shipped 10 releases in 10 days (v2.1.72 through v2.1.81), including two releases on a single day (v2.1.77 and v2.1.78 both shipped March 17). This extremely aggressive cadence reflects strong automated testing, deployment confidence, and a continuous deployment model.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "What is the approximate ratio of bug fixes to new features in each Claude Code release?",
+    "options": [
+      "1:1 — equal features and fixes",
+      "1:3 — more features than fixes",
+      "10:1 — almost entirely bug fixes",
+      "3:1 — bug fixes outnumber features approximately three to one"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bug fixes consistently outnumber features at approximately a 3:1 ratio. This is a healthy sign for a rapidly shipping product — it means the team fixes things faster than they break them. It also reflects the breadth of surfaces (terminal, VS Code, web, voice, Slack) where edge cases can appear.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "What feature area receives the most changelog entries in the v2.1.72-v2.1.81 window?",
+    "options": [
+      "Voice Mode",
+      "Plugin System",
+      "Enterprise features",
+      "Security & Sandbox"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Plugin System receives the most attention with 8 changelog entries across the release window, including features like persistent state (${CLAUDE_PLUGIN_DATA}), marketplace inline source, plugin freshness checks, and validation improvements. This signals that plugins are the team's primary extensibility investment.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "What are the four major evolution phases of Claude Code?",
+    "options": [
+      "Alpha, Beta, Release Candidate, General Availability",
+      "Planning, Development, Testing, Deployment",
+      "Core, Extensions, Platform, Enterprise",
+      "Foundation (v0.2 Beta), General Availability (v1.0), Multi-Surface (v2.0), Agent Intelligence (v2.1)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Claude Code evolved through four phases: Foundation (v0.2 Beta, establishing thinking mode, @-mentions, MCP), General Availability (v1.0, Sonnet 4 and Opus 4 models), Multi-Surface (v2.0, VS Code extension, rewind, plugins), and Agent Intelligence (v2.1, agent teams, auto-memory, advanced orchestration).",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "What does the `${CLAUDE_PLUGIN_DATA}` variable, introduced in v2.1.78, provide to plugins?",
+    "options": [
+      "Access to the Claude API key for making direct API calls",
+      "A dedicated directory to store persistent data between sessions",
+      "Read-only access to the user's file system",
+      "The plugin's source code directory path"
+    ],
+    "correctIndex": 1,
+    "explanation": "The ${CLAUDE_PLUGIN_DATA} variable gives plugins a dedicated directory to store data between sessions. Before this, plugins were stateless. With persistent state, plugins can cache API responses, store user preferences, maintain conversation history, and track metrics over time — enabling a new class of sophisticated plugin functionality.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "What does the 'Security:' prefix in changelog entries indicate?",
+    "options": [
+      "That the change requires a special license to use",
+      "That the change is only available to enterprise users",
+      "That the change was made by the security team exclusively",
+      "That it is an explicit security-related change given priority visibility, treated as a cross-cutting concern"
+    ],
+    "correctIndex": 3,
+    "explanation": "The 'Security:' prefix is a tagging convention in the changelog that categorizes explicit security-related changes. These entries are always given priority visibility because the team treats security as a cross-cutting concern worthy of special attention, separate from any specific surface (CLI, VS Code, web).",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "Which Claude model version introduced the 1M token context window?",
+    "options": [
+      "Sonnet 4",
+      "Opus 4",
+      "Opus 4.5",
+      "Opus 4.6"
+    ],
+    "correctIndex": 3,
+    "explanation": "Opus 4.6 introduced the 1M (one million) token context window in v2.1.75. This massive context window allows agents to hold vastly more information in a single conversation, reducing the need for context switching and enabling work on larger codebases.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "Why does the team's precise measurement of performance improvements (e.g., '45% faster' instead of 'faster', '~80MB' instead of 'less memory') matter for understanding their engineering approach?",
+    "options": [
+      "It is a marketing requirement to include specific numbers",
+      "It indicates systematic benchmarking infrastructure and data-driven optimization, not guesswork",
+      "The numbers are randomly chosen to make the changelog look more impressive",
+      "Precise measurements are required by the semantic versioning specification"
+    ],
+    "correctIndex": 1,
+    "explanation": "The precision in reporting performance improvements (45% faster --resume, ~80MB less memory, ~60ms faster startup) indicates that the team has systematic benchmarking infrastructure. They measure before and after, track specific scenarios (large repos, resume operations), and ship incrementally. This data-driven approach to optimization is characteristic of mature engineering teams.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "The changelog shows the 'hook-then-feature' pattern, where new hook event types (like ElicitationResult and StopFailure) appear before the features that use them. Why is this pattern architecturally significant?",
+    "options": [
+      "Because hooks are easier to implement than features",
+      "Because hook event names are used as marketing terms for upcoming features",
+      "Because hooks provide the extension points that plugins need to participate in new capabilities, so the infrastructure must exist before the features built on it can ship",
+      "Because hooks are always released in beta before features reach general availability"
+    ],
+    "correctIndex": 2,
+    "explanation": "New hooks foreshadow new features because they represent the infrastructure that plugins will need to participate in those capabilities. The ElicitationResult hook appeared before elicitation became a common pattern, and StopFailure suggests sophisticated error recovery is coming. This 'platform before product' approach ensures the plugin ecosystem can fully integrate with new features from day one.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "The plugin system evolved through stages: Basic Commands, Hook System, Validation & Safety, Persistent State, Marketplace, and Ecosystem. Why was the Validation & Safety stage a prerequisite for the Marketplace stage?",
+    "options": [
+      "Because marketplace plugins must be validated for correct pricing",
+      "Because the marketplace required a new type of validation that did not exist before",
+      "Because validation generates metadata that the marketplace search engine needs",
+      "Because you need to trust that third-party plugins will not break your system before distributing them through a marketplace"
+    ],
+    "correctIndex": 3,
+    "explanation": "A plugin marketplace introduces third-party code into users' systems. Without validation ensuring plugins meet quality and safety standards, a marketplace would be a vector for broken or malicious plugins. The validation stage established the trust framework necessary for the marketplace to work — users need confidence that plugins from the marketplace are structurally sound.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "The Channels feature is currently in 'research preview' status. Based on the research preview to GA pipeline described in the changelog analysis, what should contributors expect?",
+    "options": [
+      "That Channels will be removed in the next release",
+      "That Channels is production-ready and backward-compatible",
+      "That Channels will only be available to enterprise users",
+      "That Channels will mature over 2-4 release cycles, with possible breaking changes, before reaching GA"
+    ],
+    "correctIndex": 3,
+    "explanation": "The changelog analysis identifies a predictable pipeline: research preview (available behind a flag, expect breaking changes), then beta (more stable, still evolving), then GA (production-ready, backward-compatible). Features tagged as research preview typically mature over 2-4 release cycles, so Channels will evolve but should not be relied upon for production use yet.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-changelog-roadmap-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "changelog-roadmap",
+    "question": "The changelog shows sustained memory optimization work in v2.1.77 through v2.1.80, combined with the 'memory before features' pattern where the team clears resource headroom before adding new capabilities. What can we infer about Claude Code's near-term product direction from this pattern?",
+    "options": [
+      "That the team is planning to reduce Claude Code's feature set to improve performance",
+      "That memory issues are caused by bugs rather than architectural decisions",
+      "That a major new capability requiring significant memory resources is likely coming soon, and the team is creating headroom to accommodate it",
+      "That the memory optimizations are routine maintenance with no strategic significance"
+    ],
+    "correctIndex": 2,
+    "explanation": "The 'memory before features' pattern, observed consistently in the changelog, indicates that sustained performance work often precedes major new capabilities. The concentrated memory optimization from v2.1.77 through v2.1.80 (100-150MB reduction, 80MB startup savings, 18MB general improvement) suggests the team is deliberately creating headroom for an upcoming feature that will need those resources — likely related to agent teams, channels, or another memory-intensive capability.",
+    "difficulty": "hard"
+  },
+  {
+    "id": "claude-code-recent-changes-1",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "Out of 14 commits in the last two weeks (March 10-20, 2026), how many were automated CHANGELOG updates?",
+    "options": [
+      "3",
+      "7",
+      "12",
+      "14"
+    ],
+    "correctIndex": 2,
+    "explanation": "12 out of 14 commits were automated CHANGELOG updates generated by GitHub Actions on each release. This reveals that the public repository is primarily a release artifact surface, not where day-to-day feature development happens. The real engineering work ships through the closed-source core.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-recent-changes-2",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "What was the only manual feature commit in the two-week window of March 10-20, 2026?",
+    "options": [
+      "A new plugin for frontend design",
+      "Adding confirmed=true when posting inline comments in the code-review plugin",
+      "A memory optimization for large repositories",
+      "Adding the --bare flag for scripted calls"
+    ],
+    "correctIndex": 1,
+    "explanation": "The only manual feature commit was db8834b — 'feat(code-review): pass confirmed=true when posting inline comments.' This single-file change in PR #33472 by Kashyap Murali ensured that inline code review comments are immediately visible to all reviewers rather than sitting in a draft state.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-recent-changes-3",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "Why is the `--bare` flag essential for integrating Claude Code into shell scripts and CI/CD pipelines?",
+    "options": [
+      "Without it, decorative output and interactive features would produce unparseable output when piped into other tools",
+      "It disables all plugins and MCP servers for faster execution",
+      "It reduces the model's response length to save tokens",
+      "It forces Claude to use a smaller, faster model for quick responses"
+    ],
+    "correctIndex": 0,
+    "explanation": "When Claude Code's print mode (-p) output is piped into other tools (like jq, sed, or a shell variable), decorative formatting, progress indicators, and interactive feature output would corrupt the data stream. The --bare flag strips all of this away, producing clean, machine-parseable output essential for reliable automation.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-recent-changes-4",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "How much memory does the startup optimization in v2.1.80 save for large repositories with 250k+ files?",
+    "options": [
+      "~10MB",
+      "~30MB",
+      "~80MB",
+      "~200MB"
+    ],
+    "correctIndex": 2,
+    "explanation": "The v2.1.80 optimization saves approximately 80MB of memory at startup for large repositories with 250,000+ files. This is significant when running multiple sessions — 5 simultaneous sessions save 400MB, which could be the difference between success and an out-of-memory crash on a CI runner with 4GB of RAM.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-recent-changes-5",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "What is the `rate_limits` field introduced in v2.1.80 used for?",
+    "options": [
+      "Setting maximum file sizes that Claude Code can read",
+      "Limiting the number of plugins that can be installed",
+      "Exposing API rate limit data for statusline scripts so developers can build usage dashboards or warnings",
+      "Restricting the number of subagents that can run in parallel"
+    ],
+    "correctIndex": 2,
+    "explanation": "The rate_limits field exposes API rate limit data for statusline scripts — scripts that display real-time information in the Claude Code UI. This lets developers build dashboards or warnings when they are approaching their usage limits, which is especially important for teams managing shared API budgets.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-recent-changes-6",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "Which Node.js version received a specific crash fix in v2.1.81?",
+    "options": [
+      "Node.js 18",
+      "Node.js 22",
+      "Node.js 16",
+      "Node.js 20"
+    ],
+    "correctIndex": 0,
+    "explanation": "A specific crash fix was made for Node.js 18 in v2.1.81. Node.js 18 is an LTS (Long Term Support) release that many enterprises still run, so ensuring compatibility with it is important for broad adoption. This is an example of the edge case handling that characterizes professional software engineering.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-recent-changes-7",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "What does the conventional commit prefix `feat(code-review):` communicate about the change?",
+    "options": [
+      "That it is a critical security fix for the code review module",
+      "That it is a new feature scoped to the code-review module",
+      "That it is a documentation update about code review",
+      "That it is a breaking change to the code review API"
+    ],
+    "correctIndex": 1,
+    "explanation": "The conventional commit format uses 'feat' to indicate a new feature, and the scope in parentheses '(code-review)' identifies which module is affected. This convention makes changelogs, release notes, and git history searchable and enables automated changelog generation.",
+    "difficulty": "easy"
+  },
+  {
+    "id": "claude-code-recent-changes-8",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "The OAuth concurrent session fix in v2.1.81 addresses race conditions when multiple Claude Code sessions share the same OAuth token. Why is this fix particularly important for professional team environments?",
+    "options": [
+      "Because teams always use shared OAuth tokens for cost savings",
+      "Because it is common to run multiple terminal sessions or CI jobs simultaneously, and race conditions in authentication would cause unpredictable failures",
+      "Because OAuth tokens expire faster when used by multiple sessions",
+      "Because team plans require all members to share a single authentication token"
+    ],
+    "correctIndex": 1,
+    "explanation": "In professional environments, developers commonly run multiple terminal sessions, CI/CD jobs run in parallel, and team members may share authentication infrastructure. Race conditions in OAuth handling could cause unpredictable authentication failures in any of these scenarios, making this fix critical for reliable team usage.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-recent-changes-9",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "The changelog shows bug fixes outnumber features approximately 3:1. Combined with the observation that stability is the top priority, what does this pattern suggest about Claude Code's product maturity stage?",
+    "options": [
+      "That the product is in early alpha and has many fundamental problems",
+      "That the development team is understaffed and cannot keep up with bugs",
+      "That new feature development has been paused indefinitely",
+      "That the product is in a maturing phase, investing more in reliability, edge case handling, and cross-platform compatibility than in adding new capabilities"
+    ],
+    "correctIndex": 3,
+    "explanation": "A 3:1 bug-fix-to-feature ratio in a product shipping daily releases is characteristic of a maturing product. The team ships features continuously but invests proportionally more in stability — fixing edge cases (dashed strings, Node.js 18 compatibility), resolving race conditions (background agents, OAuth), and handling multi-environment setups (worktrees, parallel tools). This is engineering discipline, not a quality problem.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-recent-changes-10",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "Why does the worktree session resumption fix in v2.1.81 matter for developers using git worktrees?",
+    "options": [
+      "Because worktrees require special git authentication that was broken",
+      "Because worktrees are required for all plugin development",
+      "Because worktrees cannot be created without this fix",
+      "Because Claude Code lost context when working inside a worktree, failing to resume sessions — and worktrees are commonly used for working on multiple branches simultaneously"
+    ],
+    "correctIndex": 3,
+    "explanation": "Git worktrees let developers check out multiple branches simultaneously in different directories. Before this fix, Claude Code could not correctly resume sessions when working inside a worktree, losing context and forcing users to start fresh. Since worktrees are a common workflow for professional developers working on multiple features or reviewing PRs, this fix removes a significant friction point.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-recent-changes-11",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "Multiple fixes for voice mode, OAuth, and background agents all appeared in v2.1.81. What does the clustering of fixes in specific areas suggest, based on the 'follow the bug fixes' pattern?",
+    "options": [
+      "That these areas are under active development and new features in these areas are likely coming in upcoming releases",
+      "That the team is planning to deprecate voice mode, OAuth, and background agents",
+      "That these areas are stable and will not receive further updates",
+      "That these fixes were delayed from a much earlier release"
+    ],
+    "correctIndex": 0,
+    "explanation": "The 'follow the bug fixes' pattern from changelog analysis indicates that where bugs cluster, features are coming. Multiple voice mode fixes suggest active voice development, OAuth fixes suggest authentication infrastructure work, and background agent race condition fixes suggest concurrent agent capabilities are being expanded. These areas are being actively polished in preparation for new features.",
+    "difficulty": "medium"
+  },
+  {
+    "id": "claude-code-recent-changes-12",
+    "topicSlug": "claude-code",
+    "subtopicSlug": "recent-changes",
+    "question": "The public repository shows 12 automated changelog commits and only 1 manual feature commit in two weeks. Given that the core product ships daily releases with dozens of changes per release, what does this asymmetry reveal about the architectural relationship between the public and private codebases, and what are the implications for contributors?",
+    "options": [
+      "That the public repository is abandoned and no longer maintained",
+      "That contributors should focus on the private repository for maximum impact",
+      "That all product development will eventually move to the public repository",
+      "That the public repository functions as a release artifact surface and plugin ecosystem — contributors should focus on plugins (the primary public contribution surface) and read the CHANGELOG (not the commit history) to understand product evolution"
+    ],
+    "correctIndex": 3,
+    "explanation": "The asymmetry reveals a deliberate architectural decision: the private codebase is where the core engine development happens, while the public repository serves as the release artifact surface (automated CHANGELOG updates) and the plugin ecosystem (where the one manual feature commit landed). For contributors, this means: plugin development is the main entry point for public contributions, and the CHANGELOG is the source of truth for understanding product evolution — not the commit history, which is mostly automated noise.",
+    "difficulty": "hard"
+  }
+]
